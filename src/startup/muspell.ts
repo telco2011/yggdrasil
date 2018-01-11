@@ -11,8 +11,8 @@ import * as Q from 'q';
 import * as errorHandler from 'errorhandler';
 
 /** YGGDRASIL imports */
-import { MorganUtils, MorganRotateOptions, FileLogger } from '../logger';
-import { SessionHandler } from '../session';
+import { MorganUtils, MorganRotateOptions, FileLogger } from '@yggdrasil/logger';
+import { SessionHandler } from '@yggdrasil/session';
 
 /**
  * Interface for response when the application configures @method api and @method routes methods.

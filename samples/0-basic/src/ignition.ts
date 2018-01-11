@@ -1,4 +1,4 @@
-import { Server } from 'yggdrasil';
+import { Server } from '@yggdrasil/api';
 import { YggdrasilServer } from './server';
 
 /**

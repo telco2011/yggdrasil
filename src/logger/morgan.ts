@@ -3,7 +3,7 @@ import { WriteStream } from 'fs';
 import * as path from 'path';
 import * as rfs from 'rotating-file-stream';
 
-import { Utils } from '../utils';
+import { Utils } from '@yggdrasil/common';
 
 /**
  * Morgan utilities class.

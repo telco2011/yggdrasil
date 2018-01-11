@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "yggdrasil": "file:../.."
+    "@yggdrasil/startup": "*",
+    "@yggdrasil/logger": "*",
+    "@yggdrasil/api": "*"
   },
   "devDependencies": {
     "typescript": "^2.6.2"

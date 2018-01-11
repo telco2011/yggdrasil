@@ -2,7 +2,7 @@ import * as winston from 'winston';
 import * as path from 'path';
 import * as moment from 'moment';
 
-import { Utils } from '../utils';
+import { Utils } from '@yggdrasil/common';
 
 /** Log level enumeration */
 enum LEVEL {
