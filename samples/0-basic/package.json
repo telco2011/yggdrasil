@@ -1,0 +1,18 @@
+{
+  "name": "0-basic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "rm -rf dist && tsc",
+    "start": "node dist/ignition.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "yggdrasil": "file:../.."
+  },
+  "devDependencies": {
+    "typescript": "^2.6.2"
+  }
+}
