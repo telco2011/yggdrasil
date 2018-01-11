@@ -9,7 +9,7 @@ import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as Q from 'q';
 import * as errorHandler from 'errorhandler';
-
+import * as figlet from 'figlet';
 /** YGGDRASIL imports */
 import { MorganUtils, MorganRotateOptions, FileLogger } from '@yggdrasil/logger';
 import { SessionHandler } from '@yggdrasil/session';
@@ -47,6 +47,8 @@ export abstract class Bootstrap {
   constructor() {
     /** Initialize boostrap logger */
     this.bootstrapLogger = new FileLogger('bootstrap');
+
+    this.printBanner();
 
     this.initialize();
   }
@@ -237,4 +239,20 @@ export abstract class Bootstrap {
     expressListRoutes({ prefix: prefix }, `Application Routes for prefix '${prefix}'`, router );
   }
 
+  private printBanner() {
+    // const banner = this.logger.info;
+    this.logger.info('PRINT BANNER');
+    /*figlet.text('Yggdrasil', {
+      font: 'Doh',
+      horizontalLayout: 'fitted',
+      verticalLayout: 'fitted'
+    }, (err: any, data: any) => {
+      if (err) {
+          console.log('Something went wrong...');
+          console.dir(err);
+          return;
+      }
+      banner(data);
+    });*/
+  }
 }

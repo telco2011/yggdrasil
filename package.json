@@ -38,6 +38,7 @@
     "express": "^4.16.2",
     "express-list-routes": "^0.1.4",
     "express-session": "^1.15.6",
+    "figlet": "^1.2.0",
     "lusca": "^1.5.2",
     "moment": "^2.20.1",
     "mongoose": "^4.13.9",
