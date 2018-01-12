@@ -12,8 +12,9 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "@yggdrasil/api": "^0.1.0",
-    "@yggdrasil/logger": "^0.1.0",
-    "@yggdrasil/startup": "^0.1.0"
+    "@yggdrasil/api": "^0.1.5",
+    "@yggdrasil/logger": "^0.1.5",
+    "@yggdrasil/startup": "^0.1.5",
+    "figlet": "^1.2.0"
   }
 }

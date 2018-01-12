@@ -48,8 +48,6 @@ export abstract class Bootstrap {
     /** Initialize boostrap logger */
     this.bootstrapLogger = new FileLogger('bootstrap');
 
-    this.printBanner();
-
     this.initialize();
   }
 
@@ -100,6 +98,8 @@ export abstract class Bootstrap {
    * Async method that initialise all starting process.
    */
   private async initialize(): Promise<void> {
+    await this.printBanner();
+
     /** Creates expressjs application */
     this.app = express();
     this.router = express.Router();
@@ -239,20 +239,25 @@ export abstract class Bootstrap {
     expressListRoutes({ prefix: prefix }, `Application Routes for prefix '${prefix}'`, router );
   }
 
+  private getBanner = () => {
+    return new Promise((resolve, reject) => {
+      figlet.text('Yggdrasil', {
+        font: 'Doh',
+        horizontalLayout: 'fitted',
+        verticalLayout: 'fitted'
+      }, (err: any, data: any) => {
+        if (err) {
+            reject(err);
+        }
+        resolve(data);
+      });
+    });
+  }
+
   private printBanner() {
-    // const banner = this.logger.info;
-    this.bootstrapLogger.info('PRINT BANNER');
-    /*figlet.text('Yggdrasil', {
-      font: 'Doh',
-      horizontalLayout: 'fitted',
-      verticalLayout: 'fitted'
-    }, (err: any, data: any) => {
-      if (err) {
-          console.log('Something went wrong...');
-          console.dir(err);
-          return;
-      }
-      banner(data);
-    });*/
+    this.getBanner()
+      .then(data => this.bootstrapLogger.info(`${data}`))
+      .catch(err => this.bootstrapLogger.error(`Something wrong getting banner: ${err}`));
+
   }
 }

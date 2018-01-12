@@ -5,16 +5,10 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "clean:all": "rm -rf lib logs node_modules samples/**/dist samples/**/node_modules",
-    "clean:lib": "rm -rf node_modules/@yggdrasil",
-    "compile": "rm -rf node_modules/@yggdrasil && npm run compile:common && npm run compile:logger && npm run compile:session && npm run compile:startup && npm run compile:auth && npm run compile:database && npm run compile:api",
-    "compile:common": "rm -rf node_modules/@yggdrasil/common && tsc -p src/common",
-    "compile:logger": "rm -rf node_modules/@yggdrasil/logger && tsc -p src/logger",
-    "compile:session": "rm -rf node_modules/@yggdrasil/session && tsc -p src/session",
-    "compile:startup": "rm -rf node_modules/@yggdrasil/startup && tsc -p src/startup",
-    "compile:auth": "rm -rf node_modules/@yggdrasil/authorization && tsc -p src/auth",
-    "compile:database": "rm -rf node_modules/@yggdrasil/database && tsc -p src/database",
-    "compile:api": "rm -rf node_modules/@yggdrasil/api && tsc -p src/api"
+    "build": "npm run clean:lib && npm run compile",
+    "clean:all": "rm -rf logs node_modules",
+    "clean:lib": "find ./lib -type f -name '*.js' -delete && find ./lib -type f -name '*.ts' -delete",
+    "compile": "tsc"
   },
   "author": "David Lopez",
   "license": "MIT",
