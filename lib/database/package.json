@@ -1,0 +1,10 @@
+{
+  "name": "@yggdrasil/database",
+  "version": "0.1.1",
+  "author": "David Lopez",
+  "license": "MIT",
+  "dependencies": {
+    "@yggdrasil/logger": "^0.1.1",
+    "express": "^4.16.2"
+  }
+}
