@@ -241,7 +241,7 @@ export abstract class Bootstrap {
 
   private printBanner() {
     // const banner = this.logger.info;
-    this.logger.info('PRINT BANNER');
+    this.bootstrapLogger.info('PRINT BANNER');
     /*figlet.text('Yggdrasil', {
       font: 'Doh',
       horizontalLayout: 'fitted',
