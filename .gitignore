@@ -3,3 +3,5 @@ logs
 dist
 playground.js
 
+lib/**/*.js
+lib/**/*.ts

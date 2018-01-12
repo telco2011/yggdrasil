@@ -30,6 +30,10 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
+    "@yggdrasil/common": "^0.1.0",
+    "@yggdrasil/logger": "^0.1.0",
+    "@yggdrasil/auth": "^0.1.0",
+    "@yggdrasil/session": "^0.1.0",
     "app-root-path": "^2.0.1",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
