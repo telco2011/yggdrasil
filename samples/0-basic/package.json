@@ -12,8 +12,8 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "@yggdrasil/api": "^0.1.0-alpha.7",
-    "@yggdrasil/logger": "^0.1.0-alpha.7",
-    "@yggdrasil/startup": "^0.1.0-alpha.7"
+    "@yggdrasil/logger": "^0.1.0-alpha.1",
+    "@yggdrasil/mvc": "^0.1.0-alpha.1",
+    "@yggdrasil/startup": "^0.1.0-alpha.1"
   }
 }

@@ -1,7 +1,7 @@
-import { Server } from '@yggdrasil/api';
+import { Server } from '@yggdrasil/mvc';
 import { YggdrasilServer } from './server';
 
 /**
  * Start Express server.
  */
-export const server: Server = new YggdrasilServer().bootstrap(3000);
+export const server: Promise<Server> = new YggdrasilServer().bootstrap(3000);

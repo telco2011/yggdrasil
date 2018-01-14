@@ -158,6 +158,7 @@ export abstract class Bootstrap {
     this.app.use(session.instanceSession());
     this.app.use(session.storePaths());
 
+    // TODO: Change morgan configuration into logger module
     /** Configure morgan to create a file with rest log traces */
     const morganUtils = new MorganUtils();
     const morganOptions: MorganRotateOptions = {

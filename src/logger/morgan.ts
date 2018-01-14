@@ -1,7 +1,8 @@
 import * as fs from 'fs';
-import { WriteStream } from 'fs';
 import * as path from 'path';
 import * as rfs from 'rotating-file-stream';
+
+import { WriteStream } from 'fs';
 
 import { Utils } from '../common';
 

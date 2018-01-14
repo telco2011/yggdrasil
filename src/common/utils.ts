@@ -32,6 +32,7 @@ export class Utils {
   }
 
   static getYggdrasilVersion(): string {
+    // TODO: Waiting for oficial package.json schema to change type
     const pkg: any = JSON.parse(fs.readFileSync(Utils.yggdrasilRootPath + '/common/package.json', 'utf-8'));
     return pkg.version;
   }
