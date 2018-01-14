@@ -1,0 +1,12 @@
+{
+  "name": "@yggdrasil/logger",
+  "version": "0.1.0-alpha.15",
+  "author": "David Lopez",
+  "license": "MIT",
+  "dependencies": {
+    "@yggdrasil/common": "^0.1.0-alpha.15",
+    "moment": "^2.20.1",
+    "rotating-file-stream": "^1.3.4",
+    "winston": "^2.4.0"
+  }
+}

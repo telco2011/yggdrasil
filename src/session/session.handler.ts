@@ -3,7 +3,7 @@ import * as session from 'express-session';
 import * as connectMongo from 'connect-mongo';
 import * as parseurl from 'parseurl';
 
-import { FileLogger } from '@yggdrasil/logger';
+import { FileLogger } from '../logger';
 
 export class SessionHandler {
   logger = new FileLogger('SessionHandler');

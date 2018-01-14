@@ -1,0 +1,11 @@
+{
+  "name": "@yggdrasil/auth",
+  "version": "0.1.0-alpha.15",
+  "author": "David Lopez",
+  "license": "MIT",
+  "dependencies": {
+    "@yggdrasil/logger": "^0.1.0-alpha.15",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1"
+  }
+}

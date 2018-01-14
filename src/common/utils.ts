@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as path from 'path';
 import * as appRoot from 'app-root-path';
 
@@ -16,7 +17,22 @@ export class Utils {
    */
   static appLogsPath: string = appRoot.path + '/logs';
 
+  /**
+   * Contains the yggdrasil module path
+   */
+  static yggdrasilRootPath: string = appRoot.path + '/node_modules/@yggdrasil';
+
+  /**
+   * Capitalise the given string
+   *
+   * @param data String to capitalise
+   */
   static capitalize(data: string): string {
     return data.replace(/\b(\w)/g, s => s.toUpperCase());
+  }
+
+  static getYggdrasilVersion(): string {
+    const pkg: any = fs.readFileSync(Utils.yggdrasilRootPath + '/common/package.json');
+    return pkg.version;
   }
 }

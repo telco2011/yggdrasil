@@ -2,19 +2,18 @@
   "name": "0-basic",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "compile": "rm -rf dist && tsc",
     "start": "node dist/ignition.js"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@yggdrasil/startup": "*",
-    "@yggdrasil/logger": "*",
-    "@yggdrasil/api": "*"
-  },
+  "author": "David Lopez",
+  "license": "MIT",
   "devDependencies": {
     "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "@yggdrasil/api": "^0.1.0-alpha.7",
+    "@yggdrasil/logger": "^0.1.0-alpha.7",
+    "@yggdrasil/startup": "^0.1.0-alpha.7"
   }
 }

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { FileLogger } from '@yggdrasil/logger';
+import { FileLogger } from '../logger';
 
 export abstract class DBBaseCtrl {
 

@@ -1,4 +1,9 @@
 node_modules
 logs
-lib
+*.log
 dist
+playground.js
+
+lib/**/*.js
+lib/**/*.js.map
+lib/**/*.ts

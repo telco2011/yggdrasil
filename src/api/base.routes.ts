@@ -3,8 +3,8 @@ import { Strategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
 
 import { API } from './api.utils';
 
-import { Authorization } from '@yggdrasil/auth';
-import { FileLogger } from '@yggdrasil/logger';
+import { Authorization } from '../auth';
+import { FileLogger } from '../logger';
 
 /**
  * / BaseRoutes

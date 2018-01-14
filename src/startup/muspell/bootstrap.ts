@@ -9,10 +9,11 @@ import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as Q from 'q';
 import * as errorHandler from 'errorhandler';
-
+import * as figlet from 'figlet';
 /** YGGDRASIL imports */
-import { MorganUtils, MorganRotateOptions, FileLogger } from '@yggdrasil/logger';
-import { SessionHandler } from '@yggdrasil/session';
+import { Utils } from '../../common';
+import { MorganUtils, MorganRotateOptions, FileLogger } from '../../logger';
+import { SessionHandler } from '../../session';
 
 /**
  * Interface for response when the application configures @method api and @method routes methods.
@@ -42,13 +43,12 @@ export abstract class Bootstrap {
   private router: express.Router;
   /** Internal logger */
   private bootstrapLogger: FileLogger;
+  private yggdrasilVersion: string = Utils.getYggdrasilVersion();
 
   /** Default constructor */
   constructor() {
     /** Initialize boostrap logger */
     this.bootstrapLogger = new FileLogger('bootstrap');
-
-    this.initialize();
   }
 
   /**
@@ -58,7 +58,8 @@ export abstract class Bootstrap {
    * @param hostname Hostname used by expressjs listener.
    * @param callback Callback function.
    */
-  public bootstrap(port: number, hostname?: string, callback?: Function): http.Server {
+  public async bootstrap(port: number, hostname?: string, callback?: Function): Promise<http.Server> {
+    await this.initialize();
     this.app.set('protocol', (process.env.PROTOCOL || 'http'));
     this.app.set('hostname', (hostname || 'localhost'));
     this.app.set('port', port);
@@ -97,7 +98,9 @@ export abstract class Bootstrap {
   /**
    * Async method that initialise all starting process.
    */
-  private async initialize(): Promise<void> {
+  public async initialize() {
+    await this.printBanner();
+
     /** Creates expressjs application */
     this.app = express();
     this.router = express.Router();
@@ -121,7 +124,6 @@ export abstract class Bootstrap {
     const apiResult = await this.api(this.router);
     this.app.use(apiResult.prefix, this.router);
     this.printRoutes(this.router, apiResult.prefix, (apiResult.message || 'Print API Routes'));
-
   }
 
   /**
@@ -237,4 +239,29 @@ export abstract class Bootstrap {
     expressListRoutes({ prefix: prefix }, `Application Routes for prefix '${prefix}'`, router );
   }
 
+  private getBanner(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      figlet.text('Yggdrasil', {
+        font: 'Doh',
+        horizontalLayout: 'fitted',
+        verticalLayout: 'fitted'
+      }, (err: any, data: any) => {
+        if (err) {
+            reject(err);
+        }
+        resolve(data);
+      });
+    });
+  }
+
+  private async printBanner() {
+    const preMessage = 'Starting @yggdrasil architecture';
+    const postMessage = `@yggdrasil version - ${this.yggdrasilVersion}`;
+    await this.getBanner()
+      .then(data => {
+        this.bootstrapLogger.info(`${preMessage}${data}\n\n${postMessage}`);
+      })
+      .catch(err => this.bootstrapLogger.error(`Something wrong getting banner: ${err}`));
+
+  }
 }

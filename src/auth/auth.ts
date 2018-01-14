@@ -2,7 +2,7 @@ import * as passportModule from 'passport';
 import * as passportJWT from 'passport-jwt';
 import { Strategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
 
-import { FileLogger } from '@yggdrasil/logger';
+import { FileLogger } from '../logger';
 
 export class Authorization {
   logger = new FileLogger('Authorization');
