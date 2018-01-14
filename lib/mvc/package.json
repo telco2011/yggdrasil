@@ -1,11 +1,11 @@
 {
   "name": "@yggdrasil/mvc",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "author": "David Lopez",
   "license": "MIT",
   "dependencies": {
-    "@yggdrasil/logger": "^0.1.0-alpha.2",
-    "@yggdrasil/security": "^0.1.0-alpha.2",
+    "@yggdrasil/logger": "^0.1.0-alpha.3",
+    "@yggdrasil/security": "^0.1.0-alpha.3",
     "express": "^4.16.2",
     "passport-jwt": "^3.0.1"
   }

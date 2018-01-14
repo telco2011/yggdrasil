@@ -20,8 +20,11 @@
     "@types/mongoose": "^4.7.32",
     "@types/node": "^9.3.0",
     "@types/winston": "^2.3.7",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "lerna": "^2.7.0",
     "mocha": "^4.1.0",
+    "mocha-typescript": "^1.1.12",
     "typescript": "^2.6.2"
   },
   "dependencies": {

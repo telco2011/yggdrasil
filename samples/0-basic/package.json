@@ -4,11 +4,13 @@
   "description": "",
   "scripts": {
     "compile": "rm -rf dist && tsc",
-    "start": "node dist/ignition.js"
+    "start": "node dist/ignition.js",
+    "test": "ENABLE_LOG=true mocha --exit dist/test/**/*.spec.js"
   },
   "author": "David Lopez",
   "license": "MIT",
   "devDependencies": {
+    "@yggdrasil/testing": "^0.1.0-alpha.1",
     "typescript": "^2.6.2"
   },
   "dependencies": {
