@@ -5,7 +5,7 @@ import { FileLogger } from '../logger';
 export abstract class DBBaseCtrl {
 
   abstract model: any;
-  abstract logger = new FileLogger('DBBaseCtrl');
+  abstract logger: FileLogger;
 
   // Get all
   getAll = (req: Request, res: Response) => {

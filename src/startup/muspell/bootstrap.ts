@@ -84,7 +84,7 @@ export abstract class Bootstrap {
    */
   protected api(router: express.Router): IBootstrapRoute {
     this.bootstrapLogger.info('Non API routes implemented');
-    return { prefix: '/non-api', message: 'Non API routes implemented' };
+    return { prefix: '/non-api-routes', message: 'Non API routes implemented' };
   }
 
   /**
@@ -100,6 +100,7 @@ export abstract class Bootstrap {
    * Async method that initialise all starting process.
    */
   public async initialize() {
+    /** Print cool yggdrasil banner */
     await this.printBanner();
 
     /** Creates expressjs application */
