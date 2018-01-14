@@ -1,11 +1,11 @@
 {
   "name": "@yggdrasil/api",
-  "version": "0.1.0-alpha.15",
+  "version": "0.1.0-alpha.17",
   "author": "David Lopez",
   "license": "MIT",
   "dependencies": {
-    "@yggdrasil/auth": "^0.1.0-alpha.15",
-    "@yggdrasil/logger": "^0.1.0-alpha.15",
+    "@yggdrasil/auth": "^0.1.0-alpha.17",
+    "@yggdrasil/logger": "^0.1.0-alpha.17",
     "express": "^4.16.2",
     "passport-jwt": "^3.0.1"
   }

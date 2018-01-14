@@ -32,7 +32,7 @@ export class Utils {
   }
 
   static getYggdrasilVersion(): string {
-    const pkg: any = fs.readFileSync(Utils.yggdrasilRootPath + '/common/package.json');
+    const pkg: any = JSON.parse(fs.readFileSync(Utils.yggdrasilRootPath + '/common/package.json', 'utf-8'));
     return pkg.version;
   }
 }

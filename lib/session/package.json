@@ -1,10 +1,10 @@
 {
   "name": "@yggdrasil/session",
-  "version": "0.1.0-alpha.15",
+  "version": "0.1.0-alpha.17",
   "author": "David Lopez",
   "license": "MIT",
   "dependencies": {
-    "@yggdrasil/logger": "^0.1.0-alpha.15",
+    "@yggdrasil/logger": "^0.1.0-alpha.17",
     "connect-mongo": "^2.0.1",
     "express": "^4.16.2",
     "express-session": "^1.15.6",

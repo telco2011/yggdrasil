@@ -43,6 +43,7 @@ export abstract class Bootstrap {
   private router: express.Router;
   /** Internal logger */
   private bootstrapLogger: FileLogger;
+  /** Yggdrasil version */
   private yggdrasilVersion: string = Utils.getYggdrasilVersion();
 
   /** Default constructor */
@@ -259,7 +260,7 @@ export abstract class Bootstrap {
     const postMessage = `@yggdrasil version - ${this.yggdrasilVersion}`;
     await this.getBanner()
       .then(data => {
-        this.bootstrapLogger.info(`${preMessage}${data}\n\n${postMessage}`);
+        this.bootstrapLogger.info(`${preMessage}${data}\n\n${postMessage}\n\n`);
       })
       .catch(err => this.bootstrapLogger.error(`Something wrong getting banner: ${err}`));
 

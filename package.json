@@ -45,8 +45,5 @@
     "require-env": "^0.2.1",
     "rotating-file-stream": "^1.3.4",
     "winston": "^2.4.0"
-  },
-  "publishConfig": {
-    "registry": "http://localhost:4873/"
   }
 }

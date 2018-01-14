@@ -1,12 +1,12 @@
 {
   "name": "@yggdrasil/startup",
-  "version": "0.1.0-alpha.15",
+  "version": "0.1.0-alpha.17",
   "author": "David Lopez",
   "license": "MIT",
   "dependencies": {
-    "@yggdrasil/common": "^0.1.0-alpha.15",
-    "@yggdrasil/logger": "^0.1.0-alpha.15",
-    "@yggdrasil/session": "^0.1.0-alpha.15",
+    "@yggdrasil/common": "^0.1.0-alpha.17",
+    "@yggdrasil/logger": "^0.1.0-alpha.17",
+    "@yggdrasil/session": "^0.1.0-alpha.17",
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
