@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import { FileLogger } from '../logger';
 
-export abstract class DBBaseCtrl {
+export abstract class RepositoryBase {
 
   abstract model: any;
   abstract logger: FileLogger;

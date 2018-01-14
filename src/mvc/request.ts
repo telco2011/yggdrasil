@@ -1,4 +1,4 @@
-import { FileLogger } from './logger';
+import { FileLogger } from '../logger';
 
 export enum REQUEST_PARAMS {
   USER_INFO = 'USER-INFO'
