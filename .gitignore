@@ -5,4 +5,5 @@ dist
 playground.js
 
 lib/**/*.js
+lib/**/*.js.map
 lib/**/*.ts
