@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "compile": "rm -rf dist && tsc",
-    "start": "node dist/ignition.js",
-    "test": "ENABLE_LOG=true mocha --exit dist/test/**/*.spec.js"
+    "clean": "rm -rf dist logs",
+    "clean:all": "rm -rf dist logs node_modules",
+    "compile": "npm run clean && tsc",
+    "compile:test": "npm run clean && tsc -p tsconfig.spec.json",
+    "start": "npm run compile && node dist/ignition.js",
+    "test": "npm run compile:test && mocha --exit dist/test/**/*.spec.js"
   },
   "author": "David Lopez",
   "license": "MIT",

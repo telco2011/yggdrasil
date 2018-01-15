@@ -9,22 +9,25 @@ import { app } from '../ignition';
 class BasicTestSuite {
 
   private should = chai.use(chaiHttp).should();
-  private testApp;
+  private server;
 
   before(done) {
-    this.testApp = app;
-    setTimeout(() => {
+    let that = this;
+    Promise.resolve(app).then(server => {
+      that.server = server;
       done();
-    }, 1800);
+    });
   }
 
   @test('should be a hello world response')
   public testHelloWorld (done) {
-    chai.request('http://localhost:3000')
+    chai.request(this.server)
       .get('/api/basic')
       .end((err, res) => {
         this.should.not.exist(err);
         res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.a.property('data');
         done();
       });
   }

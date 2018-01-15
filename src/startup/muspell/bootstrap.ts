@@ -239,7 +239,9 @@ export abstract class Bootstrap {
    */
   private printRoutes(router: express.Router, prefix: string, msg?: string) {
     this.bootstrapLogger.debug(msg || 'Print routes');
-    expressListRoutes({ prefix: prefix }, `Application Routes for prefix '${prefix}'`, router );
+    if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
+      expressListRoutes({ prefix: prefix }, `Application Routes for prefix '${prefix}'`, router );
+    }
   }
 
   private getBanner(): Promise<any> {
