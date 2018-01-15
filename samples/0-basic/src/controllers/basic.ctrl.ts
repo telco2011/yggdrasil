@@ -23,7 +23,7 @@ export class BasicCtrl {
    * @param res Response
    */
   helloWorld(req: Request, res: Response) {
-    // this.logger.debug('Hello World response...');
+    this.logger.debug('Hello World response...');
 
     res.status(200).json({ data: 'Hello World!!!' });
   }

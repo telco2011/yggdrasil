@@ -8,7 +8,6 @@ import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as Q from 'q';
-import * as errorHandler from 'errorhandler';
 import * as figlet from 'figlet';
 /** YGGDRASIL imports */
 import { Utils } from '../../common';
@@ -126,6 +125,19 @@ export abstract class Bootstrap {
     const apiResult = await this.api(this.router);
     this.app.use(apiResult.prefix, this.router);
     this.printRoutes(this.router, apiResult.prefix, (apiResult.message || 'Print API Routes'));
+
+    /** Error handler */
+    // TODO: Built error handler
+    this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+      if (err instanceof TypeError) {
+        this.bootstrapLogger.error(err.stack);
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal', TypeError: { message:err.message, stack: err.stack} });
+      }
+      else {
+        this.bootstrapLogger.error(err);
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal', error: err });
+      }
+    });
   }
 
   /**
@@ -181,18 +193,6 @@ export abstract class Bootstrap {
     // TODO: Review this module
     this.app.use(lusca.xframe('SAMEORIGIN'));
     this.app.use(lusca.xssProtection(true));
-
-    /** Catch 404 and forward to error handler */
-    this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-        err.status = 404;
-        next(err);
-    });
-
-    // TODO: Review handler error
-    /** Error handling */
-    if (process.env.NODE_ENV && (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'pro')) {
-      this.app.use(errorHandler());
-    }
   }
 
   /**
