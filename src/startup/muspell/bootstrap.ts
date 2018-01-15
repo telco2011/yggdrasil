@@ -170,7 +170,8 @@ export abstract class Bootstrap {
 
     /** Configure morgan logger as access log */
     if (process.env.NODE_ENV !== 'test') {
-      this.app.use(morgan(process.env.MORGAN_LEVEL || 'debug', { stream: morganUtils.getAccessLogStream(morganOptions) }));
+      const level = process.env.MORGAN_LEVEL || 'common';
+      this.app.use(morgan(level, { stream: morganUtils.getAccessLogStream(morganOptions) }));
     }
 
     /** Other configurations */

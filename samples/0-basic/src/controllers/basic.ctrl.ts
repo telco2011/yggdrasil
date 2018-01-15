@@ -8,7 +8,7 @@ import { FileLogger } from '@yggdrasil/logger';
 export class BasicCtrl {
 
   /** BasicCtrl logger */
-  logger: FileLogger;
+  private logger: FileLogger;
 
   /** Default constructor */
   constructor() {
@@ -25,6 +25,6 @@ export class BasicCtrl {
   helloWorld(req: Request, res: Response) {
     // this.logger.debug('Hello World response...');
 
-    res.json({ data: 'Hello World!!!' });
+    res.status(200).json({ data: 'Hello World!!!' });
   }
 }
