@@ -13,7 +13,7 @@ import { FileLogger } from '../logger';
  */
 export abstract class BaseRoutes {
 
-  abstract logger: FileLogger;
+  public abstract logger: FileLogger;
 
   protected API = API;
   protected auth: Authorization;
@@ -24,8 +24,10 @@ export abstract class BaseRoutes {
     this.baseLogger = new FileLogger('BaseRoutes');
   }
 
-  abstract create(router: Router);
+  public abstract create(router: Router);
 
+  // TODO: Review this tslint
+  // tslint:disable-next-line
   protected initJWT(fn: Function) {
     /** Authentication */
     const opts: StrategyOptions = {

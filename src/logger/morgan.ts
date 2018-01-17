@@ -29,27 +29,13 @@ export class MorganUtils {
   }
 
   /**
-   * Ensures if log directory is created. If not, it creates.
-   * @returns void
-   */
-  private ensureLogDirectoryExists(): void {
-    if (!fs.existsSync(this.logDirectory)) {
-      try {
-        fs.mkdirSync(this.logDirectory);
-      } catch (error) {
-        // TODO: Manage errors
-        console.error('Error creating log directory.', error);
-      }
-    }
-  }
-  /**
    * Gets the stream to create the morgan access log.
    * @param {MorganRotateOptions} options To configure morgan rotate log.
    * - If it is null, it returns a stream to create a file in append mode.
    * - If it is not null, it returns a stream to create a rotating files.
    * @returns {WriteStream} Morgan access log stream.
    */
-  getAccessLogStream(options?: MorganRotateOptions): WriteStream {
+  public getAccessLogStream(options?: IMorganRotateOptions): WriteStream {
 
     if (options == null) {
       // create a write stream (in append mode)
@@ -66,13 +52,28 @@ export class MorganUtils {
 
     return this.accessLogStream;
   }
+
+  /**
+   * Ensures if log directory is created. If not, it creates.
+   * @returns void
+   */
+  private ensureLogDirectoryExists(): void {
+    if (!fs.existsSync(this.logDirectory)) {
+      try {
+        fs.mkdirSync(this.logDirectory);
+      } catch (error) {
+        // TODO: Manage errors
+        console.error('Error creating log directory.', error);
+      }
+    }
+  }
 }
 
 /**
  * Morgan Rotation interface.
  * For more information see https://github.com/iccicci/rotating-file-stream/blob/master/README.md.
  */
-export interface MorganRotateOptions {
+export interface IMorganRotateOptions {
 
   /**
    * Specifies the file size to rotate the file.

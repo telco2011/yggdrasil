@@ -5,10 +5,10 @@ import { Strategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
 import { FileLogger } from '../logger';
 
 export class Authorization {
-  logger = new FileLogger('Authorization');
-  passport;
-  opts: StrategyOptions;
-  authenticate: any;
+  private logger = new FileLogger('Authorization');
+  private passport;
+  private opts: StrategyOptions;
+  private authenticate: any;
 
   constructor(opts: StrategyOptions) {
     this.addStrategyOptions(opts);
@@ -16,15 +16,6 @@ export class Authorization {
     this.authenticate = {
       JWT: this.jwtAuthentication
     };
-  }
-
-  private jwtAuthentication = () => {
-    this.logger.debug('Using JWT authentication.');
-    return this.passport.authenticate('jwt', { session: false });
-  }
-
-  private addStrategyOptions = (opts: StrategyOptions) => {
-    this.opts = opts;
   }
 
   public initJWT(fn) {
@@ -35,5 +26,14 @@ export class Authorization {
     } catch (error) {
       this.logger.error('Error initializing passport JWT', error);
     }
+  }
+
+  private jwtAuthentication = () => {
+    this.logger.debug('Using JWT authentication.');
+    return this.passport.authenticate('jwt', { session: false });
+  }
+
+  private addStrategyOptions = (opts: StrategyOptions) => {
+    this.opts = opts;
   }
 }

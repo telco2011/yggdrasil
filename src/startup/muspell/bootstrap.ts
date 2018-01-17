@@ -11,7 +11,7 @@ import * as Q from 'q';
 import * as figlet from 'figlet';
 /** YGGDRASIL imports */
 import { Utils } from '../../common';
-import { MorganUtils, MorganRotateOptions, FileLogger } from '../../logger';
+import { MorganUtils, IMorganRotateOptions, FileLogger } from '../../logger';
 import { SessionHandler } from '../../session';
 
 /**
@@ -34,7 +34,7 @@ export interface IBootstrapRoute {
  */
 export abstract class Bootstrap {
   /** Force to implement logger by application */
-  abstract logger: FileLogger;
+  public abstract logger: FileLogger;
 
   /** Internal expressjs application */
   private app: express.Application;
@@ -58,12 +58,58 @@ export abstract class Bootstrap {
    * @param hostname Hostname used by expressjs listener.
    * @param callback Callback function.
    */
+  // TODO: Review this tslint
+  // tslint:disable-next-line
   public async bootstrap(port: number, hostname?: string, callback?: Function): Promise<http.Server> {
     await this.initialize();
     this.app.set('protocol', (process.env.PROTOCOL || 'http'));
     this.app.set('hostname', (hostname || 'localhost'));
     this.app.set('port', port);
     return this.app.listen(port, (hostname || 'localhost'), this.bootstrapCB());
+  }
+
+  /**
+   * Async method that initialise all starting process.
+   */
+  public async initialize() {
+    /** Print cool yggdrasil banner */
+    await this.printBanner();
+
+    /** Creates expressjs application */
+    this.app = express();
+    this.router = express.Router();
+
+    /** Configures bootstrap */
+    await this.internalConfig();
+
+    /** Configures server by application config method (extended method) */
+    await this.config(this.app);
+
+    /** Configures database */
+    // TODO: Support other databases
+    // await this.configureMongoDB();
+
+    /** Add routes */
+    const routesResult = await this.routes(this.router);
+    this.app.use(routesResult.prefix, this.router);
+    this.printRoutes(this.router, routesResult.prefix, (routesResult.message || 'Print Routes'));
+
+    /** Add api routes */
+    const apiResult = await this.api(this.router);
+    this.app.use(apiResult.prefix, this.router);
+    this.printRoutes(this.router, apiResult.prefix, (apiResult.message || 'Print API Routes'));
+
+    /** Error handler */
+    // TODO: Built error handler
+    this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+      if (err instanceof TypeError) {
+        this.bootstrapLogger.error(err.stack);
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal', TypeError: { message: err.message, stack: err.stack} });
+      } else {
+        this.bootstrapLogger.error(err);
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal', error: err });
+      }
+    });
   }
 
   /**
@@ -96,53 +142,10 @@ export abstract class Bootstrap {
   }
 
   /**
-   * Async method that initialise all starting process.
-   */
-  public async initialize() {
-    /** Print cool yggdrasil banner */
-    await this.printBanner();
-
-    /** Creates expressjs application */
-    this.app = express();
-    this.router = express.Router();
-
-    /** Configures bootstrap */
-    await this.internalConfig();
-
-    /** Configures server by application config method (extended method) */
-    await this.config(this.app);
-
-    /** Configures database */
-    // TODO: Support other databases
-    // await this.configureMongoDB();
-
-    /** Add routes */
-    const routesResult = await this.routes(this.router);
-    this.app.use(routesResult.prefix, this.router);
-    this.printRoutes(this.router, routesResult.prefix, (routesResult.message || 'Print Routes'));
-
-    /** Add api routes*/
-    const apiResult = await this.api(this.router);
-    this.app.use(apiResult.prefix, this.router);
-    this.printRoutes(this.router, apiResult.prefix, (apiResult.message || 'Print API Routes'));
-
-    /** Error handler */
-    // TODO: Built error handler
-    this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-      if (err instanceof TypeError) {
-        this.bootstrapLogger.error(err.stack);
-        res.status(500).send({ status: 500, message: 'internal error', type: 'internal', TypeError: { message:err.message, stack: err.stack} });
-      }
-      else {
-        this.bootstrapLogger.error(err);
-        res.status(500).send({ status: 500, message: 'internal error', type: 'internal', error: err });
-      }
-    });
-  }
-
-  /**
    * Callback function to print server start information.
    */
+  // TODO: Review this tslint
+  // tslint:disable-next-line
   private bootstrapCB(): Function {
     const info = {
       protocol: this.app.get('protocol'),
@@ -173,7 +176,7 @@ export abstract class Bootstrap {
     // TODO: Change morgan configuration into logger module
     /** Configure morgan to create a file with rest log traces */
     const morganUtils = new MorganUtils();
-    const morganOptions: MorganRotateOptions = {
+    const morganOptions: IMorganRotateOptions = {
       interval: '1d',
       maxFiles: 10,
       maxSize: '10M',
@@ -209,7 +212,7 @@ export abstract class Bootstrap {
 
     // Use q promises
     global.Promise = Q.Promise;
-    (<any>mongoose).Promise = global.Promise;
+    (mongoose as any).Promise = global.Promise;
 
     /** connect to mongoose */
     mongoose.connect(mongodbURI, { useMongoClient: true });
@@ -241,6 +244,8 @@ export abstract class Bootstrap {
   private printRoutes(router: express.Router, prefix: string, msg?: string) {
     this.bootstrapLogger.debug(msg || 'Print routes');
     if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
+      // TODO: Review this tslint
+      // tslint:disable-next-line
       expressListRoutes({ prefix: prefix }, `Application Routes for prefix '${prefix}'`, router );
     }
   }

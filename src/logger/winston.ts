@@ -86,12 +86,12 @@ export class FileLogger {
 
     const defaultTransports: winston.TransportInstance[] = [
       new (winston.transports.Console)({
+        colorize: true,
         level: this.level,
-        colorize: true
       }),
       new (winston.transports.File)({
-        level: this.level,
-        filename: path.join(Utils.appLogsPath, FileLogger.FILELOGGER_LOG_NAME)
+        filename: path.join(Utils.appLogsPath, FileLogger.FILELOGGER_LOG_NAME),
+        level: this.level
       })
     ];
 
@@ -113,19 +113,11 @@ export class FileLogger {
   }
 
   /**
-   * Changes the module to show in the log
-   * @param  {string} newModuleName Module name
-   */
-  changeSourceModule(newModuleName: string) {
-    this.sourceModule = newModuleName;
-  }
-
-  /**
    * Print log in debug level. See {@link LEVEL}.
    * @param  {string[]} ...message Messages to print.
    * @returns void
    */
-  debug(...message: string[]): void {
+  public debug(...message: string[]): void {
     this.log(LEVEL.DEBUG, this.sourceModule, ...message);
   }
 
@@ -134,7 +126,7 @@ export class FileLogger {
    * @param  {string[]} ...message Messages to print.
    * @returns void
    */
-  info(...message: string[]): void {
+  public info(...message: string[]): void {
     this.log(LEVEL.INFO, this.sourceModule, ...message);
   }
 
@@ -143,7 +135,7 @@ export class FileLogger {
    * @param  {string[]} ...message Messages to print.
    * @returns void
    */
-  warn(...message: string[]): void {
+  public warn(...message: string[]): void {
     this.log(LEVEL.WARN, this.sourceModule, ...message);
   }
 
@@ -152,7 +144,7 @@ export class FileLogger {
    * @param  {string[]} ...message Messages to print.
    * @returns void
    */
-  error(...message: string[]): void {
+  public error(...message: string[]): void {
     this.log(LEVEL.ERROR, this.sourceModule, ...message);
   }
 

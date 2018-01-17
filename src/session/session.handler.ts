@@ -6,9 +6,9 @@ import * as parseurl from 'parseurl';
 import { FileLogger } from '../logger';
 
 export class SessionHandler {
-  logger = new FileLogger('SessionHandler');
+  private logger = new FileLogger('SessionHandler');
 
-  sessionOptions: session.SessionOptions = {
+  private sessionOptions: session.SessionOptions = {
     secret: process.env.SECRET_TOKEN || 'shhhhhh',
     resave: false,
     saveUninitialized: true,
@@ -35,11 +35,11 @@ export class SessionHandler {
     }
   }
 
-  instanceSession(): express.RequestHandler {
+  public instanceSession(): express.RequestHandler {
     return session(this.sessionOptions);
   }
 
-  storePaths(): express.RequestHandler {
+  public storePaths(): express.RequestHandler {
     return (req, res, next) => {
       if (!req.session.views) {
         req.session.views = {};

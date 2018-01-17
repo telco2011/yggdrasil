@@ -4,11 +4,11 @@ import { FileLogger } from '../logger';
 
 export abstract class RepositoryBase {
 
-  abstract model: any;
-  abstract logger: FileLogger;
+  public abstract model: any;
+  public abstract logger: FileLogger;
 
   // Get all
-  getAll = (req: Request, res: Response) => {
+  public getAll = (req: Request, res: Response) => {
     this.model.find({}, (err, docs) => {
       if (err) { return console.error(err); }
       res.json(docs);
@@ -16,7 +16,7 @@ export abstract class RepositoryBase {
   }
 
   // Count all
-  count = (req: Request, res: Response) => {
+  public count = (req: Request, res: Response) => {
     this.model.count((err, count) => {
       if (err) { return this.logger.error(err); }
       res.json(count);
@@ -24,7 +24,7 @@ export abstract class RepositoryBase {
   }
 
   // Insert
-  insert = (req: Request, res: Response) => {
+  public insert = (req: Request, res: Response) => {
     const obj = new this.model(req.body);
     this.logger.debug(`Session test: ${req.session.user}`);
     this.logger.debug('Insert object:', obj);
@@ -41,7 +41,7 @@ export abstract class RepositoryBase {
   }
 
   // Get by id
-  get = (req: Request, res: Response) => {
+  public get = (req: Request, res: Response) => {
     this.logger.debug('Get object with id:', req.params.id);
     this.model.findOne({ _id: req.params.id }, (err, obj) => {
       if (err) { return this.logger.error(err); }
@@ -50,7 +50,7 @@ export abstract class RepositoryBase {
   }
 
   // Update by id
-  update = (req: Request, res: Response) => {
+  public update = (req: Request, res: Response) => {
     this.logger.debug('Update object:', JSON.stringify(req.body), 'with ID', req.params.id);
     this.model.findOneAndUpdate({ _id: req.params.id }, req.body, (err, updatedUser) => {
       if (err) {
@@ -63,7 +63,7 @@ export abstract class RepositoryBase {
   }
 
   // Delete by id
-  delete = (req: Request, res: Response) => {
+  public delete = (req: Request, res: Response) => {
     this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
       if (err) { return this.logger.error(err); }
       res.sendStatus(200);

@@ -22,8 +22,8 @@ export class BasicCtrl {
    * @param req Request
    * @param res Response
    */
-  helloWorld = (req: Request, res: Response) => {
-    this.logger.debug('Hello World response...');
+  public helloWorld = (req: Request, res: Response) => {
+    // this.logger.debug('Hello World response.');
 
     res.status(200).json({ data: 'Hello World!!!' });
   }

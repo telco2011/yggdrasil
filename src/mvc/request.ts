@@ -5,18 +5,10 @@ export enum REQUEST_PARAMS {
 }
 
 export class RequestUtils {
+
   private logger = new FileLogger('RequestUtils');
 
-  private hasParamInHeader(param: string): Boolean {
-    if (param in REQUEST_PARAMS) {
-      this.logger.debug(`Param ${param} is a controlled param.`);
-      return true;
-    }
-    this.logger.warn(`Param ${param} is not a controlled param. Getting default.`);
-    return false;
-  }
-
-  getRequestHeader(req: any, paramName: string, options?: IOptions): any {
+  public getRequestHeader(req: any, paramName: string, options?: IOptions): any {
     if (this.hasParamInHeader(paramName)) {
       if (options) {
         if (options.asJSONObject) {
@@ -35,9 +27,23 @@ export class RequestUtils {
     return req.get(paramName);
   }
 
+  // TODO: Review this tslint
+  // tslint:disable-next-line
+  private hasParamInHeader(param: string): Boolean {
+    if (param in REQUEST_PARAMS) {
+      this.logger.debug(`Param ${param} is a controlled param.`);
+      return true;
+    }
+    this.logger.warn(`Param ${param} is not a controlled param. Getting default.`);
+    return false;
+  }
+
 }
 
 export interface IOptions {
+  // TODO: Review this tslint
+  // tslint:disable-next-line
   asString?: Boolean;
+  // tslint:disable-next-line
   asJSONObject?: Boolean;
 }

@@ -8,7 +8,8 @@
     "build": "npm run clean:lib && npm run compile",
     "clean:all": "rm -rf logs node_modules",
     "clean:lib": "find ./lib -type f -name '*.js' -delete && find ./lib -type f -name '*.js.map' -delete && find ./lib -type f -name '*.ts' -delete",
-    "compile": "tsc",
+    "compile": "npm run tslint && tsc",
+    "tslint": "tslint -p tsconfig.json -t verbose",
     "publish": "npm run build && lerna publish --skip-git"
   },
   "author": "David Lopez",
@@ -25,6 +26,7 @@
     "lerna": "^2.7.0",
     "mocha": "^4.1.0",
     "mocha-typescript": "^1.1.12",
+    "tslint": "^5.9.1",
     "typescript": "^2.6.2"
   },
   "dependencies": {

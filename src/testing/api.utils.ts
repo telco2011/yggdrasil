@@ -4,21 +4,21 @@ export enum PARAMETER {
 
 export class API {
   // API V1 DEFAULT
-  static DEFAULT = '/api';
+  public static DEFAULT = '/api';
 
   // API PARAMETERS
-  static PARAMETERS = PARAMETER;
+  public static PARAMETERS = PARAMETER;
 
   // SESSION API
-  static SESSION = {
+  public static SESSION = {
     LOGIN: '/login'
   };
 
-  static testApi(route) {
+  public static testApi(route) {
     return API.DEFAULT + route;
   }
 
-  static testApiWithParameters(route: string, parameters: string[]) {
+  public static testApiWithParameters(route: string, parameters: string[]) {
     if (API.hasURIParameters(route)) {
       if (route.match(new RegExp(':', 'g')).length > 1) {
         // TODO: Review when there are more than 1 parameter
@@ -32,7 +32,7 @@ export class API {
     return route;
   }
 
-  static getURIParameter(uri: string) {
+  public static getURIParameter(uri: string) {
     const splitedUri = uri.split(':');
     for (const item of splitedUri) {
       for (const key in PARAMETER) {
@@ -45,7 +45,7 @@ export class API {
     // throw Error('Error');
   }
 
-  static hasURIParameters(uri: string) {
+  public static hasURIParameters(uri: string) {
     let parametersCount = 0;
     let result = false;
     for (const key in PARAMETER) {

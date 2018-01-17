@@ -1,9 +1,9 @@
-import { MorganUtils, MorganRotateOptions } from './morgan';
+import { MorganUtils, IMorganRotateOptions } from './morgan';
 import { FileLogger } from './winston';
 
 export {
   MorganUtils,
-  MorganRotateOptions,
+  IMorganRotateOptions,
 
   FileLogger
 };
