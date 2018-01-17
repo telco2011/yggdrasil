@@ -41,6 +41,8 @@ export class BasicAPIRoute extends BaseRoutes {
 
   /** Creates GETS API */
   private gets(router: Router) {
+    this.logger.debug('Configuring gets.');
+
     router.route('/basic').get(this.basicCtrl.helloWorld);
   }
 
