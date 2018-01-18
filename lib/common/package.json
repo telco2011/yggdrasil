@@ -1,9 +1,0 @@
-{
-  "name": "@yggdrasil/common",
-  "version": "0.1.0-alpha.12",
-  "author": "David Lopez",
-  "license": "MIT",
-  "dependencies": {
-    "app-root-path": "2.0.1"
-  }
-}

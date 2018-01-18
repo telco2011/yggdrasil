@@ -10,8 +10,7 @@ import * as mongoose from 'mongoose';
 import * as Q from 'q';
 import * as figlet from 'figlet';
 /** YGGDRASIL imports */
-import { Utils } from '../../common';
-import { MorganUtils, IMorganRotateOptions, FileLogger } from '../../logger';
+import { MorganUtils, IMorganRotateOptions, FileLogger, Utils } from '../../core';
 import { SessionHandler } from '../../session';
 
 /**

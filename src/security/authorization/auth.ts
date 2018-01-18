@@ -2,7 +2,7 @@ import * as passportModule from 'passport';
 import * as passportJWT from 'passport-jwt';
 import { Strategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
 
-import { FileLogger } from '../logger';
+import { FileLogger } from '../../core';
 
 export class Authorization {
   private logger = new FileLogger('Authorization');
