@@ -1,6 +1,6 @@
 /** yggdrasil imports */
 import { BaseRoutes, Router } from '@yggdrasil/mvc';
-import { FileLogger } from '@yggdrasil/logger';
+import { FileLogger } from '@yggdrasil/core';
 
 /** Application controllers imports */
 import { BasicCtrl } from '../../controllers/basic.ctrl';

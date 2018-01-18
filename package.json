@@ -8,9 +8,9 @@
     "build": "npm run clean:lib && npm run compile",
     "clean:all": "npm run clean:lib && rm -rf logs node_modules",
     "clean:lib": "find ./lib -type f -name '*.js' -delete && find ./lib -type f -name '*.js.map' -delete && find ./lib -type f -name '*.ts' -delete && rm -f ./lib/common/tslint.json",
-    "compile": "npm run tslint && tsc",
-    "copy:tslint": "cp ./tslint.json ./lib/common",
-    "tslint": "tslint -p tsconfig.json -t verbose",
+    "compile": "npm run tslint && npm run copy:tslint && tsc",
+    "copy:tslint": "cp ./src/core/tslint.json ./lib/core",
+    "tslint": "tslint -p tsconfig.json -c ./src/core/tslint.json -t verbose",
     "publish": "npm run build && lerna publish --skip-git"
   },
   "author": "David Lopez",

@@ -4,7 +4,7 @@ import * as rfs from 'rotating-file-stream';
 
 import { WriteStream } from 'fs';
 
-import { Utils } from '../common';
+import { Utils } from '../utils';
 
 /**
  * Morgan utilities class.

@@ -1,6 +1,6 @@
 /** yggdrasil imports */
 import { Request, Response } from '@yggdrasil/mvc';
-import { FileLogger } from '@yggdrasil/logger';
+import { FileLogger } from '@yggdrasil/core';
 
 /**
  * @class BasicCtrl
@@ -16,7 +16,7 @@ export class BasicCtrl {
   }
 
   /**
-   * Gets basic 'Hello World!!!' json response
+   * Gets basic 'Hello World!' json response
    *
    * @method helloworld
    * @param req Request
@@ -25,6 +25,6 @@ export class BasicCtrl {
   public helloWorld = (req: Request, res: Response) => {
     this.logger.debug('Hello World response.');
 
-    res.status(200).json({ data: 'Hello World!!!' });
+    res.status(200).json({ data: 'Hello World!' });
   }
 }
