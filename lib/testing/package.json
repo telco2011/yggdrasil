@@ -1,6 +1,6 @@
 {
   "name": "@yggdrasil/testing",
-  "version": "0.1.0-alpha.16",
+  "version": "0.1.0",
   "author": "David Lopez",
   "license": "MIT",
   "dependencies": {

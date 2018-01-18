@@ -10,7 +10,9 @@
     "clean:lib": "find ./lib -type f -name '*.js' -delete && find ./lib -type f -name '*.js.map' -delete && find ./lib -type f -name '*.ts' -delete && rm -f ./lib/common/tslint.json",
     "compile": "npm run tslint && npm run copy:tslint && tsc",
     "copy:tslint": "cp ./src/core/tslint.json ./lib/core",
-    "publish": "npm run build && lerna publish --skip-git",
+    "lerna:publish": "lerna publish",
+    "lerna:publish:canary": "lerna publish --canary=alpha",
+    "publish": "npm run build && npm run lerna:publish:canary",
     "test": "nyc --require ts-node/register mocha src/**/*.spec.ts",
     "tslint": "tslint -p tsconfig.json -c ./src/core/tslint.json -t verbose"
   },
