@@ -1,6 +1,6 @@
 {
   "extends": [
-    "node_modules/@yggdrasil/common/tslint.json"
+    "./node_modules/@yggdrasil/common/tslint.json"
   ],
   "jsRules": {},
   "rules": {},

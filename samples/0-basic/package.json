@@ -1,10 +1,10 @@
 {
   "name": "0-basic",
   "version": "1.0.0",
-  "description": "Basic application built using @yggdrasil.",
+  "description": "Basic application built using @yggdrasil architecture.",
   "scripts": {
     "clean": "rm -rf dist logs",
-    "clean:all": "rm -rf dist logs node_modules",
+    "clean:all": "npm run clean && rm -rf node_modules",
     "compile": "npm run clean && npm run tslint && tsc -p tsconfig.json",
     "compile:watch": "npm run tslint && tsc -w -p tsconfig.json",
     "compile:test": "npm run clean && npm run tslint && tsc -p tsconfig.spec.json",

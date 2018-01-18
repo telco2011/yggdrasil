@@ -11,8 +11,8 @@ class BasicTestSuite {
   private should = chai.use(chaiHttp).should();
   private server;
 
-  before(done) {
-    let that = this;
+  public before(done) {
+    const that = this;
     Promise.resolve(app).then(server => {
       that.server = server;
       done();
@@ -20,7 +20,7 @@ class BasicTestSuite {
   }
 
   @test('should be a hello world response')
-  public testHelloWorld (done) {
+  public testHelloWorld(done) {
     chai.request(this.server)
       .get('/api/basic')
       .end((err, res) => {
