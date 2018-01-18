@@ -1,27 +1,19 @@
-import { suite, test, slow, timeout } from 'mocha-typescript';
-import * as chai from 'chai';
-import * as chaiHttp from 'chai-http';
+import { suite, test, slow, timeout, YggdrasilTest } from '@yggdrasil/testing';
 
-process.env.NODE_ENV = 'test';
 import { app } from '../ignition';
 
+process.env.NODE_ENV = 'test';
+
 @suite('Basic tests')
-class BasicTestSuite {
+class BasicTestSuite extends YggdrasilTest {
 
-  private should = chai.use(chaiHttp).should();
-  private server;
-
-  public before(done) {
-    const that = this;
-    Promise.resolve(app).then(server => {
-      that.server = server;
-      done();
-    });
+  constructor() {
+    super(app);
   }
 
   @test('should be a hello world response')
   public testHelloWorld(done) {
-    chai.request(this.server)
+    this.chai.request(this.server)
       .get('/api/basic')
       .end((err, res) => {
         this.should.not.exist(err);
