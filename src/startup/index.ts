@@ -2,5 +2,5 @@ import * as dotenv from 'dotenv';
 
 export { dotenv };
 
-export { Startup } from './niflheim/startup';
-export { Bootstrap, IBootstrapRoute } from './muspell/bootstrap';
+export { Startup } from './checkenv';
+export { Bootstrap, IBootstrapRoute } from './bootstrap';

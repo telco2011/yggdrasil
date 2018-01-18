@@ -4,7 +4,7 @@ import { Strategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
 import { API } from './api.utils';
 
 import { Authorization } from '../security';
-import { FileLogger } from '../logger';
+import { FileLogger } from '../core';
 
 /**
  * / BaseRoutes

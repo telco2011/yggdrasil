@@ -3,7 +3,7 @@ import * as session from 'express-session';
 import * as connectMongo from 'connect-mongo';
 import * as parseurl from 'parseurl';
 
-import { FileLogger } from '../logger';
+import { FileLogger } from '../../core';
 
 export class SessionHandler {
   private logger = new FileLogger('SessionHandler');

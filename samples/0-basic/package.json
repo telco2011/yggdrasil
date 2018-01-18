@@ -23,7 +23,7 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "@yggdrasil/logger": "^0.1.0-alpha.1",
+    "@yggdrasil/core": "^0.1.0-alpha.1",
     "@yggdrasil/mvc": "^0.1.0-alpha.1",
     "@yggdrasil/startup": "^0.1.0-alpha.1"
   }

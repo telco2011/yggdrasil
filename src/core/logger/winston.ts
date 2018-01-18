@@ -2,7 +2,7 @@ import * as winston from 'winston';
 import * as path from 'path';
 import * as moment from 'moment';
 
-import { Utils } from '../common';
+import { Utils } from '../utils';
 
 /** Log level enumeration */
 enum LEVEL {

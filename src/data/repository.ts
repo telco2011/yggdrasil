@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { FileLogger } from '../logger';
+import { FileLogger } from '../core';
 
 export abstract class RepositoryBase {
 

@@ -1,13 +1,14 @@
 {
-  "name": "@yggdrasil/logger",
-  "version": "0.1.0-alpha.12",
   "author": "David Lopez",
-  "license": "MIT",
   "dependencies": {
     "@types/winston": "^2.3.7",
     "@yggdrasil/common": "^0.1.0-alpha.12",
+    "app-root-path": "2.0.1",
     "moment": "^2.20.1",
     "rotating-file-stream": "^1.3.4",
     "winston": "^2.4.0"
-  }
+  },
+  "license": "MIT",
+  "name": "@yggdrasil/core",
+  "version": "0.1.0-alpha.13"
 }

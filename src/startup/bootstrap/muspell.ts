@@ -10,9 +10,8 @@ import * as mongoose from 'mongoose';
 import * as Q from 'q';
 import * as figlet from 'figlet';
 /** YGGDRASIL imports */
-import { Utils } from '../../common';
-import { MorganUtils, IMorganRotateOptions, FileLogger } from '../../logger';
-import { SessionHandler } from '../../session';
+import { MorganUtils, IMorganRotateOptions, FileLogger, Utils } from '../../core';
+import { SessionHandler } from '../../security';
 
 /**
  * Interface for response when the application configures @method api and @method routes methods.
