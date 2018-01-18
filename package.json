@@ -11,6 +11,7 @@
     "compile": "npm run tslint && npm run copy:tslint && tsc",
     "copy:tslint": "cp ./src/core/tslint.json ./lib/core",
     "publish": "npm run build && lerna publish --skip-git",
+    "test": "nyc --require ts-node/register mocha src/**/*.spec.ts",
     "tslint": "tslint -p tsconfig.json -c ./src/core/tslint.json -t verbose"
   },
   "dependencies": {
@@ -46,7 +47,27 @@
     "lerna": "^2.7.0",
     "mocha": "^4.1.0",
     "mocha-typescript": "^1.1.12",
+    "nyc": "^11.4.1",
+    "source-map-support": "^0.5.1",
+    "ts-node": "^4.1.0",
     "tslint": "^5.9.1",
     "typescript": "^2.6.2"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "samples"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true,
+    "sourceMap": true
   }
 }

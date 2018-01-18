@@ -1,8 +1,12 @@
 node_modules
 logs
-*.log
 dist
+documentation
+coverage
+.nyc_output
+
 playground.js
+*.log
 
 lib/**/*.js
 lib/**/*.js.map

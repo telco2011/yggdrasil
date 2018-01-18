@@ -32,7 +32,7 @@ export abstract class BaseRoutes {
     /** Authentication */
     const opts: StrategyOptions = {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.SECRET_TOKEN
+      secretOrKey: process.env.SECRET_TOKEN || 'shhhh'
     };
     this.auth = new Authorization(opts);
 
