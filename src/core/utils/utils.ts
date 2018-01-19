@@ -31,9 +31,14 @@ export class Utils {
     return data.replace(/\b(\w)/g, s => s.toUpperCase());
   }
 
+  /**
+   * Gets @yggdrasil version
+   *
+   * @return @yggdrasil version
+   */
   public static getYggdrasilVersion(): string {
     // TODO: Waiting for oficial package.json schema to change type
-    const pkg: any = JSON.parse(fs.readFileSync(Utils.yggdrasilRootPath + '/common/package.json', 'utf-8'));
+    const pkg: any = JSON.parse(fs.readFileSync(Utils.yggdrasilRootPath + '/core/package.json', 'utf-8'));
     return pkg.version;
   }
 }
