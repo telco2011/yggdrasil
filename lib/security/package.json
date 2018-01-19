@@ -1,7 +1,7 @@
 {
   "author": "David Lopez",
   "dependencies": {
-    "@yggdrasil/core": "^0.1.0",
+    "@yggdrasil/core": "latest",
     "connect-mongo": "^2.0.1",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
@@ -11,5 +11,5 @@
   },
   "license": "MIT",
   "name": "@yggdrasil/security",
-  "version": "0.0.0"
+  "version": "0.1.0-alpha.1eaae1e0"
 }

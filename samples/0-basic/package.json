@@ -16,12 +16,11 @@
     "tslint": "tslint src/**/*.ts -t verbose"
   },
   "dependencies": {
-    "@yggdrasil/core": "^0.1.0-alpha.1",
-    "@yggdrasil/mvc": "^0.1.0-alpha.1",
-    "@yggdrasil/startup": "^0.1.0-alpha.1"
+    "@yggdrasil/mvc": "next",
+    "@yggdrasil/startup": "next"
   },
   "devDependencies": {
-    "@yggdrasil/testing": "^0.1.0-alpha.1",
+    "@yggdrasil/testing": "next",
     "concurrently": "^3.5.1",
     "nodemon": "^1.14.11",
     "tslint": "^5.9.1",

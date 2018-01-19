@@ -1,10 +1,10 @@
 {
   "name": "@yggdrasil/data",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.1eaae1e0",
   "author": "David Lopez",
   "license": "MIT",
   "dependencies": {
-    "@yggdrasil/core": "^0.1.0",
+    "@yggdrasil/core": "latest",
     "express": "^4.16.2"
   }
 }
