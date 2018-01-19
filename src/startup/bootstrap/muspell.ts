@@ -106,7 +106,7 @@ export abstract class Bootstrap {
         res.status(500).send({ status: 500, message: 'internal error', type: 'internal', TypeError: { message: err.message, stack: err.stack} });
       } else {
         this.bootstrapLogger.error(err);
-        res.status(500).send({ status: 500, message: 'internal error', type: 'internal', error: err });
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal', error: err.message });
       }
     });
   }

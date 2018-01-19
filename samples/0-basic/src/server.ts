@@ -12,7 +12,7 @@ import { BasicAPIRoute } from './routes/api/basic.route';
 export class YggdrasilServer extends Bootstrap {
 
   /** YggdrasilServer logger */
-  logger: FileLogger;
+  public logger: FileLogger;
 
   /** Default constructor */
   constructor() {
@@ -25,7 +25,7 @@ export class YggdrasilServer extends Bootstrap {
    * Creates API routes
    * @param router Express Router
    */
-  api(router: Router): IBootstrapRoute {
+  public api(router: Router): IBootstrapRoute {
     const auth = new BasicAPIRoute(router);
 
     return { prefix: '/api' };

@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "./node_modules/@yggdrasil/core/tslint.json"
-  ],
+  "extends": "./node_modules/@yggdrasil/core/tslint.json",
   "jsRules": {},
   "rules": {},
   "rulesDirectory": []

@@ -11,7 +11,7 @@ import { BasicCtrl } from '../../controllers/basic.ctrl';
 export class BasicAPIRoute extends BaseRoutes {
 
   /** BasicAPIRoute logger */
-  logger: FileLogger;
+  public logger: FileLogger;
 
   /** Declare controllers */
   private basicCtrl: BasicCtrl;
@@ -32,18 +32,47 @@ export class BasicAPIRoute extends BaseRoutes {
    * @class BasicAPIRoute
    * @method create
    */
-  create(router: Router) {
+  public create(router: Router) {
     this.logger.debug('Creating BasicRoutes routes.');
 
     /** GETS */
     this.gets(router);
+
+    /** POSTS */
+    this.posts(router);
+
+    /** PUT */
+    this.puts(router);
+
+    /** DELETE */
+    this.deletes(router);
   }
 
   /** Creates GETS API */
   private gets(router: Router) {
     this.logger.debug('Configuring gets.');
 
-    router.route('/basic').get(this.basicCtrl.helloWorld);
+    router.route('/basic').get(this.basicCtrl.getHelloWorld);
   }
 
+  /** Creates POSTS API */
+  private posts(router: Router) {
+    this.logger.debug('Configuring posts.');
+
+    router.route('/basic').post(this.basicCtrl.postHelloWorld);
+  }
+
+  /** Creates PUTS API */
+  private puts(router: Router) {
+    this.logger.debug('Configuring puts.');
+
+    router.route('/basic').put(this.basicCtrl.putHelloWorld);
+  }
+
+  /** Creates DELETES API */
+  private deletes(router: Router) {
+    this.logger.debug('Configuring deletes.');
+
+    router.route('/basic').delete(this.basicCtrl.deleteHelloWorld);
+  }
 }

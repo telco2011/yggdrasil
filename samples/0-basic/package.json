@@ -10,10 +10,10 @@
     "compile": "npm run clean && npm run tslint && tsc -p tsconfig.json",
     "compile:test": "npm run clean && npm run tslint && tsc -p tsconfig.spec.json",
     "compile:watch": "npm run tslint && tsc -w -p tsconfig.json",
-    "start": "npm run start:dev",
+    "start": "npm test && npm run start:dev",
     "start:dev": "npm run compile && concurrently -c grey,blue -n compile,nodemon \"npm run compile:watch\" \"nodemon dist/ignition.js\"",
     "test": "npm run compile:test && mocha --exit dist/test/**/*.spec.js",
-    "tslint": "tslint src/**/*.ts -t verbose"
+    "tslint": "tslint -p tsconfig.json -t verbose"
   },
   "dependencies": {
     "@yggdrasil/mvc": "canary",
