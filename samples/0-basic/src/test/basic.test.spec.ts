@@ -1,4 +1,4 @@
-import { suite, test, slow, timeout, YggdrasilTest } from '@yggdrasil/testing';
+import { suite, test, YggdrasilTest } from '@yggdrasil/testing';
 
 import { app } from '../ignition';
 

@@ -13,8 +13,9 @@
     "lerna:publish": "lerna publish",
     "lerna:publish:canary": "lerna publish --canary=alpha",
     "publish": "npm run build && npm run lerna:publish:canary",
-    "test": "nyc --require ts-node/register mocha src/**/*.spec.ts",
-    "tslint": "tslint -p tsconfig.json -c ./src/core/tslint.json -t verbose"
+    "test": "rm -rf coverage .nyc_output && npm run tslint:test && nyc --require ts-node/register mocha src/**/*.spec.ts",
+    "tslint": "tslint -p tsconfig.json -c ./src/core/tslint.json -t verbose",
+    "tslint:test": "tslint -p tsconfig.spec.json -c ./src/core/tslint.json -t verbose"
   },
   "dependencies": {
     "app-root-path": "^2.0.1",
@@ -44,6 +45,7 @@
     "@types/mongoose": "^4.7.32",
     "@types/node": "^9.3.0",
     "@types/winston": "^2.3.7",
+    "@yggdrasil/core": "0.1.0-alpha.031fb4f0",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "lerna": "^2.7.0",
@@ -63,13 +65,15 @@
       ".ts"
     ],
     "exclude": [
+      "**/index.ts",
+      "**/*.spec.ts",
       "**/*.d.ts",
       "samples"
     ],
     "reporter": [
+      "text-summary",
       "html"
     ],
-    "all": true,
-    "sourceMap": true
+    "all": true
   }
 }
