@@ -1,6 +1,6 @@
 {
   "name": "@yggdrasil/startup",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "author": "David Lopez",
   "license": "MIT",
   "dependencies": {

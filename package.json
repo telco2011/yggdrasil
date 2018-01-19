@@ -1,13 +1,13 @@
 {
   "name": "yggdrasil",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "@yggdrasil architecture.",
   "license": "MIT",
   "author": "David Lopez",
   "scripts": {
     "build": "npm run clean:lib && npm run compile",
     "clean:all": "npm run clean:lib && rm -rf logs node_modules .nyc_output coverage documentation",
-    "clean:lib": "find ./lib -type f -name '*.js' -delete && find ./lib -type f -name '*.js.map' -delete && find ./lib -type f -name '*.ts' -delete && rm -f ./lib/common/tslint.json",
+    "clean:lib": "find ./lib -type f -name '*.js' -delete && find ./lib -type f -name '*.js.map' -delete && find ./lib -type f -name '*.ts' -delete && rm -f ./lib/core/tslint.json",
     "compile": "npm run tslint && npm run copy:tslint && tsc",
     "copy:tslint": "cp ./src/core/tslint.json ./lib/core",
     "lerna:publish": "lerna publish",
