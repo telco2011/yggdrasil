@@ -6,7 +6,7 @@
   "dependencies": {
     "@types/express": "^4.11.0",
     "@yggdrasil/core": "canary",
-    "@yggdrasil/session": "canary",
+    "@yggdrasil/security": "canary",
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
