@@ -4,7 +4,7 @@
   "author": "David Lopez",
   "license": "MIT",
   "dependencies": {
-    "@yggdrasil/core": "latest",
+    "@yggdrasil/core": "canary",
     "express": "^4.16.2"
   }
 }

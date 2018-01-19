@@ -5,8 +5,8 @@
   "license": "MIT",
   "dependencies": {
     "@types/express": "^4.11.0",
-    "@yggdrasil/core": "latest",
-    "@yggdrasil/session": "latest",
+    "@yggdrasil/core": "canary",
+    "@yggdrasil/session": "canary",
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
