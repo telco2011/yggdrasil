@@ -177,7 +177,7 @@ export abstract class Bootstrap {
     this.app.use(session.storePaths());
 
     // This endpoint reveals it
-    this.app.get("/session", (req: express.Request, res: express.Response) => {
+    this.app.get('/session', (req: express.Request, res: express.Response) => {
       session.get(req, res);
     });
 
