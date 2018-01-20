@@ -176,10 +176,17 @@ export abstract class Bootstrap {
     this.app.use(session.instanceSession());
     this.app.use(session.storePaths());
 
+    // This endpoint reveals it
+    this.app.get("/session", (req: express.Request, res: express.Response) => {
+      session.get(req, res);
+    });
+
     /** Tracking */
     const tracking = new Tracking();
     this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-      this.bootstrapLogger.debug('ENTRANCE => ' + tracking.getUUID());
+      const uuid = tracking.getUUID();
+      this.bootstrapLogger.debug('ENTRANCE => ' + uuid);
+      session.store('uuid', uuid);
       next();
     });
 

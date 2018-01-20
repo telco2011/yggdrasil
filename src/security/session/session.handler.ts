@@ -1,12 +1,16 @@
 import * as express from 'express';
 import * as session from 'express-session';
+import { MemoryStore } from 'express-session';
 import * as connectMongo from 'connect-mongo';
+import { MongoStore } from 'connect-mongo';
 import * as parseurl from 'parseurl';
 
-import { FileLogger } from '../../core';
+import { FileLogger, Tracking } from '../../core';
 
 export class SessionHandler {
   private logger = new FileLogger('SessionHandler');
+  private tracking: Tracking;
+  private sessionStore: MongoStore | MemoryStore;
 
   private sessionOptions: session.SessionOptions = {
     secret: process.env.SECRET_TOKEN || 'shhhhhh',
@@ -19,18 +23,22 @@ export class SessionHandler {
   };
 
   constructor(store?: string) {
+    this.tracking = new Tracking();
     switch (store) {
       case 'mongo':
         this.logger.info('Using mongodb to store session information.');
         const MongoStore = connectMongo(session);
-        this.sessionOptions.store = new MongoStore({
+        this.sessionStore = new MongoStore({
           url: process.env.MONGODB_SESSION_URI,
           autoRemove: 'interval',
           autoRemoveInterval: 10
         });
+        this.sessionOptions.store = this.sessionStore;
         break;
       default:
         this.logger.info('Using default MemoryStore to store session information.');
+        this.sessionStore = new session.MemoryStore();
+        this.sessionOptions.store = this.sessionStore;
         break;
     }
   }
@@ -40,7 +48,7 @@ export class SessionHandler {
   }
 
   public storePaths(): express.RequestHandler {
-    return (req, res, next) => {
+    return (req: express.Request, res: express.Response, next: express.NextFunction) => {
       if (!req.session.views) {
         req.session.views = {};
       }
@@ -51,6 +59,20 @@ export class SessionHandler {
       // count the views
       req.session.views[pathname] = (req.session.views[pathname] || 0) + 1;
 
+      next();
+    };
+  }
+
+  public get(req: express.Request, res: express.Response) {
+    this.sessionStore.get(req.sessionID, function(err, data) {
+      res.send({err: err, data:data});
+    });
+  }
+
+  public store(key: string, value: any): express.RequestHandler {
+    return (req: express.Request, res: express.Response, next: express.NextFunction) => {
+      const uuid = this.tracking.getUUID();
+      req.session[key] = value;
       next();
     };
   }
