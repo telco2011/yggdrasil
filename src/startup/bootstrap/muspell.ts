@@ -10,7 +10,11 @@ import * as mongoose from 'mongoose';
 import * as Q from 'q';
 import * as figlet from 'figlet';
 /** YGGDRASIL imports */
-import { MorganUtils, IMorganRotateOptions, FileLogger, Utils } from '../../core';
+import {
+  MorganUtils, IMorganRotateOptions, FileLogger,
+  Tracking,
+  Utils
+} from '../../core';
 import { SessionHandler } from '../../security';
 
 /**
@@ -74,12 +78,6 @@ export abstract class Bootstrap {
     /** Creates expressjs application */
     this.app = express();
     this.router = express.Router();
-
-    /** Entrance */
-    this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-      this.bootstrapLogger.debug('ENTRANCE');
-      next();
-    });
 
     /** Print cool yggdrasil banner */
     await this.printBanner();
@@ -177,6 +175,13 @@ export abstract class Bootstrap {
     const session = new SessionHandler(/*'mongo'*/);
     this.app.use(session.instanceSession());
     this.app.use(session.storePaths());
+
+    /** Tracking */
+    const tracking = new Tracking();
+    this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+      this.bootstrapLogger.debug('ENTRANCE => ' + tracking.getUUID());
+      next();
+    });
 
     // TODO: Change morgan configuration into logger module
     /** Configure morgan to create a file with rest log traces */
