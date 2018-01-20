@@ -6,7 +6,8 @@
     "baseUrl": "../../",
     "types": [
       "node",
-      "winston"
+      "winston",
+      "uuid"
     ]
   },
   "include": [

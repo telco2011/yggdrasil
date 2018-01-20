@@ -71,12 +71,18 @@ export abstract class Bootstrap {
    * Async method that initialise all starting process.
    */
   public async initialize() {
-    /** Print cool yggdrasil banner */
-    await this.printBanner();
-
     /** Creates expressjs application */
     this.app = express();
     this.router = express.Router();
+
+    /** Entrance */
+    this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+      this.bootstrapLogger.debug('ENTRANCE');
+      next();
+    });
+
+    /** Print cool yggdrasil banner */
+    await this.printBanner();
 
     /** Configures bootstrap */
     await this.internalConfig();
