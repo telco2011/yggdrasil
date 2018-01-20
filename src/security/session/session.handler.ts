@@ -70,17 +70,14 @@ export class SessionHandler {
     }
   }
 
-  public store(key: string, value: any, req: express.Request): express.RequestHandler {
+  public store(key: string, value: any, req: express.Request, next: express.NextFunction) {
     if (this.sessionStore instanceof MemoryStore) {
-      this.sessionStore.set(req.sessionID, req.session, (err) => {
-        console.log(`Error storing in session: ${err}`);
-      });
-    }
-    return (req: express.Request, res: express.Response, next: express.NextFunction) => {
-      const uuid = this.tracking.getUUID();
       req.session[key] = value;
-      next();
-    };
+      /*this.sessionStore.set(req.sessionID, req.session, (err) => {
+        console.log(`Error storing in session: ${err}`);
+        next();
+      });*/
+    }
   }
 
 }
