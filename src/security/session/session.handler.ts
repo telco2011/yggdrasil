@@ -78,6 +78,7 @@ export class SessionHandler {
         next();
       });*/
     }
+    next();
   }
 
 }
