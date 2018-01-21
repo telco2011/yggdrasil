@@ -155,10 +155,10 @@ export abstract class Bootstrap {
 
   private configureMonitoring(router: express.Router): IBootstrapRoute {
     this.bootstrapLogger.info('Configure monitoring API routes');
-    router.get('/session', (req: express.Request, res: express.Response) => {
+    router.route('/session').get((req: express.Request, res: express.Response) => {
       res.send(this.session.getSessionStore(req));
     });
-    return { prefix: '/monitoring', message: 'Congired monitoring API routes' };
+    return { prefix: '/monitoring', message: 'Configured monitoring API routes' };
   }
 
   /**

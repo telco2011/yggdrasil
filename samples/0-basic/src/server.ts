@@ -26,7 +26,7 @@ export class YggdrasilServer extends Bootstrap {
    * @param router Express Router
    */
   public api(router: Router): IBootstrapRoute {
-    const auth = new BasicAPIRoute(router);
+    const basicAPI = new BasicAPIRoute(router);
 
     return { prefix: '/api' };
   }
