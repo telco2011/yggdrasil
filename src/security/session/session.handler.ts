@@ -23,6 +23,11 @@ export class SessionHandler {
     }
   };
 
+  /**
+   * Default constructor
+   *
+   * @param store String option for selecting session storage
+   */
   constructor(store?: string) {
     this.tracking = new Tracking();
     switch (store) {
@@ -43,21 +48,27 @@ export class SessionHandler {
     }
   }
 
+  /**
+   * Initialise session
+   */
   public instanceSession(): express.RequestHandler {
     return session(this.sessionOptions);
   }
 
+  /**
+   * Stores acceded routes
+   */
   public storePaths(): express.RequestHandler {
     return (req: express.Request, res: express.Response, next: express.NextFunction) => {
-      if (!req.session.views) {
-        req.session.views = {};
+      if (!req.session.routes) {
+        req.session.routes = {};
       }
 
       // get the url pathname
       const pathname = parseurl(req).pathname;
 
-      // count the views
-      req.session.views[pathname] = (req.session.views[pathname] || 0) + 1;
+      // count the routes
+      req.session.routes[pathname] = (req.session.routes[pathname] || 0) + 1;
 
       next();
     };
@@ -80,15 +91,20 @@ export class SessionHandler {
           };
           resolve(sessionResponse);
         });
+      } else {
+        resolve(null);
       }
-      resolve(null);
     });
   }
 
+  /**
+   * Stores object into session
+   *
+   * @param key String identifier for value object
+   * @param value Object to store with key identifier
+   * @param req Request
+   */
   public store(key: string, value: any, req: express.Request): void {
-    if (key === 'tracking-id') {
-      this.sessionID = req.sessionID;
-    }
     req.session[key] = value;
   }
 

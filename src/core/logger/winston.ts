@@ -161,7 +161,7 @@ export class FileLogger {
    */
   private log(level: LEVEL, source: string, ...message: string[]): void {
     if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
-      const log = `[${Tracking.trackingId}][${moment().format('DD/MM/YYYY-HH:mm:ss:SSSZ')}][${Utils.capitalize(source)}] - ${message.join(' ')}`;
+      const log = `[${Tracking.trackingId || ''}][${moment().format('DD/MM/YYYY-HH:mm:ss:SSSZ')}][${Utils.capitalize(source)}] - ${message.join(' ')}`;
       switch (level) {
         case LEVEL.INFO:
           this.logger.info(log);

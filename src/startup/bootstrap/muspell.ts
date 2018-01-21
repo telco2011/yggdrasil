@@ -159,6 +159,12 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
+  /**
+   * Configures yggdrasil monitoring routes
+   *
+   * @param router express.Router
+   * @param session SessionHandler
+   */
   private configureMonitoring(router: express.Router, session: SessionHandler) {
     this.bootstrapLogger.info('Configure monitoring API routes');
     const monitoring = new Monitoring(router, session);
