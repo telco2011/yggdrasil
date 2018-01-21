@@ -2,6 +2,7 @@ import * as winston from 'winston';
 import * as path from 'path';
 import * as moment from 'moment';
 
+import { Tracking } from '../tracking';
 import { Utils } from '../utils';
 
 /** Log level enumeration */
@@ -156,6 +157,7 @@ export class FileLogger {
    * @returns void
    */
   private log(level: LEVEL, source: string, ...message: string[]): void {
+    console.log(`TRACKING ID => ${Tracking.trackingId}`);
     if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
       const log = `[${moment().format('DD/MM/YYYY HH:mm:ss:SSS Z')}][${Utils.capitalize(source)}] - ${message.join(' ')}`;
       switch (level) {

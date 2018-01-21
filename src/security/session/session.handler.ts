@@ -11,6 +11,7 @@ export class SessionHandler {
   private tracking: Tracking;
   // TODO: Review this variable
   private sessionStore: /*MongoStore | */MemoryStore;
+  private sessionID: string;
 
   private sessionOptions: session.SessionOptions = {
     secret: process.env.SECRET_TOKEN || 'shhhhhh',
@@ -62,22 +63,23 @@ export class SessionHandler {
     };
   }
 
-  public get(req: express.Request, res: express.Response) {
+  public getSessionStore(req: express.Request, res: express.Response) {
     if (this.sessionStore instanceof MemoryStore) {
       this.sessionStore.get(req.sessionID, (err, data) => {
-        res.send({ error: err, sessionStore: data });
+        let sessionResponse = {
+          sessionStore: data,
+          error: err
+        };
+        res.send(sessionResponse);
       });
     }
   }
 
   public store(key: string, value: any, req: express.Request, next: express.NextFunction) {
-    if (this.sessionStore instanceof MemoryStore) {
-      req.session[key] = value;
-      /*this.sessionStore.set(req.sessionID, req.session, (err) => {
-        console.log(`Error storing in session: ${err}`);
-        next();
-      });*/
+    if (key === 'tracking-id') {
+      this.sessionID = req.sessionID;
     }
+    req.session[key] = value;
     next();
   }
 

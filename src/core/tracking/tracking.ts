@@ -2,8 +2,11 @@ import { v1 } from 'uuid';
 
 export class Tracking {
 
-  public getUUID = (): string => {
-    return v1();
+  public static trackingId: string;
+
+  public static getUUID = (): string => {
+    Tracking.trackingId = v1();
+    return Tracking.trackingId;
   }
 
 }

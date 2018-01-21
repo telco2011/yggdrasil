@@ -176,17 +176,18 @@ export abstract class Bootstrap {
     this.app.use(session.instanceSession());
     this.app.use(session.storePaths());
 
-    // This endpoint reveals it
+    /** MONITORING */
+    // This endpoint reveals session
     this.app.get('/session', (req: express.Request, res: express.Response) => {
-      session.get(req, res);
+      session.getSessionStore(req, res);
     });
 
     /** Tracking */
     const tracking = new Tracking();
     this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-      const uuid = tracking.getUUID();
+      const uuid = Tracking.getUUID();
       this.bootstrapLogger.debug('ENTRANCE => ' + uuid);
-      session.store('uuid', uuid, req, next);
+      session.store('tracking-id', uuid, req, next);
     });
 
     // TODO: Change morgan configuration into logger module
