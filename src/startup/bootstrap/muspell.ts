@@ -96,11 +96,6 @@ export abstract class Bootstrap {
     // TODO: Support other databases
     // await this.configureMongoDB();
 
-    /** Add MONITORING routes */
-    await this.configureMonitoring(this.router);
-    this.app.use('/monitoring', this.router);
-    this.printRoutes(this.router, '/monitoring', 'Print Monitoring Routes');
-
     /** Add routes */
     const routesResult = await this.routes(this.router);
     this.app.use(routesResult.prefix, this.router);
@@ -110,6 +105,11 @@ export abstract class Bootstrap {
     const apiResult = await this.api(this.router);
     this.app.use(apiResult.prefix, this.router);
     this.printRoutes(this.router, apiResult.prefix, (apiResult.message || 'Print API Routes'));
+
+    /** Add MONITORING routes */
+    await this.configureMonitoring(this.router);
+    this.app.use('/monitoring', this.router);
+    this.printRoutes(this.router, '/monitoring', 'Print Monitoring Routes');
 
     /** Error handler */
     // TODO: Built error handler
