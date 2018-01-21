@@ -4,10 +4,8 @@ import { SessionHandler } from '../../security';
 
 export class Monitoring {
 
-  public static getSession(session: SessionHandler) {
-    return (req: express.Request, res: express.Response) => {
-      res.send(session.getSessionStore(req));
-    };
+  public getSession = (req: express.Request, res: express.Response) => {
+    res.send(req.session.getSessionStore(req));
   }
 
 }
