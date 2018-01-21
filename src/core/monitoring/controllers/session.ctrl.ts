@@ -1,14 +1,19 @@
 import { Request, Response } from '../../../mvc';
 import { FileLogger } from '../../../core';
+import { SessionHandler } from '../../../security';
 
 export class MonitorSessionCtrl {
 
   /** BasicCtrl logger */
   private logger: FileLogger;
 
+  /** SessionHandler from principal app */
+  private session: SessionHandler;
+
   /** Default constructor */
-  constructor() {
+  constructor(session: SessionHandler) {
     this.logger = new FileLogger(MonitorSessionCtrl.name);
+    this.session = session;
   }
 
   /**
@@ -21,7 +26,7 @@ export class MonitorSessionCtrl {
   public getSession = (req: Request, res: Response) => {
     this.logger.debug('getSession response.');
 
-    res.send(req.session.getSessionStore(req));
+    res.send(this.session.getSessionStore(req));
   }
 
 }

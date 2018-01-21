@@ -80,9 +80,13 @@ export abstract class Bootstrap {
   public async initialize() {
     /** Creates expressjs application */
     this.app = express();
+
+    /** Create different routes to manage them */
     const APIRouter = express.Router();
     const routesRouter = express.Router();
     const monitoringRouter = express.Router();
+
+    /** Session object */
     this.session = new SessionHandler();
 
     /** Print cool yggdrasil banner */
@@ -99,7 +103,7 @@ export abstract class Bootstrap {
     // await this.configureMongoDB();
 
     /** Add MONITORING routes */
-    await this.configureMonitoring(monitoringRouter);
+    await this.configureMonitoring(monitoringRouter, this.session);
     this.app.use('/monitoring', monitoringRouter);
     this.printRoutes(monitoringRouter, '/monitoring', 'Print Monitoring Routes');
 
@@ -155,9 +159,9 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
-  private configureMonitoring(router: express.Router) {
+  private configureMonitoring(router: express.Router, session: SessionHandler) {
     this.bootstrapLogger.info('Configure monitoring API routes');
-    const monitoring = new Monitoring(router);
+    const monitoring = new Monitoring(router, session);
   }
 
   /**

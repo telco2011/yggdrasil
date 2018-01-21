@@ -1,5 +1,6 @@
 import { Router } from '../../mvc';
 import { FileLogger } from '../../core';
+import { SessionHandler } from '../../security';
 
 import { MonitorSessionCtrl } from './controllers/session.ctrl';
 
@@ -12,9 +13,9 @@ export class Monitoring {
   private monitorSessionCtrl: MonitorSessionCtrl;
 
   /** Default constructor */
-  constructor(router: Router) {
+  constructor(router: Router, session: SessionHandler) {
     this.logger = new FileLogger(Monitoring.name);
-    this.monitorSessionCtrl = new MonitorSessionCtrl();
+    this.monitorSessionCtrl = new MonitorSessionCtrl(session);
 
     /** Creates routes */
     this.create(router);
