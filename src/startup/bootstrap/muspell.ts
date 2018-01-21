@@ -96,10 +96,10 @@ export abstract class Bootstrap {
     // TODO: Support other databases
     // await this.configureMongoDB();
 
-    /** MONITORING */
+    /** Add MONITORING routes */
     await this.configureMonitoring(this.router);
     this.app.use('/monitoring', this.router);
-    this.printRoutes(this.router, '/monitoring', 'Configured monitoring API routes');
+    this.printRoutes(this.router, '/monitoring', 'Print Monitoring Routes');
 
     /** Add routes */
     const routesResult = await this.routes(this.router);
@@ -153,9 +153,9 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
-  private async configureMonitoring(router: express.Router) {
+  private configureMonitoring(router: express.Router) {
     this.bootstrapLogger.info('Configure monitoring API routes');
-    const monitoring = await new Monitoring(router);
+    const monitoring = new Monitoring(router);
   }
 
   /**
