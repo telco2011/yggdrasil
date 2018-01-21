@@ -1,0 +1,12 @@
+{
+  "name": "@yggdrasil/devs",
+  "version": "0.1.0-alpha.a2d1264d",
+  "author": "David Lopez",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.14.11",
+    "tslint": "^5.9.1",
+    "typescript": "^2.6.2"
+  }
+}
