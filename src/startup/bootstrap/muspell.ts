@@ -12,11 +12,11 @@ import * as figlet from 'figlet';
 /** YGGDRASIL imports */
 import {
   MorganUtils, IMorganRotateOptions, FileLogger,
+  Monitoring
   Tracking,
   Utils
 } from '../../core';
 import { SessionHandler } from '../../security';
-import { Monitoring } from '../../core/monitoring/monitoring';
 
 /**
  * Interface for response when the application configures @method api and @method routes methods.
@@ -46,6 +46,8 @@ export abstract class Bootstrap {
   private router: express.Router;
   /** Internal logger */
   private bootstrapLogger: FileLogger;
+  /** Session */
+  private session: SessionHandler;
   /** Yggdrasil version */
   private yggdrasilVersion: string = Utils.getYggdrasilVersion();
 
@@ -79,6 +81,7 @@ export abstract class Bootstrap {
     /** Creates expressjs application */
     this.app = express();
     this.router = express.Router();
+    this.session = new SessionHandler();
 
     /** Print cool yggdrasil banner */
     await this.printBanner();
@@ -92,6 +95,11 @@ export abstract class Bootstrap {
     /** Configures database */
     // TODO: Support other databases
     // await this.configureMongoDB();
+
+    /** MONITORING */
+    const monitoringRoutes = await this.configureMonitoring();
+    this.app.use(monitoringRoutes.prefix, this.router);
+    this.printRoutes(this.router, monitoringRoutes.prefix, (monitoringRoutes.message || 'Print Routes'));
 
     /** Add routes */
     const routesResult = await this.routes(this.router);
@@ -145,9 +153,9 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
-  private configureMonitoring(session: SessionHandler): IBootstrapRoute {
+  private configureMonitoring(): IBootstrapRoute {
     this.bootstrapLogger.info('Configure monitoring API routes');
-    this.router.get('/session', Monitoring.getSession(session));
+    this.router.get('/session', Monitoring.getSession(this.session));
     return { prefix: '/monitoring', message: 'Congired monitoring API routes' };
   }
 
@@ -179,20 +187,13 @@ export abstract class Bootstrap {
     this.bootstrapLogger.debug('Start internalConfig');
 
     /** Session */
-    const session = new SessionHandler(/*'mongo'*/);
     this.app.use(session.instanceSession());
     this.app.use(session.storePaths());
-
-    /** MONITORING */
-    // This endpoint reveals session
-    const monitoringRoutes = this.configureMonitoring(session);
-    this.printRoutes(this.router, monitoringRoutes.prefix, (monitoringRoutes.message || 'Print Routes'));
 
     /** ARCHITECTURE INITIALIZATION */
     /** Tracking */
     this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
       const uuid = Tracking.getUUID();
-      this.bootstrapLogger.debug('ENTRANCE => ' + uuid);
       session.store('tracking-id', uuid, req);
       next();
     });
