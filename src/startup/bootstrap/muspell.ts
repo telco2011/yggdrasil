@@ -12,7 +12,7 @@ import * as figlet from 'figlet';
 /** YGGDRASIL imports */
 import {
   MorganUtils, IMorganRotateOptions, FileLogger,
-  Monitoring
+  Monitoring,
   Tracking,
   Utils
 } from '../../core';
@@ -155,7 +155,9 @@ export abstract class Bootstrap {
 
   private configureMonitoring(): IBootstrapRoute {
     this.bootstrapLogger.info('Configure monitoring API routes');
-    this.router.get('/session', Monitoring.getSession(this.session));
+    this.router.get('/session', (req: express.Request, res: express.Response) => {
+      res.send(this.session.getSessionStore(req));
+    });
     return { prefix: '/monitoring', message: 'Congired monitoring API routes' };
   }
 
@@ -187,14 +189,14 @@ export abstract class Bootstrap {
     this.bootstrapLogger.debug('Start internalConfig');
 
     /** Session */
-    this.app.use(session.instanceSession());
-    this.app.use(session.storePaths());
+    this.app.use(this.session.instanceSession());
+    this.app.use(this.session.storePaths());
 
     /** ARCHITECTURE INITIALIZATION */
     /** Tracking */
     this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
       const uuid = Tracking.getUUID();
-      session.store('tracking-id', uuid, req);
+      this.session.store('tracking-id', uuid, req);
       next();
     });
 
