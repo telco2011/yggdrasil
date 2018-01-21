@@ -1,19 +1,18 @@
-import { BaseRoutes, Router } from '../../mvc';
+import { Router } from '../../mvc';
 import { FileLogger } from '../../core';
 
 import { MonitorSessionCtrl } from './controllers/session.ctrl';
 
-export class Monitoring extends BaseRoutes {
+export class Monitoring {
 
   /** Monitoring logger */
-  public logger: FileLogger;
+  private logger: FileLogger;
 
   /** Declare controllers */
   private monitorSessionCtrl: MonitorSessionCtrl;
 
   /** Default constructor */
   constructor(router: Router) {
-    super();
     this.logger = new FileLogger(Monitoring.name);
     this.monitorSessionCtrl = new MonitorSessionCtrl();
 
