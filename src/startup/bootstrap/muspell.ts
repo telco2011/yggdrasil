@@ -97,7 +97,7 @@ export abstract class Bootstrap {
     // await this.configureMongoDB();
 
     /** MONITORING */
-    const monitoringRoutes = await this.configureMonitoring();
+    const monitoringRoutes = await this.configureMonitoring(this.router);
     this.app.use(monitoringRoutes.prefix, this.router);
     this.printRoutes(this.router, monitoringRoutes.prefix, monitoringRoutes.message);
 
@@ -153,11 +153,9 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
-  private configureMonitoring(): IBootstrapRoute {
+  private configureMonitoring(router: express.Router): IBootstrapRoute {
     this.bootstrapLogger.info('Configure monitoring API routes');
-    const monitoring = new Monitoring();
-    this.bootstrapLogger.debug('Configure /session monitoring');
-    this.router.route('/session').get(monitoring.getSession);
+    const monitoring = new Monitoring(router);
     return { prefix: '/monitoring', message: 'Configured monitoring API routes' };
   }
 
