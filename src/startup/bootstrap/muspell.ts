@@ -97,9 +97,9 @@ export abstract class Bootstrap {
     // await this.configureMongoDB();
 
     /** MONITORING */
-    const monitoringRoutes = await this.configureMonitoring();
+    const monitoringRoutes = await this.configureMonitoring(this.router);
     this.app.use(monitoringRoutes.prefix, this.router);
-    this.printRoutes(this.router, monitoringRoutes.prefix, (monitoringRoutes.message || 'Print Routes'));
+    this.printRoutes(this.router, monitoringRoutes.prefix, monitoringRoutes.message);
 
     /** Add routes */
     const routesResult = await this.routes(this.router);
@@ -153,9 +153,9 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
-  private configureMonitoring(): IBootstrapRoute {
+  private configureMonitoring(router: express.Router): IBootstrapRoute {
     this.bootstrapLogger.info('Configure monitoring API routes');
-    this.router.get('/session', (req: express.Request, res: express.Response) => {
+    router.get('/session', (req: express.Request, res: express.Response) => {
       res.send(this.session.getSessionStore(req));
     });
     return { prefix: '/monitoring', message: 'Congired monitoring API routes' };
