@@ -151,15 +151,17 @@ export class FileLogger {
 
   /**
    * Print log trace.
+   *
+   * Log trace format: '[trackingId][date(UTC)][class][...message]'
+   *
    * @param  {LEVEL} level Enum with log level
    * @param  {string} source From where is the message.
    * @param  {string} message Message to print.
    * @returns void
    */
   private log(level: LEVEL, source: string, ...message: string[]): void {
-    console.log(`TRACKING ID => ${Tracking.trackingId}`);
     if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
-      const log = `[${moment().format('DD/MM/YYYY HH:mm:ss:SSS Z')}][${Utils.capitalize(source)}] - ${message.join(' ')}`;
+      const log = `[${Tracking.trackingId}][${moment().format('DD/MM/YYYY-HH:mm:ss:SSSZ')}][${Utils.capitalize(source)}] - ${message.join(' ')}`;
       switch (level) {
         case LEVEL.INFO:
           this.logger.info(log);

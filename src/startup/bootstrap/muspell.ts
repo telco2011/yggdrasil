@@ -16,6 +16,7 @@ import {
   Utils
 } from '../../core';
 import { SessionHandler } from '../../security';
+import { Monitoring } from '../../core/monitoring/monitoring';
 
 /**
  * Interface for response when the application configures @method api and @method routes methods.
@@ -144,6 +145,12 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
+  private configureMonitoring(session: SessionHandler): IBootstrapRoute {
+    this.bootstrapLogger.info('Configure monitoring API routes');
+    this.router.get('/session', Monitoring.getSession(session));
+    return { prefix: '/monitoring', message: 'Congired monitoring API routes' };
+  }
+
   /**
    * Callback function to print server start information.
    */
@@ -178,16 +185,16 @@ export abstract class Bootstrap {
 
     /** MONITORING */
     // This endpoint reveals session
-    this.app.get('/session', (req: express.Request, res: express.Response) => {
-      session.getSessionStore(req, res);
-    });
+    const monitoringRoutes = this.configureMonitoring(session);
+    this.printRoutes(this.router, monitoringRoutes.prefix, (monitoringRoutes.message || 'Print Routes'));
 
+    /** ARCHITECTURE INITIALIZATION */
     /** Tracking */
-    const tracking = new Tracking();
     this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
       const uuid = Tracking.getUUID();
       this.bootstrapLogger.debug('ENTRANCE => ' + uuid);
-      session.store('tracking-id', uuid, req, next);
+      session.store('tracking-id', uuid, req);
+      next();
     });
 
     // TODO: Change morgan configuration into logger module

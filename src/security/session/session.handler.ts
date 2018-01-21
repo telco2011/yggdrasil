@@ -63,24 +63,31 @@ export class SessionHandler {
     };
   }
 
-  public getSessionStore(req: express.Request, res: express.Response) {
+  /**
+   * Gets session store object.
+   *
+   * @param req express.Request object
+   * @param res expres.Response object
+   */
+  // TODO: Create sessionStoreResponse obj
+  public getSessionStore(req: express.Request): any {
     if (this.sessionStore instanceof MemoryStore) {
       this.sessionStore.get(req.sessionID, (err, data) => {
-        let sessionResponse = {
+        const sessionResponse = {
           sessionStore: data,
           error: err
         };
-        res.send(sessionResponse);
+        return sessionResponse;
       });
     }
+    return null;
   }
 
-  public store(key: string, value: any, req: express.Request, next: express.NextFunction) {
+  public store(key: string, value: any, req: express.Request): void {
     if (key === 'tracking-id') {
       this.sessionID = req.sessionID;
     }
     req.session[key] = value;
-    next();
   }
 
 }
