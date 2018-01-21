@@ -70,17 +70,19 @@ export class SessionHandler {
    * @param res expres.Response object
    */
   // TODO: Create sessionStoreResponse obj
-  public getSessionStore(req: express.Request): any {
-    if (this.sessionStore instanceof MemoryStore) {
-      this.sessionStore.get(req.sessionID, (err, data) => {
-        const sessionResponse = {
-          sessionStore: data,
-          error: err
-        };
-        return sessionResponse;
-      });
-    }
-    return null;
+  public getSessionStore(req: express.Request): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (this.sessionStore instanceof MemoryStore) {
+        this.sessionStore.get(req.sessionID, (err, data) => {
+          const sessionResponse = {
+            sessionStore: data,
+            error: err
+          };
+          resolve(sessionResponse);
+        });
+      }
+      resolve(null);
+    });
   }
 
   public store(key: string, value: any, req: express.Request): void {

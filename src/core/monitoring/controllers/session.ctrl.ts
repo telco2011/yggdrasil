@@ -26,7 +26,8 @@ export class MonitorSessionCtrl {
   public getSession = (req: Request, res: Response) => {
     this.logger.debug('getSession response.');
 
-    res.send(this.session.getSessionStore(req));
+    this.session.getSessionStore(req)
+      .then(data => res.send(data));
   }
 
 }
