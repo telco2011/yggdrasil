@@ -80,7 +80,9 @@ export abstract class Bootstrap {
   public async initialize() {
     /** Creates expressjs application */
     this.app = express();
-    this.router = express.Router();
+    const APIRouter = express.Router();
+    const routesRouter = express.Router();
+    const monitoringRouter = express.Router();
     this.session = new SessionHandler();
 
     /** Print cool yggdrasil banner */
@@ -96,20 +98,20 @@ export abstract class Bootstrap {
     // TODO: Support other databases
     // await this.configureMongoDB();
 
+    /** Add MONITORING routes */
+    await this.configureMonitoring(monitoringRouter);
+    this.app.use('/monitoring', monitoringRouter);
+    this.printRoutes(monitoringRouter, '/monitoring', 'Print Monitoring Routes');
+
     /** Add routes */
-    const routesResult = await this.routes(this.router);
-    this.app.use(routesResult.prefix, this.router);
-    this.printRoutes(this.router, routesResult.prefix, (routesResult.message || 'Print Routes'));
+    const routesResult = await this.routes(routesRouter);
+    this.app.use(routesResult.prefix, routesRouter);
+    this.printRoutes(routesRouter, routesResult.prefix, (routesResult.message || 'Print Routes'));
 
     /** Add api routes */
-    const apiResult = await this.api(this.router);
-    this.app.use(apiResult.prefix, this.router);
-    this.printRoutes(this.router, apiResult.prefix, (apiResult.message || 'Print API Routes'));
-
-    /** Add MONITORING routes */
-    await this.configureMonitoring(this.router);
-    this.app.use('/monitoring', this.router);
-    this.printRoutes(this.router, '/monitoring', 'Print Monitoring Routes');
+    const apiResult = await this.api(APIRouter);
+    this.app.use(apiResult.prefix, APIRouter);
+    this.printRoutes(APIRouter, apiResult.prefix, (apiResult.message || 'Print API Routes'));
 
     /** Error handler */
     // TODO: Built error handler
