@@ -111,14 +111,14 @@ export abstract class Bootstrap {
     this.app.use('/monitoring', monitoringRouter);
     this.printRoutes(monitoringRouter, '/monitoring', 'Print Monitoring Routes');
 
-    /** Add routes */
-    this.bootstrapLogger.debug(`Views directory => ${Utils.appRootPath}/dist/views`);
+    /** Add view routes */
+    this.bootstrapLogger.debug(`Configure view routes.`);
     this.app.set('views', `${Utils.appRootPath}/dist/views`);
     this.bootstrapLogger.debug(`Set 'pug' as html template`);
     this.app.set('view engine', 'pug');
     await this.routes(routesRouter);
     this.app.use('/views', routesRouter);
-    this.printRoutes(routesRouter, '/views', 'Print Routes');
+    this.printRoutes(routesRouter, '/views', 'Print View Routes');
 
     /** Add api routes */
     const apiResult = await this.api(APIRouter);
