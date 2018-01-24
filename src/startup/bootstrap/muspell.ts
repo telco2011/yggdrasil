@@ -17,7 +17,8 @@ import {
   Utils
 } from '../../core';
 import { SessionHandler } from '../../security';
-import { DefaultCtrl } from './controllers/default.ctrl';
+
+import { DefaultCtrl } from './controllers/default/default.ctrl';
 
 /**
  * Interface for response when the application configures @method api and @method routes methods.

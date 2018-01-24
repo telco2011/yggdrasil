@@ -1,13 +1,16 @@
+# folders
 node_modules
 logs
 dist
 documentation
 coverage
 .nyc_output
+playground
 
-playground.js
+# log files
 *.log
 
+# library files
 lib/**/*.js
 lib/**/*.js.map
 lib/**/*.ts

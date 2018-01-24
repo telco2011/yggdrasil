@@ -12,17 +12,9 @@ export class DefaultCtrl {
   }
 
   public getDefault = (req: Request, res: Response) => {
-    this.logger.debug('getDefault response.');
+    this.logger.debug(`getDefault response => ${__dirname}`);
 
-    const helloWorld = 'Hello World!';
-
-    if (req.is('application/json')) {
-      this.logger.debug('Is JSON request');
-      res.json({ data: helloWorld });
-    } else {
-      this.logger.debug(`Not JSON request => ${req.get('content-type')}`);
-      res.send(helloWorld);
-    }
+    res.sendFile(__dirname + 'default.html');
   }
 
 }
