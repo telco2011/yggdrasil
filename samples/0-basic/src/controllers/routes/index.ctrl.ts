@@ -25,7 +25,7 @@ export class IndexCtrl {
   public home = (req: Request, res: Response) => {
     this.logger.debug('go to home.');
 
-    res.render('index', { title: 'Home', message: 'Helloooooooo there!' });
+    res.render('index', { title: 'Home', message: 'Hello there!' });
   }
 
 }

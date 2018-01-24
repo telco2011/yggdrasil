@@ -5,6 +5,7 @@ import { FileLogger } from '@yggdrasil/core';
 
 /** Application imports */
 import { BasicAPIRoute } from './routes/api/basic.route';
+import { IndexRoute } from './routes/index.route';
 
 /**
  * @class YggdrasilServer
@@ -33,7 +34,7 @@ export class YggdrasilServer extends Bootstrap {
 
   public routes(router: Router) {
 
-    router.route('/index').get((req, res) => res.render('index', { title: 'Hey', message: 'Hello there!'}));
+    const indexRoute = new IndexRoute(router);
 
   }
 
