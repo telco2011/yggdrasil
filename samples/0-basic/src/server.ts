@@ -33,7 +33,7 @@ export class YggdrasilServer extends Bootstrap {
 
   public routes(router: Router) {
 
-    router.route('/').get((req, res) => res.render('index', { title: 'Hey', message: 'Hello there!'}));
+    router.route('/index').get((req, res) => res.render('index', { title: 'Hey', message: 'Hello there!'}));
 
   }
 

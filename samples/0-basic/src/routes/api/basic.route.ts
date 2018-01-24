@@ -3,7 +3,7 @@ import { BaseRoutes, Router } from '@yggdrasil/mvc';
 import { FileLogger } from '@yggdrasil/core';
 
 /** Application controllers imports */
-import { BasicCtrl } from '../../controllers/basic.ctrl';
+import { BasicCtrl } from '../../controllers/api';
 
 /**
  * @class BasicAPIRoute
