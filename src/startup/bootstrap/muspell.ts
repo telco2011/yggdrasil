@@ -37,6 +37,7 @@ export interface IBootstrapRoute {
  * @abstract Bootstrap
  */
 export abstract class Bootstrap {
+
   /** Force to implement logger by application */
   public abstract logger: FileLogger;
 
@@ -82,9 +83,10 @@ export abstract class Bootstrap {
     this.app = express();
 
     /** Create different routes to manage them */
+    const defaultsRouter = express.Router();
+    const monitoringRouter = express.Router();
     const APIRouter = express.Router();
     const routesRouter = express.Router();
-    const monitoringRouter = express.Router();
 
     /** Session object */
     this.session = new SessionHandler();
@@ -101,6 +103,10 @@ export abstract class Bootstrap {
     /** Configures database */
     // TODO: Support other databases
     // await this.configureMongoDB();
+
+    /** Add DEFAULTS routes */
+    await this.configureDefaults(defaultsRouter);
+    this.app.use(defaultsRouter);
 
     /** Add MONITORING routes */
     await this.configureMonitoring(monitoringRouter, this.session);
@@ -157,6 +163,13 @@ export abstract class Bootstrap {
    */
   protected config(app: express.Application) {
     this.bootstrapLogger.info('Non config method implemented');
+  }
+
+  private configureDefaults(router: express.Router) {
+    this.bootstrapLogger.info('Configure default routes');
+    router.route('/').get((req: express.Request, res: express.Response) => {
+      res.send('Hello World!');
+    });
   }
 
   /**
