@@ -31,4 +31,10 @@ export class YggdrasilServer extends Bootstrap {
     return { prefix: '/api' };
   }
 
+  public routes(router: Router) {
+
+    router.route('/').get((req, res) => res.render('index', { title: 'Hey', message: 'Hello there!'}));
+
+  }
+
 }

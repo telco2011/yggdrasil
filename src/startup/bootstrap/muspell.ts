@@ -106,24 +106,27 @@ export abstract class Bootstrap {
     // TODO: Support other databases
     // await this.configureMongoDB();
 
-    /** Add DEFAULTS routes */
-    await this.configureDefaults(defaultsRouter);
-    this.app.use(defaultsRouter);
-
     /** Add MONITORING routes */
     await this.configureMonitoring(monitoringRouter, this.session);
     this.app.use('/monitoring', monitoringRouter);
     this.printRoutes(monitoringRouter, '/monitoring', 'Print Monitoring Routes');
 
     /** Add routes */
-    const routesResult = await this.routes(routesRouter);
-    this.app.use(routesResult.prefix, routesRouter);
-    this.printRoutes(routesRouter, routesResult.prefix, (routesResult.message || 'Print Routes'));
+    this.bootstrapLogger.debug(`Views directory => ${__dirname}/views`);
+    this.app.set('views', `${__dirname}/views`);
+    this.bootstrapLogger.debug(`Set 'pug' as html template`);
+    this.app.set('view engine', 'pug');
+    await this.routes(routesRouter);
+    this.app.use('/views', routesRouter);
 
     /** Add api routes */
     const apiResult = await this.api(APIRouter);
     this.app.use(apiResult.prefix, APIRouter);
     this.printRoutes(APIRouter, apiResult.prefix, (apiResult.message || 'Print API Routes'));
+
+    /** Add DEFAULTS routes */
+    await this.configureDefaults(defaultsRouter);
+    this.app.use(defaultsRouter);
 
     /** Error handler */
     // TODO: Built error handler
@@ -140,12 +143,9 @@ export abstract class Bootstrap {
 
   /**
    * Method to override to configure application's routes.
-   *
-   * @param router Router passed to application to configure their routes.
    */
-  protected routes(router: express.Router): IBootstrapRoute {
+  protected routes(router: express.Router) {
     this.bootstrapLogger.info('Non Routes implemented');
-    return { prefix: '/non-routes', message: 'Non Routes implemented' };
   }
 
   /**
