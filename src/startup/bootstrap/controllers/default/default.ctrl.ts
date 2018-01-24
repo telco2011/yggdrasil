@@ -1,5 +1,5 @@
-import { Request, Response } from '../../../mvc';
-import { FileLogger } from '../../../core';
+import { Request, Response } from '../../../../mvc';
+import { FileLogger } from '../../../../core';
 
 export class DefaultCtrl {
 
@@ -14,7 +14,7 @@ export class DefaultCtrl {
   public getDefault = (req: Request, res: Response) => {
     this.logger.debug(`getDefault response => ${__dirname}`);
 
-    res.sendFile(__dirname + 'default.html');
+    res.sendFile(__dirname + '/default.html');
   }
 
 }
