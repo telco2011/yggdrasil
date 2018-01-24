@@ -17,6 +17,7 @@ import {
   Utils
 } from '../../core';
 import { SessionHandler } from '../../security';
+import { DefaultCtrl } from './controllers/default.ctrl';
 
 /**
  * Interface for response when the application configures @method api and @method routes methods.
@@ -167,9 +168,8 @@ export abstract class Bootstrap {
 
   private configureDefaults(router: express.Router) {
     this.bootstrapLogger.info('Configure default routes');
-    router.route('/').get((req: express.Request, res: express.Response) => {
-      res.send('Hello World!');
-    });
+    const defaultCtrl = new DefaultCtrl();
+    router.route('/').get(defaultCtrl.getDefault);
   }
 
   /**
