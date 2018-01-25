@@ -2,6 +2,8 @@
 import * as http from 'http';
 import * as express from 'express';
 import * as expressListRoutes from 'express-list-routes';
+import * as sass from 'node-sass-middleware';
+import * as flash from 'express-flash';
 import * as compression from 'compression';  // compresses requests
 import * as lusca from 'lusca';
 import * as bodyParser from 'body-parser';
@@ -113,9 +115,17 @@ export abstract class Bootstrap {
 
     /** Add view routes */
     this.bootstrapLogger.debug(`Configure view routes.`);
-    this.app.set('views', `${Utils.appRootPath}/dist/views`);
+    const publicDir = `${Utils.appRootPath}/dist/public`;
+    const viewsDir = `${Utils.appRootPath}/dist/views`;
+    this.bootstrapLogger.debug(`Public folder at ${publicDir}. Views folder at ${viewsDir}.`);
+    this.app.set('views', viewsDir);
     this.bootstrapLogger.debug(`Set 'pug' as html template`);
     this.app.set('view engine', 'pug');
+    this.bootstrapLogger.debug('Configure sass.');
+    this.app.use(sass({ src: publicDir, dest: publicDir }));
+    this.app.use(flash());
+    this.bootstrapLogger.debug('Configure static server.');
+    this.app.use(express.static(publicDir, { maxAge: 31557600000 }));
     await this.routes(routesRouter);
     this.app.use('/views', routesRouter);
     this.printRoutes(routesRouter, '/views', 'Print View Routes');
