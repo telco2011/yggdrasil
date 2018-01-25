@@ -1,0 +1,29 @@
+{
+  "name": "simple-rest-service",
+  "version": "1.0.0",
+  "description": "Simple REST application built using @yggdrasil architecture.",
+  "license": "MIT",
+  "author": "David Lopez",
+  "scripts": {
+    "clean": "rm -rf dist logs",
+    "clean:all": "npm run clean && rm -rf node_modules",
+    "compile": "npm run clean && npm run tslint && tsc -p tsconfig.json",
+    "compile:test": "npm run clean && npm run tslint:test && tsc -p tsconfig.spec.json",
+    "compile:watch": "npm run tslint && tsc -w -p tsconfig.json",
+    "copy:views": "cp -R src/views dist/views",
+    "ignition": "concurrently -c grey,blue -n compile,nodemon \"npm run compile:watch\" \"nodemon dist/ignition.js\"",
+    "start": "npm test && npm run start:dev",
+    "start:dev": "npm run compile && npm run copy:views && npm run ignition",
+    "test": "npm run compile:test && mocha --exit dist/test/**/*.spec.js",
+    "tslint": "tslint -p tsconfig.json -t verbose",
+    "tslint:test": "tslint -p tsconfig.spec.json -t verbose"
+  },
+  "dependencies": {
+    "@yggdrasil/mvc": "canary",
+    "@yggdrasil/startup": "canary"
+  },
+  "devDependencies": {
+    "@yggdrasil/testing": "canary",
+    "@yggdrasil/devs": "canary"
+  }
+}
