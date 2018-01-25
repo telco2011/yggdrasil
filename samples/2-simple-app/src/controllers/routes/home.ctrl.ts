@@ -28,4 +28,17 @@ export class HomeCtrl {
     res.render('home', { title: 'Home' });
   }
 
+  /**
+   * Render Contact page
+   *
+   * @method contact
+   * @param req Request
+   * @param res Response
+   */
+  public contact = (req: Request, res: Response) => {
+    this.logger.debug('go to contact.');
+
+    res.render('contact', { title: 'Contact' });
+  }
+
 }

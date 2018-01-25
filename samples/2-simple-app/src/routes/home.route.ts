@@ -36,6 +36,7 @@ export class HomeRoute extends BaseRoutes {
     this.logger.debug('Creating HomeCtrl routes.');
 
     router.route('/home').get(this.homeCtrl.home);
+    router.route('/contact').get(this.homeCtrl.contact);
   }
 
 }
