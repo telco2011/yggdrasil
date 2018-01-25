@@ -7,18 +7,19 @@ html
     meta(name='theme-color' content='#4DA5F4')
     meta(name='csrf-token', content=_csrf)
     title #{title}
-    link(rel='shortcut icon', href='/favicon.png')
-    link(rel='stylesheet', href='/scss/main.css')
+    link(rel='shortcut icon', href='/images/favicon.png')
+    link(rel='stylesheet', href='/css/bootstrap.css')
+    link(rel='stylesheet', href='/css/main.css')
 
   body
     include partials/header
 
-    .container
+    main(role="main")
       include partials/flash
       block content
 
     include partials/footer
 
-    script(src='/js/lib/jquery-3.1.1.min.js')
-    script(src='/js/lib/bootstrap.min.js')
+    script(src='/js/jquery.min.js')
+    script(src='/js/bootstrap.min.js')
     script(src='/js/main.js')

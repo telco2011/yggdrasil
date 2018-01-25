@@ -1,70 +1,39 @@
-@import "themes/default/variables";
-
-@import "lib/bootstrap/bootstrap";
-@import "lib/font-awesome/font-awesome";
-
-@import "themes/default/default";
-
-// Scaffolding
-// -------------------------
-
-html {
-  position: relative;
-  min-height: 100%;
+:root {
+  --jumbotron-padding-y: 3rem;
 }
 
-body {
-  padding-top: 60px;
-  margin-bottom: 75px;
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
 }
-
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 45px;
-  line-height: 45px;
-
-  p, ul {
-    margin-bottom: 0;
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
   }
 }
 
-// Input Fields
-// -------------------------
-
-textarea {
-  resize: vertical;
+.jumbotron p:last-child {
+  margin-bottom: 0;
 }
 
-// Navbar
-// -------------------------
-
-.navbar-nav img {
-  width: 30px;
-  height: 30px;
-  margin: -15px 15px -15px;
+.jumbotron-heading {
+  font-weight: 300;
 }
 
-// Alerts
-// -------------------------
-
-.alert {
-  margin-top: 20px;
+.jumbotron .container {
+  max-width: 40rem;
 }
 
-// Thumbnails
-// -------------------------
-
-.thumbnail {
-  padding: 0;
-  border-radius: 0;
-  box-shadow: 0 0 5px #ccc, inset 0 0 0 #000;
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
-// Font Icons
-// -------------------------
-
-.fa {
-  margin-right: 6px;
+footer p {
+  margin-bottom: .25rem;
 }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
