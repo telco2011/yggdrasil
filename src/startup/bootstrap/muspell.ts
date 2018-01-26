@@ -211,10 +211,11 @@ export abstract class Bootstrap {
     const viewsDir = `${Utils.appRootPath}/dist/views`;
     this.bootstrapLogger.debug(`Public folder at ${publicDir}. Views folder at ${viewsDir}.`);
     this.app.set('views', viewsDir);
-    this.bootstrapLogger.debug(`Set 'pug' as html template`);
     if (options && options.views && options.views.view_engine) {
+      this.bootstrapLogger.debug(`Set '${options.views.view_engine}' as view engine`);
       this.app.set('view engine', options.views.view_engine);
     } else {
+      this.bootstrapLogger.debug(`Set 'pug' as default view engine`);
       this.app.set('view engine', EViewEngine.PUG);
     }
     this.bootstrapLogger.debug('Configure sass.');
