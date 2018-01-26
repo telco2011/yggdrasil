@@ -1,0 +1,27 @@
+{
+  "name": "hbs-simple-application",
+  "version": "1.0.0",
+  "description": "Simple application built using @yggdrasil architecture and 'hbs' view template.",
+  "license": "MIT",
+  "author": "David Lopez",
+  "scripts": {
+    "clean": "gulp clean",
+    "clean:all": "gulp clean:all",
+    "compile": "gulp build",
+    "start": "gulp start",
+    "test": "npm run compile:test && mocha --exit dist/test/**/*.spec.js",
+    "tslint": "tslint -p tsconfig.json -t verbose",
+    "tslint:test": "tslint -p tsconfig.spec.json -t verbose"
+  },
+  "dependencies": {
+    "@yggdrasil/mvc": "canary",
+    "@yggdrasil/startup": "canary",
+    "bootstrap": "^4.0.0",
+    "hbs": "^4.0.1",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "@yggdrasil/devs": "canary",
+    "@yggdrasil/testing": "canary"
+  }
+}

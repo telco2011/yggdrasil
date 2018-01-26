@@ -1,0 +1,12 @@
+nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
+  a.navbar-brand(href="/views/home") Yggdrasil
+  button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation")
+    span.navbar-toggler-icon
+  #navbarsExampleDefault.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto
+      li.nav-item(class=(title === 'Home') ? 'active' : undefined)
+        a.nav-link(href="/views/home")
+          | Home
+          span.sr-only (current)
+      li.nav-item(class=(title === 'Contact') ? 'active' : undefined)
+        a.nav-link(href="/views/contact") Contact

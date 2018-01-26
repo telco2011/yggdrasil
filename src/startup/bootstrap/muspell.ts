@@ -35,6 +35,17 @@ export interface IBootstrapRoute {
   message?: string;
 }
 
+export enum EViewEngine {
+  PUG = 'pug',
+  HANDLEBARS = 'hbs'
+}
+
+export interface IYggdrasilOptions {
+  views: {
+    view_engine: EViewEngine;
+  }
+}
+
 /**
  * Abstract class to extend by application to initialise the server.
  *
@@ -71,8 +82,8 @@ export abstract class Bootstrap {
    */
   // TODO: Review this tslint
   // tslint:disable-next-line
-  public async bootstrap(port: number, hostname?: string, callback?: Function): Promise<http.Server> {
-    await this.initialize();
+  public async bootstrap(port: number, options?: IYggdrasilOptions, hostname?: string, callback?: Function): Promise<http.Server> {
+    await this.initialize(options);
     this.app.set('protocol', (process.env.PROTOCOL || 'http'));
     this.app.set('hostname', (hostname || 'localhost'));
     this.app.set('port', port);
@@ -82,7 +93,14 @@ export abstract class Bootstrap {
   /**
    * Async method that initialise all starting process.
    */
-  public async initialize() {
+  public async initialize(options?: IYggdrasilOptions) {
+
+    let yggdrailsOptions = {
+      views: {
+        view_engine: options.views.view_engine || EViewEngine.PUG
+      }
+    };
+
     /** Creates expressjs application */
     this.app = express();
 
@@ -114,18 +132,7 @@ export abstract class Bootstrap {
     this.printRoutes(monitoringRouter, '/monitoring', 'Print Monitoring Routes');
 
     /** Add view routes */
-    this.bootstrapLogger.debug(`Configure view routes.`);
-    const publicDir = `${Utils.appRootPath}/dist/public`;
-    const viewsDir = `${Utils.appRootPath}/dist/views`;
-    this.bootstrapLogger.debug(`Public folder at ${publicDir}. Views folder at ${viewsDir}.`);
-    this.app.set('views', viewsDir);
-    this.bootstrapLogger.debug(`Set 'pug' as html template`);
-    this.app.set('view engine', 'pug');
-    this.bootstrapLogger.debug('Configure sass.');
-    this.app.use(sass({ src: publicDir, dest: publicDir }));
-    this.app.use(flash());
-    this.bootstrapLogger.debug('Configure static server.');
-    this.app.use(express.static(publicDir, { maxAge: 31557600000 }));
+    await this.configureViews(yggdrailsOptions);
     await this.routes(routesRouter);
     this.app.use('/views', routesRouter);
     this.printRoutes(routesRouter, '/views', 'Print View Routes');
@@ -193,6 +200,25 @@ export abstract class Bootstrap {
   private configureMonitoring(router: express.Router, session: SessionHandler) {
     this.bootstrapLogger.info('Configure monitoring API routes');
     const monitoring = new Monitoring(router, session);
+  }
+
+  private configureViews(options: IYggdrasilOptions) {
+    this.bootstrapLogger.debug(`Configure view routes.`);
+    const publicDir = `${Utils.appRootPath}/dist/public`;
+    const viewsDir = `${Utils.appRootPath}/dist/views`;
+    this.bootstrapLogger.debug(`Public folder at ${publicDir}. Views folder at ${viewsDir}.`);
+    this.app.set('views', viewsDir);
+    this.bootstrapLogger.debug(`Set 'pug' as html template`);
+    if (options && options.views && options.views.view_engine) {
+      this.app.set('view engine', options.views.view_engine);
+    } else {
+      this.app.set('view engine', EViewEngine.PUG);
+    }
+    this.bootstrapLogger.debug('Configure sass.');
+    this.app.use(sass({ src: publicDir, dest: publicDir }));
+    this.app.use(flash());
+    this.bootstrapLogger.debug('Configure static server.');
+    this.app.use(express.static(publicDir, { maxAge: 31557600000 }));
   }
 
   /**

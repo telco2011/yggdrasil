@@ -1,7 +1,7 @@
 {
-  "name": "simple-application",
+  "name": "pug-simple-application",
   "version": "1.0.0",
-  "description": "Simple application built using @yggdrasil architecture.",
+  "description": "Simple application built using @yggdrasil architecture and 'pug' view template.",
   "license": "MIT",
   "author": "David Lopez",
   "scripts": {
