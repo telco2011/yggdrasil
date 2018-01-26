@@ -212,23 +212,23 @@ export abstract class Bootstrap {
     if (options && options.views && options.views.view_engine) {
       if (options.views.view_engine === EViewEngine.HANDLEBARS) {
         // TODO: Review hbs configuration
-        let hbs = require('hbs');
+        const hbs = require('hbs');
         hbs.registerPartials(`${viewsDir}/partials`);
-        let blocks = {};
+        const blocks = {};
 
         hbs.registerHelper('extend', (name, context) => {
-            let block = blocks[name];
-            if (!block) {
-                block = blocks[name] = [];
-            }
+          let block = blocks[name];
+          if (!block) {
+            block = blocks[name] = [];
+          }
 
-           block.push(context.fn(this));
+          block.push(context.fn(this));
         });
         hbs.registerHelper('block', (name) => {
-            let val = (blocks[name] || []).join('\n');
+          const val = (blocks[name] || []).join('\n');
 
-            blocks[name] = [];
-            return val;
+          blocks[name] = [];
+          return val;
         });
       }
       this.app.set('view engine', options.views.view_engine);
