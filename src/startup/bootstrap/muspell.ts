@@ -43,7 +43,7 @@ export enum EViewEngine {
 export interface IYggdrasilOptions {
   views: {
     view_engine: EViewEngine;
-  }
+  };
 }
 
 /**
@@ -95,7 +95,7 @@ export abstract class Bootstrap {
    */
   public async initialize(options?: IYggdrasilOptions) {
 
-    let yggdrailsOptions = {
+    const yggdrailsOptions = {
       views: {
         view_engine: options.views.view_engine || EViewEngine.PUG
       }
@@ -210,6 +210,27 @@ export abstract class Bootstrap {
     this.app.set('views', viewsDir);
     this.bootstrapLogger.debug(`Set 'pug' as html template`);
     if (options && options.views && options.views.view_engine) {
+      if (options.views.view_engine === EViewEngine.HANDLEBARS) {
+        // TODO: Review hbs configuration
+        let hbs = require('hbs');
+        hbs.registerPartials(`${viewsDir}/partials`);
+        let blocks = {};
+
+        hbs.registerHelper('extend', (name, context) => {
+            let block = blocks[name];
+            if (!block) {
+                block = blocks[name] = [];
+            }
+
+           block.push(context.fn(this));
+        });
+        hbs.registerHelper('block', (name) => {
+            let val = (blocks[name] || []).join('\n');
+
+            blocks[name] = [];
+            return val;
+        });
+      }
       this.app.set('view engine', options.views.view_engine);
     } else {
       this.app.set('view engine', EViewEngine.PUG);

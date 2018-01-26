@@ -37,7 +37,7 @@ export class Gulpfile {
     gulp.watch(['src/**/*.ts'], ['compile']);
     gulp.watch(['src/public/js/**/*.js'], ['copyJs']);
     gulp.watch(['src/public/scss/**/*.scss'], ['copySass']);
-    gulp.watch(['src/views/**/*.pug'], ['copyViews']);
+    gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], ['copyViews']);
   }
 
   @Task()
