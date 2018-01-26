@@ -151,8 +151,11 @@ export abstract class Bootstrap {
     this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
       if (err instanceof TypeError) {
         this.bootstrapLogger.error(err.stack);
-        res.status(500).send({ status: 500, message: 'internal error', type: 'internal', TypeError: { message: err.message, stack: err.stack} });
+        res.status(500).send({ status: 500, message: 'internal error', type: 'controled', TypeError: { message: err.message, stack: err.stack} });
       } else {
+        if (err.message && err.message === `Cannot find module 'pug'`) {
+          this.bootstrapLogger.error('Not using the correct view engine. Review view engine configuration.');
+        }
         this.bootstrapLogger.error(err);
         res.status(500).send({ status: 500, message: 'internal error', type: 'internal', error: err.message });
       }
@@ -210,27 +213,6 @@ export abstract class Bootstrap {
     this.app.set('views', viewsDir);
     this.bootstrapLogger.debug(`Set 'pug' as html template`);
     if (options && options.views && options.views.view_engine) {
-      if (options.views.view_engine === EViewEngine.HANDLEBARS) {
-        // TODO: Review hbs configuration
-        const hbs = require('hbs');
-        hbs.registerPartials(`${viewsDir}/partials`);
-        const blocks = {};
-
-        hbs.registerHelper('extend', (name, context) => {
-          let block = blocks[name];
-          if (!block) {
-            block = blocks[name] = [];
-          }
-
-          block.push(context.fn(this));
-        });
-        hbs.registerHelper('block', (name) => {
-          const val = (blocks[name] || []).join('\n');
-
-          blocks[name] = [];
-          return val;
-        });
-      }
       this.app.set('view engine', options.views.view_engine);
     } else {
       this.app.set('view engine', EViewEngine.PUG);
