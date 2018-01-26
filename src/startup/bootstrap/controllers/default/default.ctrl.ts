@@ -14,7 +14,7 @@ export class DefaultCtrl {
   public getDefault = (req: Request, res: Response) => {
     this.logger.debug(`getDefault response.`);
 
-    res.sendFile(__dirname + '/default.html');
+    res.sendFile(__dirname + '/defaultHtml/default.html');
   }
 
 }
