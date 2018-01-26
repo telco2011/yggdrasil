@@ -1,7 +1,7 @@
 import { Gulpclass, Task, SequenceTask } from 'gulpclass/Decorators';
 import * as gulp from 'gulp';
 import * as ts from 'gulp-typescript';
-import * as tslint from 'gulp-tslint';
+import * as gulpTslint from 'gulp-tslint';
 import * as sass from 'gulp-sass';
 import * as nodemon from 'gulp-nodemon';
 

@@ -5,15 +5,10 @@
   "license": "MIT",
   "author": "David Lopez",
   "scripts": {
-    "clean": "rm -rf dist logs",
-    "clean:all": "npm run clean && rm -rf node_modules",
-    "compile": "npm run clean && npm run tslint && gulp typescript",
-    "compile:test": "npm run clean && npm run tslint:test && tsc -p tsconfig.spec.json",
-    "compile:watch": "npm run tslint && gulp watch",
-    "copy:views": "cp -R src/views dist/views",
-    "ignition": "concurrently -c grey,blue -n compile,nodemon \"npm run compile:watch\" \"nodemon --watch dist dist/ignition.js\"",
-    "start": "npm test && npm run start:dev",
-    "start:dev": "npm run compile && npm run copy:views && gulp && npm run ignition",
+    "clean": "gulp clean",
+    "clean:all": "gulp clean:all",
+    "compile": "gulp build",
+    "start": "gulp start",
     "test": "npm run compile:test && mocha --exit dist/test/**/*.spec.js",
     "tslint": "tslint -p tsconfig.json -t verbose",
     "tslint:test": "tslint -p tsconfig.spec.json -t verbose"
@@ -27,6 +22,6 @@
   },
   "devDependencies": {
     "@yggdrasil/devs": "canary",
-    "@yggdrasil/testing": "canary",
+    "@yggdrasil/testing": "canary"
   }
 }
