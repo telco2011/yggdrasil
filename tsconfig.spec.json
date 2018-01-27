@@ -16,7 +16,8 @@
   },
   "include": [
     "*.ts",
-    "**/*.ts"
+    "**/*.ts",
+    "**/*.spec.ts"
   ],
   "exclude": [
     "./samples"

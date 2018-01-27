@@ -63,6 +63,9 @@ export abstract class Bootstrap {
   // TODO: Review this tslint
   // tslint:disable-next-line
   public async bootstrap(port: number, options?: IYggdrasilOptions, hostname?: string, callback?: Function): Promise<http.Server> {
+    if (port <= 0) {
+      throw Error('Port number must be greater than 0');
+    }
     await this.initialize(options);
     this.app.set('protocol', (process.env.PROTOCOL || 'http'));
     this.app.set('hostname', (hostname || 'localhost'));
@@ -170,6 +173,11 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
+  /**
+   * Check yggdrasiloptions before start to load the application.
+   *
+   * @param options IYggdrasilOptions
+   */
   private checkInitializingOptions(options: IYggdrasilOptions): IYggdrasilOptions {
 
     // Default options
@@ -368,6 +376,9 @@ export abstract class Bootstrap {
     }
   }
 
+  /**
+   * Get Banner information from figlet module
+   */
   private getBanner(): Promise<any> {
     return new Promise((resolve, reject) => {
       figlet.text('Yggdrasil', {
@@ -383,7 +394,10 @@ export abstract class Bootstrap {
     });
   }
 
-  private async printBanner() {
+  /**
+   * Print a cool banner in the logger.
+   */
+  private async printBanner(): Promise<void> {
     const preMessage = 'Starting @yggdrasil architecture';
     const postMessage = `@yggdrasil version - ${this.yggdrasilVersion}`;
     await this.getBanner()
