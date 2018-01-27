@@ -36,8 +36,8 @@ export interface IBootstrapRoute {
 }
 
 export enum EViewEngine {
-  PUG = 'PUG',
-  HANDLEBARS = 'HBS'
+  PUG = 'pug',
+  HANDLEBARS = 'hbs'
 }
 
 export enum EApplicationType {
@@ -104,6 +104,9 @@ export abstract class Bootstrap {
    */
   public async initialize(options?: IYggdrasilOptions) {
 
+    /** Print cool yggdrasil banner */
+    await this.printBanner();
+
     // TODO: move this logic to checkenv
     const yggdrasilOptions = await this.checkInitializingOptions(options);
 
@@ -118,9 +121,6 @@ export abstract class Bootstrap {
 
     /** Session object */
     this.session = new SessionHandler();
-
-    /** Print cool yggdrasil banner */
-    await this.printBanner();
 
     /** Configures bootstrap */
     await this.internalConfig();
@@ -220,9 +220,10 @@ export abstract class Bootstrap {
         break;
       case EApplicationType.WEB:
       case EApplicationType.HYBRID:
-        if (options.application.views.view_engine == null) {
+        if (options.application.views == null) {
           throw Error(`If application type is not '${EApplicationType.REST}', views.view_engine option must be filled up.`);
         }
+        yggdrasilOptions = options;
         break;
       default:
         this.bootstrapLogger.info('Initializations options are correct.');
