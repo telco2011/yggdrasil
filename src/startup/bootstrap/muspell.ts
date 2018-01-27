@@ -104,17 +104,8 @@ export abstract class Bootstrap {
    */
   public async initialize(options?: IYggdrasilOptions) {
 
-    const yggdrailsOptions = {
-      application: {
-        type: options.application.type || EApplicationType.REST,
-        views: {
-          view_engine: options.application.views.view_engine || EViewEngine.PUG
-        }
-      }
-    };
-
     // TODO: move this logic to checkenv
-    this.checkInitializingOptions(yggdrailsOptions);
+    const yggdrasilOptions = await this.checkInitializingOptions(options);
 
     /** Creates expressjs application */
     this.app = express();
@@ -208,17 +199,38 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
-  private checkInitializingOptions(options: IYggdrasilOptions) {
+  private checkInitializingOptions(options: IYggdrasilOptions): IYggdrasilOptions {
+
+    // Default options
+    let yggdrasilOptions: IYggdrasilOptions = {
+      application: {
+        type: EApplicationType.REST
+      }
+    };
+
+    if (!options) {
+      return yggdrasilOptions;
+    }
+
     switch (options.application.type) {
       case EApplicationType.REST:
         if (options.application.views.view_engine) {
-          throw Error('If application type is REST, views options must be delete.');
+          throw Error(`If application type is '${EApplicationType.REST}', views options must be delete.`);
+        }
+        break;
+      case EApplicationType.WEB:
+      case EApplicationType.HYBRID:
+        if (options.application.views.view_engine == null) {
+          throw Error(`If application type is not '${EApplicationType.REST}', views.view_engine option must be filled up.`);
         }
         break;
       default:
         this.bootstrapLogger.info('Initializations options are correct.');
+        yggdrasilOptions = options;
         break;
     }
+
+    return yggdrasilOptions;
   }
 
   /**
