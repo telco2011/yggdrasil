@@ -36,14 +36,14 @@ export interface IBootstrapRoute {
 }
 
 export enum EViewEngine {
-  PUG = 'pug',
-  HANDLEBARS = 'hbs'
+  PUG = 'PUG',
+  HANDLEBARS = 'HBS'
 }
 
 export enum EApplicationType {
-  REST = 'rest',
-  WEB = 'web',
-  HYBRID = 'hybrid'
+  REST = 'REST',
+  WEB = 'WEB',
+  HYBRID = 'HYBRID'
 }
 
 export interface IYggdrasilOptions {
