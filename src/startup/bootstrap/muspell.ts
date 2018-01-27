@@ -137,17 +137,17 @@ export abstract class Bootstrap {
     this.app.use('/monitoring', monitoringRouter);
     this.printRoutes(monitoringRouter, '/monitoring', 'Print Monitoring Routes');
 
-    this.bootstrapLogger.info(`Application type ${options.application.type}.`);
+    this.bootstrapLogger.info(`Application type ${yggdrasilOptions.application.type}.`);
     /** Add view routes */
-    if (options.application.type === EApplicationType.WEB || options.application.type === EApplicationType.HYBRID) {
-      await this.configureViews(yggdrailsOptions);
+    if (yggdrasilOptions.application.type === EApplicationType.WEB || yggdrasilOptions.application.type === EApplicationType.HYBRID) {
+      await this.configureViews(yggdrasilOptions);
       await this.routes(routesRouter);
       this.app.use('/views', routesRouter);
       this.printRoutes(routesRouter, '/views', 'Print View Routes');
     }
 
     /** Add api routes */
-    if (options.application.type === EApplicationType.REST || options.application.type === EApplicationType.HYBRID) {
+    if (yggdrasilOptions.application.type === EApplicationType.REST || yggdrasilOptions.application.type === EApplicationType.HYBRID) {
       const apiResult = await this.api(APIRouter);
       this.app.use(apiResult.prefix, APIRouter);
       this.printRoutes(APIRouter, apiResult.prefix, (apiResult.message || 'Print API Routes'));
