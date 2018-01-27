@@ -1,6 +1,6 @@
 {
-  "name": "yggdrasil",
-  "version": "0.0.0",
+  "name": "yggdrasil-arch",
+  "version": "0.1.0",
   "description": "@yggdrasil architecture.",
   "license": "MIT",
   "author": "David Lopez",

@@ -7,8 +7,14 @@ import * as nodemon from 'gulp-nodemon';
 
 import * as del from 'del';
 
+export {
+  Gulpclass, Task, SequenceTask,
+  gulp, ts,
+  YggdrasilGulpfile
+};
+
 @Gulpclass()
-export abstract class YggdrasilGulpfile {
+abstract class YggdrasilGulpfile {
 
   @SequenceTask()
   protected start() {
