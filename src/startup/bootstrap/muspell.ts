@@ -11,6 +11,7 @@ import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as Q from 'q';
 import * as figlet from 'figlet';
+
 /** YGGDRASIL imports */
 import {
   MorganUtils, IMorganRotateOptions, FileLogger,
@@ -20,40 +21,10 @@ import {
 } from '../../core';
 import { SessionHandler } from '../../security';
 
+import { IBootstrapRoute, IYggdrasilOptions } from './interfaces/muspell.interfaces';
+import { EApplicationType, EViewEngine } from './enums/muspell.enums';
+
 import { DefaultCtrl } from './controllers/default/default.ctrl';
-
-/**
- * Interface for response when the application configures @method api and @method routes methods.
- *
- * @interface IBootstrapRoute
- */
-export interface IBootstrapRoute {
-  /** API prefix */
-  prefix: string;
-
-  /** Optional message to show in log */
-  message?: string;
-}
-
-export enum EViewEngine {
-  PUG = 'pug',
-  HANDLEBARS = 'hbs'
-}
-
-export enum EApplicationType {
-  REST = 'REST',
-  WEB = 'WEB',
-  HYBRID = 'HYBRID'
-}
-
-export interface IYggdrasilOptions {
-  application?: {
-    type: EApplicationType;
-    views?: {
-      view_engine: EViewEngine;
-    }
-  };
-}
 
 /**
  * Abstract class to extend by application to initialise the server.
