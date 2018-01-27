@@ -188,6 +188,11 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
+  /**
+   * Configure default routes to show default @yggdrasil html
+   *
+   * @param router express.Router
+   */
   private configureDefaults(router: express.Router) {
     this.bootstrapLogger.info('Configure default routes');
     const defaultCtrl = new DefaultCtrl();
@@ -205,6 +210,11 @@ export abstract class Bootstrap {
     const monitoring = new Monitoring(router, session);
   }
 
+  /**
+   * Configure views engine
+   *
+   * @param options IYggdrasilOptions
+   */
   private configureViews(options: IYggdrasilOptions) {
     this.bootstrapLogger.debug(`Configure view routes.`);
     const publicDir = `${Utils.appRootPath}/dist/public`;
