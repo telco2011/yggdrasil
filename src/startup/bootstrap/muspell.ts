@@ -40,9 +40,18 @@ export enum EViewEngine {
   HANDLEBARS = 'hbs'
 }
 
+export enum EApplicationType {
+  REST = 'rest',
+  WEB = 'web',
+  HYBRID = 'hybrid'
+}
+
 export interface IYggdrasilOptions {
-  views: {
-    view_engine: EViewEngine;
+  application?: {
+    type: EApplicationType;
+    views?: {
+      view_engine: EViewEngine;
+    }
   };
 }
 
@@ -96,10 +105,16 @@ export abstract class Bootstrap {
   public async initialize(options?: IYggdrasilOptions) {
 
     const yggdrailsOptions = {
-      views: {
-        view_engine: options.views.view_engine || EViewEngine.PUG
+      application: {
+        type: options.application.type || EApplicationType.REST,
+        views: {
+          view_engine: options.application.views.view_engine || EViewEngine.PUG
+        }
       }
     };
+
+    // TODO: move this logic to checkenv
+    this.checkInitializingOptions(yggdrailsOptions);
 
     /** Creates expressjs application */
     this.app = express();
@@ -131,16 +146,21 @@ export abstract class Bootstrap {
     this.app.use('/monitoring', monitoringRouter);
     this.printRoutes(monitoringRouter, '/monitoring', 'Print Monitoring Routes');
 
+    this.bootstrapLogger.info(`Application type ${options.application.type}.`);
     /** Add view routes */
-    await this.configureViews(yggdrailsOptions);
-    await this.routes(routesRouter);
-    this.app.use('/views', routesRouter);
-    this.printRoutes(routesRouter, '/views', 'Print View Routes');
+    if (options.application.type === EApplicationType.WEB || options.application.type === EApplicationType.HYBRID) {
+      await this.configureViews(yggdrailsOptions);
+      await this.routes(routesRouter);
+      this.app.use('/views', routesRouter);
+      this.printRoutes(routesRouter, '/views', 'Print View Routes');
+    }
 
     /** Add api routes */
-    const apiResult = await this.api(APIRouter);
-    this.app.use(apiResult.prefix, APIRouter);
-    this.printRoutes(APIRouter, apiResult.prefix, (apiResult.message || 'Print API Routes'));
+    if (options.application.type === EApplicationType.REST || options.application.type === EApplicationType.HYBRID) {
+      const apiResult = await this.api(APIRouter);
+      this.app.use(apiResult.prefix, APIRouter);
+      this.printRoutes(APIRouter, apiResult.prefix, (apiResult.message || 'Print API Routes'));
+    }
 
     /** Add DEFAULTS routes */
     await this.configureDefaults(defaultsRouter);
@@ -188,6 +208,19 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
+  private checkInitializingOptions(options: IYggdrasilOptions) {
+    switch (options.application.type) {
+      case EApplicationType.REST:
+        if (options.application.views.view_engine) {
+          throw Error('If application type is REST, views options must be delete.');
+        }
+        break;
+      default:
+        this.bootstrapLogger.info('Initializations options are correct.');
+        break;
+    }
+  }
+
   /**
    * Configure default routes to show default @yggdrasil html
    *
@@ -221,9 +254,9 @@ export abstract class Bootstrap {
     const viewsDir = `${Utils.appRootPath}/dist/views`;
     this.bootstrapLogger.debug(`Public folder at ${publicDir}. Views folder at ${viewsDir}.`);
     this.app.set('views', viewsDir);
-    if (options && options.views && options.views.view_engine) {
-      this.bootstrapLogger.debug(`Set '${options.views.view_engine}' as view engine`);
-      this.app.set('view engine', options.views.view_engine);
+    if (options && options.application && options.application.views && options.application.views.view_engine) {
+      this.bootstrapLogger.debug(`Set '${options.application.views.view_engine}' as view engine`);
+      this.app.set('view engine', options.application.views.view_engine);
     } else {
       this.bootstrapLogger.debug(`Set 'pug' as default view engine`);
       this.app.set('view engine', EViewEngine.PUG);

@@ -10,11 +10,11 @@ import * as del from 'del';
 import { YggdrasilGulpfile } from './gulp.abstract.class';
 
 @Gulpclass()
-export class Gulpfile extends YggdrasilGulpfile{
+export class GulpTestfile extends YggdrasilGulpfile {
 
-  private tsProject = ts.createProject('tsconfig.json');
+  private tsProject = ts.createProject('tsconfig.spec.json');
 
-  @Task('compile')
+  @Task('compile:test')
   private typescript() {
     return this.tsProject.src()
         .pipe(this.tsProject())
