@@ -207,6 +207,7 @@ export abstract class Bootstrap {
         if (options.application.views != null && options.application.views.view_engine) {
           throw Error(`If application type is '${EApplicationType.REST}', views options must be delete.`);
         }
+        result = { ...yggdrasilOptions, ...options };
         break;
       case EApplicationType.WEB:
       case EApplicationType.HYBRID:

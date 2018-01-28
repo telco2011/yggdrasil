@@ -41,17 +41,13 @@ export class MongoDBRepository {
   }
 
   public async createConnection(options?: ConnectionOptions) {
-    this.logger.debug('TYPE OF CONNECTION => ');
-    console.log(typeof options);
-    /*if (options) {
-      this.logger.debug('Merging options');
-      const mergeOptions = { ...this.defaultOptions, ...options };
-      this.defaultOptions = mergeOptions;
-    } else {
+    let mergeOptions: ConnectionOptions;
+    if (!options) {
       this.logger.debug(`No 'MongoConnectionOptions' subministrated. Use default options`);
-    }*/
-    this.logger.info(`DB config options: ${this.defaultOptions}`);
-    this.connection = await createConnection({ ...this.defaultOptions });
+    }
+    mergeOptions = { ...this.defaultOptions, ...options } as MongoConnectionOptions;
+    this.logger.info(`DB config options: ${JSON.stringify(mergeOptions)}`);
+    this.connection = await createConnection(mergeOptions);
   }
 
 }
