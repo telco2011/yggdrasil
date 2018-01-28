@@ -23,6 +23,7 @@ import { SessionHandler } from '../../security';
 
 import { IBootstrapRoute, IYggdrasilOptions } from './interfaces/muspell.interfaces';
 import { EApplicationType, EViewEngine } from './enums/muspell.enums';
+import { CallbackFunctionType } from './types/muspell.types';
 
 import { DefaultCtrl } from './controllers/default/default.ctrl';
 
@@ -50,19 +51,18 @@ export abstract class Bootstrap {
   /** Default constructor */
   constructor() {
     /** Initialize boostrap logger */
-    this.bootstrapLogger = new FileLogger('bootstrap');
+    this.bootstrapLogger = new FileLogger(Bootstrap.name);
   }
 
   /**
    * Method to start the appication. It is called by the application to run the server.
    *
-   * @param port Port used by expressjs listener.
-   * @param hostname Hostname used by expressjs listener.
+   * @param port Port used by expressjs listener. It must be greater than 0.
+   * @param options Object that implements IYggdrasilOptions to configure yggdrasil application.
+   * @param hostname Hostname used by expressjs listener. Default 'localhost'.
    * @param callback Callback function.
    */
-  // TODO: Review this tslint
-  // tslint:disable-next-line
-  public async bootstrap(port: number, options?: IYggdrasilOptions, hostname?: string, callback?: Function): Promise<http.Server> {
+  public async bootstrap(port: number, options?: IYggdrasilOptions, hostname?: string, callback?: CallbackFunctionType): Promise<http.Server> {
     if (port <= 0) {
       throw Error('Port number must be greater than 0');
     }
@@ -263,9 +263,7 @@ export abstract class Bootstrap {
   /**
    * Callback function to print server start information.
    */
-  // TODO: Review this tslint
-  // tslint:disable-next-line
-  private bootstrapCB(): Function {
+  private bootstrapCB(): CallbackFunctionType {
     const info = {
       protocol: this.app.get('protocol'),
       hostname: this.app.get('hostname'),

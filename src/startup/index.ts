@@ -15,5 +15,8 @@ export {
   IBootstrapRoute, IYggdrasilOptions,
 
   // Enums
-  EApplicationType, EViewEngine
+  EApplicationType, EViewEngine,
+
+  // Types
+  CallbackFunctionType
 } from './bootstrap';
