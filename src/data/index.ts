@@ -1,3 +1,1 @@
-import { RepositoryBase } from './repository';
-
-export { RepositoryBase };
+export * from './repository';
