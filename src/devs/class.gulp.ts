@@ -108,12 +108,13 @@ export class YggdrasilGulpfile {
   }
 
   /** Non Testing Zone */
-  @Task('tslint')
-  private tsLint() {
-    return gulp.src("source.ts")
-                .pipe(gulpTslint())
-                .pipe(gulpTslint.report())
-  }
+  // TODO: Review this method
+  // @Task('tslint')
+  // private tsLint() {
+  //   return gulp.src(['src/**/*.ts'])
+  //               .pipe(gulpTslint())
+  //               .pipe(gulpTslint.report());
+  // }
 
   @Task('compile')
   private typescript() {
