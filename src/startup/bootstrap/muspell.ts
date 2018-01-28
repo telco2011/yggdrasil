@@ -20,6 +20,7 @@ import {
   Utils
 } from '../../core';
 import { SessionHandler } from '../../security';
+import { MongoDBRepository } from '../../data/mongoDBRepository';
 
 import { IBootstrapRoute, IYggdrasilOptions } from './interfaces/muspell.interfaces';
 import { EApplicationType, EViewEngine } from './enums/muspell.enums';
@@ -45,6 +46,8 @@ export abstract class Bootstrap {
 
   /** Internal logger */
   private bootstrapLogger: FileLogger;
+
+  private repository: MongoDBRepository;
 
   /** Session */
   private session: SessionHandler;
@@ -109,6 +112,7 @@ export abstract class Bootstrap {
     /** Configures database */
     // TODO: Support other databases
     // await this.configureMongoDB();
+    this.repository = new MongoDBRepository();
 
     /** Add MONITORING routes */
     await this.configureMonitoring(monitoringRouter, this.session);
@@ -126,7 +130,7 @@ export abstract class Bootstrap {
 
     /** Add api routes */
     if (yggdrasilOptions.application.type === EApplicationType.REST || yggdrasilOptions.application.type === EApplicationType.HYBRID) {
-      const apiResult = await this.api(APIRouter);
+      const apiResult = await this.api(APIRouter, this.repository);
       this.app.use(apiResult.prefix, APIRouter);
       this.printRoutes(APIRouter, apiResult.prefix, (apiResult.message || 'Print API Routes'));
     }
@@ -154,7 +158,7 @@ export abstract class Bootstrap {
   /**
    * Method to override to configure application's routes.
    */
-  protected routes(router: express.Router) {
+  protected routes(router: express.Router, repository?: MongoDBRepository) {
     this.bootstrapLogger.info('Non Routes implemented');
   }
 
@@ -163,7 +167,7 @@ export abstract class Bootstrap {
    *
    * @param router Router passed to application to configure their api routes.
    */
-  protected api(router: express.Router): IBootstrapRoute {
+  protected api(router: express.Router, repository?: MongoDBRepository): IBootstrapRoute {
     this.bootstrapLogger.info('Non API routes implemented');
     return { prefix: '/non-api-routes', message: 'Non API routes implemented' };
   }
@@ -329,6 +333,7 @@ export abstract class Bootstrap {
   /**
    * Configures mongoDB access.
    */
+  // TODO: Review if this method is unnecessary
   private configureMongoDB() {
     /** Configure database */
     let mongodbURI;
