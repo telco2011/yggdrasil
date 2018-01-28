@@ -28,6 +28,11 @@ export class YggdrasilGulpfile {
       return ['clean', 'copyAssets', 'compile'];
   }
 
+  @SequenceTask('build:test')
+  public buildTest() {
+      return ['clean', 'copyAssets', 'compile:test'];
+  }
+
   @SequenceTask()
   public copyAssets() {
     return ['copySass', 'copyJs', 'copyViews', 'copyStatics'];
@@ -35,7 +40,7 @@ export class YggdrasilGulpfile {
 
   @Task('watch')
   public watch() {
-    gulp.watch(['src/**/*.ts'], ['compile']);
+    gulp.watch(['src/**/*.ts'], ['compile', 'nodemon']);
     gulp.watch(['src/public/js/**/*.js'], ['copyJs']);
     gulp.watch(['src/public/scss/**/*.scss'], ['copySass']);
     gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], ['copyViews']);
@@ -44,8 +49,7 @@ export class YggdrasilGulpfile {
   @Task()
   public nodemon() {
     return nodemon({
-        script: 'dist/ignition.js',
-        tasks: ['watch']
+        script: 'dist/ignition.js'
       });
   }
 
@@ -104,6 +108,13 @@ export class YggdrasilGulpfile {
   }
 
   /** Non Testing Zone */
+  @Task('tslint')
+  private tsLint() {
+    return gulp.src("source.ts")
+                .pipe(gulpTslint())
+                .pipe(gulpTslint.report())
+  }
+
   @Task('compile')
   private typescript() {
     return this.tsProject.src()

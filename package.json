@@ -15,7 +15,7 @@
     "copy:tslint": "cp ./src/core/tslint.json ./lib/core",
     "doc": "typedoc --tsconfig tsconfig.json --name @YGGDRASIL --out documentation --mode modules src",
     "lerna:publish": "lerna publish",
-    "lerna:publish:canary": "lerna publish --canary=alpha",
+    "lerna:publish:canary": "lerna publish --canary=alpha --yes",
     "publish": "npm run build && npm run lerna:publish:canary",
     "test": "rm -rf coverage .nyc_output && npm run tslint:test && nyc --require ts-node/register mocha src/**/**/*.spec.ts",
     "tslint": "tslint -p tsconfig.json -c ./src/core/tslint.json -t verbose",
