@@ -20,7 +20,7 @@ import {
   Utils
 } from '../../core';
 import { SessionHandler } from '../../security';
-import { MongoDBRepository } from '../../data/mongoDBRepository';
+import { YggdrasilRepositoryFactory, Repository } from '../../data';
 
 import { IBootstrapRoute, IYggdrasilOptions } from './interfaces/muspell.interfaces';
 import { EApplicationType, EViewEngine } from './enums/muspell.enums';
@@ -47,7 +47,7 @@ export abstract class Bootstrap {
   /** Internal logger */
   private bootstrapLogger: FileLogger;
 
-  private repository: MongoDBRepository;
+  private repository: Repository;
 
   /** Session */
   private session: SessionHandler;
@@ -112,7 +112,7 @@ export abstract class Bootstrap {
     /** Configures database */
     // TODO: Support other databases
     // await this.configureMongoDB();
-    this.repository = new MongoDBRepository();
+    this.repository = YggdrasilRepositoryFactory.getRepository(yggdrasilOptions.application.database.options);
     await this.repository.createConnection(yggdrasilOptions.application.database.options);
 
     /** Add MONITORING routes */
@@ -160,7 +160,7 @@ export abstract class Bootstrap {
   /**
    * Method to override to configure application's routes.
    */
-  protected routes(router: express.Router, repository?: MongoDBRepository) {
+  protected routes(router: express.Router, repository?: Repository) {
     this.bootstrapLogger.info('Non Routes implemented');
   }
 
@@ -169,7 +169,7 @@ export abstract class Bootstrap {
    *
    * @param router Router passed to application to configure their api routes.
    */
-  protected api(router: express.Router, repository?: MongoDBRepository): IBootstrapRoute {
+  protected api(router: express.Router, repository?: Repository): IBootstrapRoute {
     this.bootstrapLogger.info('Non API routes implemented');
     return { prefix: '/non-api-routes', message: 'Non API routes implemented' };
   }

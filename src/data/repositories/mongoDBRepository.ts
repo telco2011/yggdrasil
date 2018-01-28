@@ -1,17 +1,19 @@
-import { FileLogger } from '../core';
+import { FileLogger } from '../../core';
+import { Repository } from '../repository';
 
-import { Connection, ConnectionOptions, MongoEntityManager, createConnection, getConnection, getMongoManager } from 'typeorm';
+import { Connection, MongoEntityManager, createConnection, getMongoManager } from 'typeorm';
 import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
 
-export class MongoDBRepository {
+export class MongoDBRepository extends Repository {
 
-  private logger: FileLogger;
+  public logger: FileLogger;
 
-  private defaultOptions: ConnectionOptions;
-  private connection: Connection;
-  private manager: MongoEntityManager;
+  public connection: Connection;
+  public manager: MongoEntityManager;
+  public defaultOptions: MongoConnectionOptions;
 
   constructor() {
+    super();
     this.logger = new FileLogger(MongoDBRepository.name);
     this.defaultOptions = {
       type: 'mongodb',
@@ -32,20 +34,16 @@ export class MongoDBRepository {
     };
   }
 
-  public getConnection(): Connection {
-    return getConnection();
-  }
-
-  public getMongoManager(): MongoEntityManager {
+  public getManager(): MongoEntityManager {
     return getMongoManager();
   }
 
-  public async createConnection(options?: ConnectionOptions) {
-    let mergeOptions: ConnectionOptions;
+  public async createConnection(options?: MongoConnectionOptions) {
+    let mergeOptions: MongoConnectionOptions;
     if (!options) {
       this.logger.debug(`No 'MongoConnectionOptions' subministrated. Use default options`);
     }
-    mergeOptions = { ...this.defaultOptions, ...options } as MongoConnectionOptions;
+    mergeOptions = { ...this.defaultOptions, ...options };
     this.logger.info(`DB config options: ${JSON.stringify(mergeOptions)}`);
     this.connection = await createConnection(mergeOptions);
   }
