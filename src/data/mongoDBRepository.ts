@@ -4,15 +4,11 @@ export class MongoDBRepository {
 
   private connection: Connection;
 
-  constructor() {
-    this.createConnection();
-  }
-
   public getConnection(): Connection {
     return getConnection();
   }
 
-  private async createConnection() {
+  public async createConnection() {
     this.connection = await createConnection();
   }
 

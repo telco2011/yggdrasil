@@ -113,6 +113,7 @@ export abstract class Bootstrap {
     // TODO: Support other databases
     // await this.configureMongoDB();
     this.repository = new MongoDBRepository();
+    await this.repository.createConnection();
 
     /** Add MONITORING routes */
     await this.configureMonitoring(monitoringRouter, this.session);
@@ -120,6 +121,7 @@ export abstract class Bootstrap {
     this.printRoutes(monitoringRouter, '/monitoring', 'Print Monitoring Routes');
 
     this.bootstrapLogger.info(`Application type ${yggdrasilOptions.application.type}.`);
+
     /** Add view routes */
     if (yggdrasilOptions.application.type === EApplicationType.WEB || yggdrasilOptions.application.type === EApplicationType.HYBRID) {
       await this.configureViews(yggdrasilOptions);
