@@ -1,3 +1,5 @@
+import { ConnectionOptions } from 'typeorm/connection/ConnectionOptions';
+
 import { EApplicationType, EViewEngine } from '../enums/muspell.enums';
 
 /**
@@ -23,6 +25,9 @@ export interface IYggdrasilOptions {
     type: EApplicationType;
     views?: {
       view_engine: EViewEngine;
+    },
+    database?: {
+      options: ConnectionOptions
     }
   };
 }
