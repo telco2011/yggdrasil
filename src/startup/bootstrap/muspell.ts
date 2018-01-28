@@ -113,7 +113,7 @@ export abstract class Bootstrap {
     // TODO: Support other databases
     // await this.configureMongoDB();
     this.repository = new MongoDBRepository();
-    await this.repository.createConnection();
+    await this.repository.createConnection(yggdrasilOptions.application.database.options);
 
     /** Add MONITORING routes */
     await this.configureMonitoring(monitoringRouter, this.session);

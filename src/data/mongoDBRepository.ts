@@ -1,13 +1,18 @@
-import { Connection, MongoEntityManager, createConnection, getConnection, getMongoManager } from 'typeorm';
+import { FileLogger } from '../core';
+
+import { Connection, ConnectionOptions, MongoEntityManager, createConnection, getConnection, getMongoManager } from 'typeorm';
 import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
 
 export class MongoDBRepository {
 
-  private defaultOptions: MongoConnectionOptions;
+  private logger: FileLogger;
+
+  private defaultOptions: ConnectionOptions;
   private connection: Connection;
   private manager: MongoEntityManager;
 
   constructor() {
+    this.logger = new FileLogger(MongoDBRepository.name);
     this.defaultOptions = {
       type: 'mongodb',
       host: 'localhost',
@@ -35,21 +40,18 @@ export class MongoDBRepository {
     return getMongoManager();
   }
 
-  public async createConnection(options?: MongoConnectionOptions) {
-    if (options) {
-      this.defaultOptions = options;
-    }
-    this.connection = await createConnection({
-        type: this.defaultOptions.type,
-        host: this.defaultOptions.host,
-        port: this.defaultOptions.port,
-        database: this.defaultOptions.database,
-        synchronize: this.defaultOptions.synchronize,
-        logging: this.defaultOptions.logging,
-        entities: this.defaultOptions.entities,
-        subscribers: this.defaultOptions.subscribers,
-        migrations: this.defaultOptions.migrations
-    });
+  public async createConnection(options?: ConnectionOptions) {
+    this.logger.debug('TYPE OF CONNECTION => ');
+    console.log(typeof options);
+    /*if (options) {
+      this.logger.debug('Merging options');
+      const mergeOptions = { ...this.defaultOptions, ...options };
+      this.defaultOptions = mergeOptions;
+    } else {
+      this.logger.debug(`No 'MongoConnectionOptions' subministrated. Use default options`);
+    }*/
+    this.logger.info(`DB config options: ${this.defaultOptions}`);
+    this.connection = await createConnection({ ...this.defaultOptions });
   }
 
 }
