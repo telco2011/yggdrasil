@@ -1,6 +1,6 @@
 {
   "name": "@yggdrasil/startup",
-  "version": "0.1.0-alpha.a2d1264d",
+  "version": "0.1.0-alpha.72251c0a",
   "author": "David Lopez",
   "license": "MIT",
   "dependencies": {
@@ -10,15 +10,15 @@
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
-    "express-flash": "0.0.2",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
+    "express-flash": "0.0.2",
     "express-list-routes": "^0.1.4",
-    "node-sass-middleware": "^0.11.0",
     "figlet": "^1.2.0",
     "lusca": "^1.5.2",
     "mongoose": "^4.13.9",
     "morgan": "^1.9.0",
+    "node-sass-middleware": "^0.11.0",
     "q": "^1.5.1",
     "require-env": "^0.2.1"
   }

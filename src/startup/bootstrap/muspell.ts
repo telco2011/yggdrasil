@@ -39,12 +39,16 @@ export abstract class Bootstrap {
 
   /** Internal expressjs application */
   private app: express.Application;
+
   /** Internal router */
   private router: express.Router;
+
   /** Internal logger */
   private bootstrapLogger: FileLogger;
+
   /** Session */
   private session: SessionHandler;
+
   /** Yggdrasil version */
   private yggdrasilVersion: string = Utils.getYggdrasilVersion();
 
