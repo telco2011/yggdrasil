@@ -190,8 +190,9 @@ export abstract class Bootstrap {
    */
   private checkInitializingOptions(options: IYggdrasilOptions): IYggdrasilOptions {
 
+    let result: IYggdrasilOptions;
     // Default options
-    let yggdrasilOptions: IYggdrasilOptions = {
+    const yggdrasilOptions: IYggdrasilOptions = {
       application: {
         type: EApplicationType.REST
       }
@@ -212,15 +213,15 @@ export abstract class Bootstrap {
         if (options.application.views == null) {
           throw Error(`If application type is not '${EApplicationType.REST}', views.view_engine option must be filled up.`);
         }
-        yggdrasilOptions = options;
+        result = { ...yggdrasilOptions, ...options };
         break;
       default:
         this.bootstrapLogger.info('Initializations options are correct.');
-        yggdrasilOptions = options;
+        result = { ...yggdrasilOptions, ...options };
         break;
     }
 
-    return yggdrasilOptions;
+    return result;
   }
 
   /**
