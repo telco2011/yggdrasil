@@ -203,7 +203,7 @@ export abstract class Bootstrap {
 
     switch (options.application.type) {
       case EApplicationType.REST:
-        if (options.application.views.view_engine) {
+        if (options.application.views != null && options.application.views.view_engine) {
           throw Error(`If application type is '${EApplicationType.REST}', views options must be delete.`);
         }
         break;
