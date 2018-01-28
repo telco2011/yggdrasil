@@ -36,7 +36,7 @@ export class MongoDBRepository {
     return getConnection();
   }
 
-  public getManager(): MongoEntityManager {
+  public getMongoManager(): MongoEntityManager {
     return getMongoManager();
   }
 
