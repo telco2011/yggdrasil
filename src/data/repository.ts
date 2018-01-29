@@ -1,6 +1,6 @@
-import { Connection, ConnectionOptions, EntityManager } from 'typeorm';
-
 import { FileLogger } from '../core';
+
+import { Connection, ConnectionOptions, EntityManager } from 'typeorm';
 
 export abstract class Repository {
 

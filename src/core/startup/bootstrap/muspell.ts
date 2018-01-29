@@ -8,23 +8,24 @@ import * as compression from 'compression';  // compresses requests
 import * as lusca from 'lusca';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
-import * as mongoose from 'mongoose';
 import * as Q from 'q';
 import * as figlet from 'figlet';
 
 /** YGGDRASIL imports */
-import {
-  MorganUtils, IMorganRotateOptions, FileLogger,
-  Monitoring,
-  Tracking,
-  Utils
-} from '../../core';
-import { SessionHandler } from '../../security';
-import { YggdrasilRepositoryFactory, Repository } from '../../data';
+import { MorganUtils, IMorganRotateOptions, FileLogger } from '../../logger';
+import { Monitoring } from '../../monitoring';
+import { Tracking } from '../../tracking';
+import { Utils } from '../../utils';
 
-import { IBootstrapRoute, IYggdrasilOptions } from './interfaces/muspell.interfaces';
-import { EApplicationType, EViewEngine } from './enums/muspell.enums';
-import { CallbackFunctionType } from './types/muspell.types';
+// TODO: Quit these dependencies to isolate startup only with core
+import { SessionHandler } from '../../../security';
+
+import { IBootstrapRoute, IYggdrasilOptions } from '../../modules/startup/interfaces';
+import { EApplicationType, EViewEngine } from '../../modules/startup/enums';
+import { CallbackFunctionType } from '../../modules/startup/types';
+
+import { YggdrasilRepository } from '../../modules/data/classes';
+import { YggdrasilRepositoryFactory } from '../../modules/data/factories';
 
 import { DefaultCtrl } from './controllers/default/default.ctrl';
 
@@ -47,7 +48,8 @@ export abstract class Bootstrap {
   /** Internal logger */
   private bootstrapLogger: FileLogger;
 
-  private repository: Repository;
+  /** Repository */
+  private repository: YggdrasilRepository;
 
   /** Session */
   private session: SessionHandler;
@@ -110,9 +112,7 @@ export abstract class Bootstrap {
     await this.config(this.app);
 
     /** Configures database */
-    // TODO: Support other databases
-    // await this.configureMongoDB();
-    this.repository = YggdrasilRepositoryFactory.getRepository(yggdrasilOptions.application.database.options);
+    this.repository = YggdrasilRepositoryFactory.getRepository(yggdrasilOptions.application.database.type);
     await this.repository.createConnection(yggdrasilOptions.application.database.options);
 
     /** Add MONITORING routes */
@@ -160,7 +160,7 @@ export abstract class Bootstrap {
   /**
    * Method to override to configure application's routes.
    */
-  protected routes(router: express.Router, repository?: Repository) {
+  protected routes(router: express.Router, repository?: YggdrasilRepository) {
     this.bootstrapLogger.info('Non Routes implemented');
   }
 
@@ -169,7 +169,7 @@ export abstract class Bootstrap {
    *
    * @param router Router passed to application to configure their api routes.
    */
-  protected api(router: express.Router, repository?: Repository): IBootstrapRoute {
+  protected api(router: express.Router, repository?: YggdrasilRepository): IBootstrapRoute {
     this.bootstrapLogger.info('Non API routes implemented');
     return { prefix: '/non-api-routes', message: 'Non API routes implemented' };
   }
@@ -332,44 +332,6 @@ export abstract class Bootstrap {
     // TODO: Review this module
     this.app.use(lusca.xframe('SAMEORIGIN'));
     this.app.use(lusca.xssProtection(true));
-  }
-
-  /**
-   * Configures mongoDB access.
-   */
-  // TODO: Review if this method is unnecessary
-  private configureMongoDB() {
-    /** Configure database */
-    let mongodbURI;
-    if (process.env.NODE_ENV === 'test') {
-      mongodbURI = process.env.MONGODB_TEST_URI || 'mongodb://localhost:27017/yggdrasil';
-    } else {
-      mongodbURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/yggdrasil';
-    }
-
-    // Use q promises
-    global.Promise = Q.Promise;
-    (mongoose as any).Promise = global.Promise;
-
-    /** connect to mongoose */
-    mongoose.connect(mongodbURI, { useMongoClient: true });
-
-    /** CONNECTION EVENTS */
-    // When successfully connected
-    mongoose.connection.on('connected', () => {
-      this.bootstrapLogger.info('Mongoose connection established.');
-    });
-
-    // If the connection throws an error
-    mongoose.connection.on('error', () => {
-      this.bootstrapLogger.error('Could not connect to mongoDB.');
-      throw new Error('Could not connect to mongoDB.');
-    });
-
-    // When the connection is disconnected
-    mongoose.connection.on('disconnected', () => {
-      this.bootstrapLogger.warn('Mongoose default connection disconnected');
-    });
   }
 
   /**

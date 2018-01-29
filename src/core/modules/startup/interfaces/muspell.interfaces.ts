@@ -1,6 +1,6 @@
-import { ConnectionOptions } from 'typeorm/connection/ConnectionOptions';
+import { YggdrasilDatabaseType, YggdrasilConnectionOptions } from '../../data/types';
 
-import { EApplicationType, EViewEngine } from '../enums/muspell.enums';
+import { EApplicationType, EViewEngine } from '../enums';
 
 /**
  * Interface for response when the application configures @method api and @method routes methods.
@@ -27,7 +27,8 @@ export interface IYggdrasilOptions {
       view_engine: EViewEngine;
     },
     database?: {
-      options: ConnectionOptions
+      type: YggdrasilDatabaseType;
+      options?: YggdrasilConnectionOptions;
     }
   };
 }
