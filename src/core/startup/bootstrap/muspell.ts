@@ -112,8 +112,13 @@ export abstract class Bootstrap {
     await this.config(this.app);
 
     /** Configures database */
-    this.repository = YggdrasilRepositoryFactory.getRepository(yggdrasilOptions.application.database.type);
-    await this.repository.createConnection(yggdrasilOptions.application.database.options);
+    if (yggdrasilOptions.application.database) {
+      this.bootstrapLogger.info(`Configuring yggdrasil repository type '${yggdrasilOptions.application.database.type}'`);
+      this.repository = YggdrasilRepositoryFactory.getRepository(yggdrasilOptions.application.database.type);
+      await this.repository.createConnection(yggdrasilOptions.application.database.options);
+    } else {
+      this.bootstrapLogger.info('Yggdrasil is going to start with no repository configured.');
+    }
 
     /** Add MONITORING routes */
     await this.configureMonitoring(monitoringRouter, this.session);
@@ -199,6 +204,7 @@ export abstract class Bootstrap {
     };
 
     if (!options) {
+      this.bootstrapLogger.info('No YggdrasilOptions subministrated. Use default YggdrasilOptions.');
       return yggdrasilOptions;
     }
 
@@ -217,11 +223,11 @@ export abstract class Bootstrap {
         result = { ...yggdrasilOptions, ...options };
         break;
       default:
-        this.bootstrapLogger.info('Initializations options are correct.');
         result = { ...yggdrasilOptions, ...options };
         break;
     }
 
+    this.bootstrapLogger.info(`${options.application.type} yggdrasil application type is going to start.`);
     return result;
   }
 
