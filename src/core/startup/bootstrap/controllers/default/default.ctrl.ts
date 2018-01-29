@@ -1,5 +1,5 @@
-import { Request, Response } from '../../../../mvc';
-import { FileLogger } from '../../../../core';
+import { Request, Response } from '../../../../../mvc';
+import { FileLogger } from '../../../../../core';
 
 export class DefaultCtrl {
 
