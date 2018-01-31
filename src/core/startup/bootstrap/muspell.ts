@@ -149,6 +149,7 @@ export abstract class Bootstrap {
     /** Error handler */
     // TODO: Built error handler
     this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+      const that = this;
       if (err instanceof TypeError) {
         this.bootstrapLogger.error(err.stack);
         res.status(500).send({ status: 500, message: 'internal error', type: 'controled', TypeError: { message: err.message, stack: err.stack} });
@@ -159,6 +160,10 @@ export abstract class Bootstrap {
         this.bootstrapLogger.error(err);
         res.status(500).send({ status: 500, message: 'internal error', type: 'internal', error: err.message });
       }
+      process.on('unhandledRejection', (reason) => {
+        that.bootstrapLogger.error(reason);
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal', error: reason });
+      });
     });
   }
 

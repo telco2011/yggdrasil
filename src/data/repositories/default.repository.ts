@@ -18,7 +18,7 @@ export class DefaultRepository extends YggdrasilRepository implements IYggdrasil
   }
 
   public getManager(): EntityManager {
-    return new EntityManager(this.connection);
+    throw Error('No valid repository configured.');
   }
 
   public async createConnection(options?: ConnectionOptions) {
