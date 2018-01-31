@@ -1,8 +1,12 @@
 import { DeepPartial } from 'typeorm/common/DeepPartial.d';
-import { getMongoManager, MongoEntityManager, Entity, SaveOptions, ObjectType } from 'typeorm';
+import { Connection, MongoEntityManager, Entity, SaveOptions, ObjectType } from 'typeorm';
 import { validate } from 'class-validator';
 
 export class YggdrasilMongodbEntityManager extends MongoEntityManager {
+
+  constructor(connection: Connection) {
+    super(connection);
+  }
 
   // tslint:disable-next-line
   async save < Entity, T extends DeepPartial < Entity >> (targetOrEntity: (T | T[]) | ObjectType < Entity > | string, maybeEntityOrOptions ? : T | T[], maybeOptions ? : SaveOptions): Promise < T | T[] > {
