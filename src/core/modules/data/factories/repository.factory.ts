@@ -1,8 +1,17 @@
-import { YggdrasilRepository, YggdrasilDefaultRepository } from '../classes';
+import { IYggdrasilRepository } from '../interfaces';
 import { YggdrasilDatabaseType } from '../types';
 
-export abstract class YggdrasilRepositoryFactory {
-  public static getRepository(type: YggdrasilDatabaseType): YggdrasilRepository {
-    return new YggdrasilDefaultRepository();
+import { DefaultRepository, MongoDBRepository } from '../../../../data';
+
+export class YggdrasilRepositoryFactory {
+
+  public static getRepository(type: YggdrasilDatabaseType): IYggdrasilRepository {
+    switch (type) {
+      case 'mongodb':
+        return new MongoDBRepository();
+      default:
+        return new DefaultRepository();
+    }
   }
+
 }

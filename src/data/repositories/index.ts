@@ -1,1 +1,2 @@
-export * from './mongoDBRepository';
+export * from './default.repository';
+export * from './mongodb.repository';

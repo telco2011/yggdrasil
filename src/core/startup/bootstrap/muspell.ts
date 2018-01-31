@@ -24,8 +24,8 @@ import { IBootstrapRoute, IYggdrasilOptions } from '../../modules/startup/interf
 import { EApplicationType, EViewEngine } from '../../modules/startup/enums';
 import { CallbackFunctionType } from '../../modules/startup/types';
 
-import { YggdrasilRepository } from '../../modules/data/classes';
 import { YggdrasilRepositoryFactory } from '../../modules/data/factories';
+import { IYggdrasilRepository } from '../../modules/data/interfaces';
 
 import { DefaultCtrl } from './controllers/default/default.ctrl';
 
@@ -49,7 +49,7 @@ export abstract class Bootstrap {
   private bootstrapLogger: FileLogger;
 
   /** Repository */
-  private repository: YggdrasilRepository;
+  private repository: IYggdrasilRepository;
 
   /** Session */
   private session: SessionHandler;
@@ -91,7 +91,7 @@ export abstract class Bootstrap {
     await this.printBanner();
 
     // TODO: move this logic to checkenv
-    const yggdrasilOptions = await this.checkInitializingOptions(options);
+    const yggdrasilOptions: IYggdrasilOptions = await this.checkInitializingOptions(options);
 
     /** Creates expressjs application */
     this.app = express();
@@ -165,7 +165,7 @@ export abstract class Bootstrap {
   /**
    * Method to override to configure application's routes.
    */
-  protected routes(router: express.Router, repository?: YggdrasilRepository) {
+  protected routes(router: express.Router, repository?: IYggdrasilRepository) {
     this.bootstrapLogger.info('Non Routes implemented');
   }
 
@@ -174,7 +174,7 @@ export abstract class Bootstrap {
    *
    * @param router Router passed to application to configure their api routes.
    */
-  protected api(router: express.Router, repository?: YggdrasilRepository): IBootstrapRoute {
+  protected api(router: express.Router, repository?: IYggdrasilRepository): IBootstrapRoute {
     this.bootstrapLogger.info('Non API routes implemented');
     return { prefix: '/non-api-routes', message: 'Non API routes implemented' };
   }

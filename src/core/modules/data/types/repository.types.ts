@@ -1,10 +1,4 @@
-import {
-  IYggdrasilMysqlConnectionOptions,
-  IYggdrasilPostgresConnectionOptions,
-  IYggdrasilSqliteConnectionOptions,
-  IYggdrasilOracleConnectionOptions,
-  IYggdrasilMongoConnectionOptions
-} from '../interfaces';
+import { DatabaseType, ConnectionOptions } from 'typeorm';
 
-export declare type YggdrasilConnectionOptions = IYggdrasilMysqlConnectionOptions | IYggdrasilPostgresConnectionOptions | IYggdrasilSqliteConnectionOptions | IYggdrasilOracleConnectionOptions | IYggdrasilMongoConnectionOptions;
-export declare type YggdrasilDatabaseType = 'mysql' | 'postgres' | 'mariadb' | 'sqlite' | 'oracle' | 'mongodb';
+export declare type YggdrasilConnectionOptions = ConnectionOptions;
+export declare type YggdrasilDatabaseType = DatabaseType;

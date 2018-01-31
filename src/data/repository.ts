@@ -2,13 +2,13 @@ import { FileLogger } from '../core';
 
 import { Connection, ConnectionOptions, EntityManager } from 'typeorm';
 
-export abstract class Repository {
+export abstract class YggdrasilRepository {
 
   public abstract logger: FileLogger;
 
-  public abstract defaultOptions: ConnectionOptions;
-  public abstract connection: Connection;
   public abstract manager: EntityManager;
+
+  public abstract connection: Connection;
 
   public abstract getManager(): EntityManager;
 
