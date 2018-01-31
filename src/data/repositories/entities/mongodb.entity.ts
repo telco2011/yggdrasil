@@ -20,7 +20,7 @@ export class YggdrasilMongodbEntityManager extends MongoEntityManager {
       throw Error('Errors validating request body object');
     }
 
-    return getMongoManager().save(target, entity, options);
+    return super.save(target, entity, options);
   }
 
 }
