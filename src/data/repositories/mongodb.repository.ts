@@ -5,11 +5,13 @@ import { IYggdrasilRepository } from '../../core/modules/data/interfaces';
 import { Connection, MongoEntityManager, createConnection, getMongoManager } from 'typeorm';
 import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
 
+import { YggdrasilMongodbEntityManager } from './entities/mongodb.entity';
+
 export class MongoDBRepository extends YggdrasilRepository implements IYggdrasilRepository {
 
   public logger: FileLogger;
 
-  public manager: MongoEntityManager;
+  public manager: YggdrasilMongodbEntityManager;
 
   public connection: Connection;
 
@@ -37,8 +39,11 @@ export class MongoDBRepository extends YggdrasilRepository implements IYggdrasil
     };
   }
 
-  public getManager(): MongoEntityManager {
-    return getMongoManager();
+  public getManager(): YggdrasilMongodbEntityManager {
+    if (this.manager == null) {
+      this.manager = new YggdrasilMongodbEntityManager(this.connection);
+    }
+    return this.manager; // getMongoManager();
   }
 
   public async createConnection(options?: MongoConnectionOptions) {
