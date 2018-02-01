@@ -296,8 +296,9 @@ export abstract class Bootstrap {
       port: this.app.get('port'),
       env: this.app.get('env')
     };
+    const nodeEnv: string = process.env.NODE_ENV;
     return () => {
-      if (process.env.NODE_ENV && (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'pro')) {
+      if (nodeEnv != null && (nodeEnv !== ('production' as string) || nodeEnv !== ('pro' as string))) {
         this.bootstrapLogger.warn('You are running the project on non production environment.');
       }
       this.bootstrapLogger.info(`Application up and running at ${info.protocol}://${info.hostname}:${info.port} in mode '${info.env}'`);
