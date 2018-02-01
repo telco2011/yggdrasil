@@ -191,8 +191,7 @@ export abstract class Bootstrap {
     this.bootstrapLogger.info('Non config method implemented');
   }
 
-  private haltOnTimedout = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    this.bootstrapLogger.warn('Timeout executed.');
+  private haltOnTimedout(req: express.Request, res: express.Response, next: express.NextFunction) {
     if (!req.timedout) { next(); }
   }
 
