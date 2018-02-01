@@ -2,7 +2,6 @@
 import * as http from 'http';
 import * as express from 'express';
 import * as expressListRoutes from 'express-list-routes';
-import * as timeout from 'connect-timeout';
 import * as flash from 'express-flash';
 import * as sass from 'node-sass-middleware';
 import * as compression from 'compression';
@@ -126,7 +125,6 @@ export abstract class Bootstrap {
     if (yggdrasilOptions.application.type === EApplicationType.WEB || yggdrasilOptions.application.type === EApplicationType.HYBRID) {
       await this.configureViews(yggdrasilOptions);
       await this.routes(routesRouter);
-      this.app.use(this.haltOnTimedout);
       this.app.use('/views', routesRouter);
       this.printRoutes(routesRouter, '/views', 'Print View Routes');
     }
@@ -134,14 +132,12 @@ export abstract class Bootstrap {
     /** Add api routes */
     if (yggdrasilOptions.application.type === EApplicationType.REST || yggdrasilOptions.application.type === EApplicationType.HYBRID) {
       const apiResult = await this.api(APIRouter, this.repository);
-      this.app.use(this.haltOnTimedout);
       this.app.use(apiResult.prefix, APIRouter);
       this.printRoutes(APIRouter, apiResult.prefix, (apiResult.message || 'Print API Routes'));
     }
 
     /** Add DEFAULTS routes */
     await this.configureDefaults(defaultsRouter);
-    this.app.use(this.haltOnTimedout);
     this.app.use(defaultsRouter);
 
     /** Add MONITORING routes */
@@ -189,10 +185,6 @@ export abstract class Bootstrap {
    */
   protected config(app: express.Application) {
     this.bootstrapLogger.info('Non config method implemented');
-  }
-
-  private haltOnTimedout(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if (!req.timedout) { next(); }
   }
 
   /**
@@ -310,9 +302,6 @@ export abstract class Bootstrap {
    */
   private internalConfig() {
     this.bootstrapLogger.debug('Start internalConfig');
-
-    /** Configuring timeout */
-    this.app.use(timeout('5s', { respond: false }));
 
     /** Session */
     this.app.use(this.session.instanceSession());
