@@ -81,12 +81,6 @@ export abstract class Bootstrap {
     return this.app.listen(port, (hostname || 'localhost'), this.bootstrapCB());
   }
 
-  public async bootstapCatched(port: number, options?: IYggdrasilOptions, hostname?: string, callback?: CallbackFunctionType): void {
-    this.bootstrap(port, options, hostname, callback)
-      .then(d => this.bootstrapLogger.info('App initialized'))
-      .catch(e => this.bootstrapLogger.error('ERROR'));
-  }
-
   /**
    * Method to override to configure application's routes.
    */
