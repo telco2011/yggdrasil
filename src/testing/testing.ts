@@ -10,7 +10,7 @@ export abstract class YggdrasilTest {
 
   protected server: Server;
   protected chai = chai;
-  protected shoud = chai.should();
+  protected should = chai.should();
   protected expect = chai.expect;
   protected assert = chai.assert;
   protected shouldHttp = chai.use(chaiHttp).should();
