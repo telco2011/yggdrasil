@@ -82,7 +82,12 @@ export class SessionHandler {
   public getSessionsInfo(req: express.Request): Promise<any> {
     return new Promise((resolve, reject) => {
       if (this.sessionStore instanceof MemoryStore) {
-        resolve(this.sessionStore.all);
+        this.sessionStore.all((err, sess) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(sess);
+        });
       } else {
         resolve(null);
       }
