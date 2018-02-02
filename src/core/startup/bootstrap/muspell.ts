@@ -81,10 +81,42 @@ export abstract class Bootstrap {
     return this.app.listen(port, (hostname || 'localhost'), this.bootstrapCB());
   }
 
+  public async bootstapCatched(port: number, options?: IYggdrasilOptions, hostname?: string, callback?: CallbackFunctionType): void {
+    this.bootstrap(port, options, hostname, callback)
+      .then(d => this.bootstrapLogger.info('App initialized'))
+      .catch(e => this.bootstrapLogger.error('ERROR'));
+  }
+
+  /**
+   * Method to override to configure application's routes.
+   */
+  protected routes(router: express.Router, repository?: IYggdrasilRepository) {
+    this.bootstrapLogger.info('Non Routes implemented');
+  }
+
+  /**
+   * Method to override to configure application's api routes.
+   *
+   * @param router Router passed to application to configure their api routes.
+   */
+  protected api(router: express.Router, repository?: IYggdrasilRepository): IBootstrapRoute {
+    this.bootstrapLogger.info('Non API routes implemented');
+    return { prefix: '/non-api-routes', message: 'Non API routes implemented' };
+  }
+
+  /**
+   * Method to override to configure extras.
+   *
+   * @param app Application passed to application to make their own configurations.
+   */
+  protected config(app: express.Application) {
+    this.bootstrapLogger.info('Non config method implemented');
+  }
+
   /**
    * Async method that initialise all starting process.
    */
-  public async initialize(options?: IYggdrasilOptions) {
+  private async initialize(options?: IYggdrasilOptions) {
 
     /** Print cool yggdrasil banner */
     await this.printBanner();
@@ -159,32 +191,6 @@ export abstract class Bootstrap {
         res.status(500).send({ status: 500, message: 'internal error', type: 'internal', error: err.message });
       }
     });
-  }
-
-  /**
-   * Method to override to configure application's routes.
-   */
-  protected routes(router: express.Router, repository?: IYggdrasilRepository) {
-    this.bootstrapLogger.info('Non Routes implemented');
-  }
-
-  /**
-   * Method to override to configure application's api routes.
-   *
-   * @param router Router passed to application to configure their api routes.
-   */
-  protected api(router: express.Router, repository?: IYggdrasilRepository): IBootstrapRoute {
-    this.bootstrapLogger.info('Non API routes implemented');
-    return { prefix: '/non-api-routes', message: 'Non API routes implemented' };
-  }
-
-  /**
-   * Method to override to configure extras.
-   *
-   * @param app Application passed to application to make their own configurations.
-   */
-  protected config(app: express.Application) {
-    this.bootstrapLogger.info('Non config method implemented');
   }
 
   /**
