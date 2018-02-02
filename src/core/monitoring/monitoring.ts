@@ -24,6 +24,7 @@ export class Monitoring {
   public create(router: Router) {
     this.logger.debug('Creating SessionRoutes routes.');
     router.route('/session').get(this.monitorSessionCtrl.getSession);
+    router.route('/sessions').get(this.monitorSessionCtrl.getSessions);
   }
 
 }

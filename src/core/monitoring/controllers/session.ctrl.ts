@@ -17,6 +17,20 @@ export class MonitorSessionCtrl {
   }
 
   /**
+   * Gets all sessions information
+   *
+   * @method getSessions
+   * @param req Request
+   * @param res Response
+   */
+  public getSessions = (req: Request, res: Response) => {
+    this.logger.debug('getSessions response.');
+
+    this.session.getSessionsInfo(req)
+      .then(data => res.send(data));
+  }
+
+  /**
    * Session store object
    *
    * @method getSession
