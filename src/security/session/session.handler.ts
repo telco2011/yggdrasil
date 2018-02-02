@@ -105,6 +105,7 @@ export class SessionHandler {
       if (this.sessionStore instanceof MemoryStore) {
         this.sessionStore.get(req.sessionID, (err, data) => {
           const sessionResponse = {
+            sessionId: req.sessionID,
             sessionStore: data,
             error: err
           };
