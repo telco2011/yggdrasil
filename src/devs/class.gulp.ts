@@ -7,6 +7,8 @@ import * as nodemon from 'gulp-nodemon';
 
 import * as del from 'del';
 
+import { ParentPkg } from './parent-pkg/parent-pkg';
+
 @Gulpclass()
 export class YggdrasilGulpfile {
 
@@ -109,6 +111,13 @@ export class YggdrasilGulpfile {
         'src/public/scss/*.scss']
       ).pipe(sass())
         .pipe(gulp.dest('dist/public/css'));
+  }
+
+  // TODO: Test this method
+  @Task('merge:parent-pkg')
+  public mergeParentPkg() {
+    const parentPkg = new ParentPkg();
+    parentPkg.mergeParentPkg();
   }
 
   /** Non Testing Zone */
