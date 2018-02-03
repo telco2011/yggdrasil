@@ -57,8 +57,10 @@ export class YggdrasilGulpfile {
   public cleanAll() {
     return del([
       './node_modules',
-      'package-lock.json',
-      'yarn.lock'
+      './.nyc_output',
+      './coverage',
+      './package-lock.json',
+      './yarn.lock'
     ]);
   }
 
