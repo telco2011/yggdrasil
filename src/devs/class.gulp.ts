@@ -56,7 +56,9 @@ export class YggdrasilGulpfile {
   @Task('clean:all', ['clean'])
   public cleanAll() {
     return del([
-      './node_modules'
+      './node_modules',
+      'package-lock.json',
+      'yarn.lock'
     ]);
   }
 
