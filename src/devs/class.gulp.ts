@@ -36,7 +36,7 @@ export class YggdrasilGulpfile {
 
   @SequenceTask()
   public copyAssets() {
-    return ['copySass', 'copyJs', 'copyViews', 'copyStatics'];
+    return ['copySass', 'copyJs', 'copyViews', 'copyStatics', 'copyFonts'];
   }
 
   @Task('watch')
@@ -78,6 +78,13 @@ export class YggdrasilGulpfile {
     return gulp.src([
         'src/public/images/**/*'
       ]).pipe(gulp.dest('dist/public/images'));
+  }
+
+  @Task()
+  public copyFonts() {
+    return gulp.src([
+        'src/public/fonts/**/*'
+      ]).pipe(gulp.dest('dist/public/fonts'));
   }
 
   @Task()
