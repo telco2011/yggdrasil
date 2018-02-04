@@ -2,7 +2,8 @@
 import * as http from 'http';
 import * as express from 'express';
 import * as expressListRoutes from 'express-list-routes';
-import * as flash from 'express-flash-notification';
+// TODO: Review import
+// import * as flash from 'express-flash-notification';
 import * as sass from 'node-sass-middleware';
 import * as compression from 'compression';
 import * as lusca from 'lusca';
@@ -272,7 +273,8 @@ export abstract class Bootstrap {
     }
     this.bootstrapLogger.debug('Configure sass.');
     this.app.use(sass({ src: publicDir, dest: publicDir }));
-    this.app.use(flash());
+    // TODO: Review flash feature
+    // this.app.use(flash(this.app));
     this.bootstrapLogger.debug('Configure static server.');
     this.app.use(express.static(publicDir, { maxAge: 31557600000 }));
   }
