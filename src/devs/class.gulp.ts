@@ -115,13 +115,15 @@ export class YggdrasilGulpfile {
   // TODO: Test this method
   @Task('addYggdrasilScriptsToPkg')
   public addYggdrasilScriptsToPkg() {
-    const parentPkg = require('../node_modules/@yggdrasil/devs/parent-pkg/parent-pkg.json');
+    const parentPkg = require('./node_modules/@yggdrasil/devs/parent-pkg/parent-pkg.json');
     const projectPkg = require('./package.json');
+
+    fs.writeFileSync('./package.json.bkp', JSON.stringify(projectPkg, null, 2));
 
     Object.assign(projectPkg.scripts, parentPkg.scripts);
     Object.assign(projectPkg.nyc, parentPkg.nyc);
 
-    fs.writeFileSync('./result/package.json', JSON.stringify(projectPkg, null, 2));
+    fs.writeFileSync('./package.json', JSON.stringify(projectPkg, null, 2));
   }
 
   /** Non Testing Zone */
