@@ -13,7 +13,7 @@
     "copy": "npm run copy:defaults && npm run copy:tslint && npm run copy:pkg",
     "copy:defaults": "cp -R ./src/core/startup/bootstrap/controllers/default/defaultHtml ./lib/core/startup/bootstrap/controllers/default",
     "copy:tslint": "cp ./src/core/tslint.json ./lib/core",
-    "copy:pkg": "cp ./src/devs/parent-pkg/parent-pkg.json ./lib/devs/parent-pkg",
+    "copy:pkg": "mkdir ./lib/devs/parent-pkg && cp ./src/devs/parent-pkg/parent-pkg.json ./lib/devs/parent-pkg/parent-pkg.json",
     "doc": "typedoc --tsconfig tsconfig.json --name @YGGDRASIL --out documentation --mode modules src",
     "lerna:publish": "lerna publish",
     "lerna:publish:canary": "lerna publish --canary=alpha --yes",
