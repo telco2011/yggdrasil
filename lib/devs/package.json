@@ -3,9 +3,6 @@
   "version": "0.1.0-alpha.72251c0a",
   "author": "David Lopez",
   "license": "MIT",
-  "scripts": {
-    "postinstall": "gulp merge:parent-pkg"
-  },
   "dependencies": {
     "concurrently": "^3.5.1",
     "del": "^3.0.0",

@@ -113,8 +113,8 @@ export class YggdrasilGulpfile {
   }
 
   // TODO: Test this method
-  @Task('merge:parent-pkg')
-  public mergeParentPkg() {
+  @Task('addYggdrasilScriptsToPkg')
+  public addYggdrasilScriptsToPkg() {
     const parentPkg = require('../node_modules/@yggdrasil/devs/parent-pkg/parent-pkg.json');
     const projectPkg = require('./package.json');
 
