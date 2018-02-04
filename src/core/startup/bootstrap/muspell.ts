@@ -2,7 +2,7 @@
 import * as http from 'http';
 import * as express from 'express';
 import * as expressListRoutes from 'express-list-routes';
-import * as flash from 'express-flash';
+import * as flash from 'express-flash-notification';
 import * as sass from 'node-sass-middleware';
 import * as compression from 'compression';
 import * as lusca from 'lusca';
