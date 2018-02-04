@@ -6,8 +6,7 @@ import * as sass from 'gulp-sass';
 import * as nodemon from 'gulp-nodemon';
 
 import * as del from 'del';
-
-import { ParentPkg } from './parent-pkg/parent-pkg';
+import * as fs from 'fs';
 
 @Gulpclass()
 export class YggdrasilGulpfile {
@@ -116,8 +115,13 @@ export class YggdrasilGulpfile {
   // TODO: Test this method
   @Task('merge:parent-pkg')
   public mergeParentPkg() {
-    const parentPkg = new ParentPkg();
-    parentPkg.mergeParentPkg();
+    const parentPkg = require('../node_modules/@yggdrasil/devs/parent-pkg/parent-pkg.json');
+    const projectPkg = require('./package.json');
+
+    Object.assign(projectPkg.scripts, parentPkg.scripts);
+    Object.assign(projectPkg.nyc, parentPkg.nyc);
+
+    fs.writeFileSync('./result/package.json', JSON.stringify(projectPkg, null, 2));
   }
 
   /** Non Testing Zone */
