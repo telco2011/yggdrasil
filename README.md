@@ -21,11 +21,7 @@ Yggdrasil architecture makes easy to create javascript backend applications. Usi
 
 ## Author / Contributors
 
-* <a href="https://github.com/telco2011" class="circle">
-	<img height="32" width="32" src="https://avatars1.githubusercontent.com/u/3685073?v=4" alt="telco2011">
-</a>
-
-* <img src="https://avatars1.githubusercontent.com/u/3685073?v=4" width="20">**[telco2011](https://github.com/telco2011)** - Telecom engineer, developer enthusiastic  👾, inline skates lover, biker 🏍 and barista initiated ☕️.
+* **[telco2011](https://github.com/telco2011)** - Telecom engineer, developer enthusiastic  👾, inline skates lover, biker 🏍 and barista initiated ☕️.
 
 ## License
 
