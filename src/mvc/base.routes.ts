@@ -1,10 +1,25 @@
-import { NextFunction, Request, Response, Router } from 'express';
-import { Strategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
+import {
+	NextFunction,
+	Request,
+	Response,
+	Router
+} from 'express';
+import {
+	Strategy,
+	ExtractJwt,
+	StrategyOptions
+} from 'passport-jwt';
 
-import { API } from './api.utils';
+import {
+	API
+} from './api.utils';
 
-import { Authorization } from '../security';
-import { FileLogger } from '../core';
+import {
+	Authorization
+} from '../security';
+import {
+	FileLogger
+} from '../core';
 
 /**
  * / BaseRoutes
@@ -13,30 +28,30 @@ import { FileLogger } from '../core';
  */
 export abstract class BaseRoutes {
 
-  public abstract logger: FileLogger;
+	public abstract logger: FileLogger;
 
-  protected API = API;
-  protected auth: Authorization;
+	protected API = API;
+	protected auth: Authorization;
 
-  private baseLogger: FileLogger;
+	private baseLogger: FileLogger;
 
-  constructor() {
-    this.baseLogger = new FileLogger('BaseRoutes');
-  }
+	constructor() {
+		this.baseLogger = new FileLogger('BaseRoutes');
+	}
 
-  public abstract create(router: Router);
+	public abstract create(router: Router);
 
-  // TODO: Review this tslint
-  // tslint:disable-next-line
-  protected initJWT(fn: Function) {
-    /** Authentication */
-    const opts: StrategyOptions = {
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.SECRET_TOKEN || 'shhhh'
-    };
-    this.auth = new Authorization(opts);
+	// TODO: Review this tslint
+	// tslint:disable-next-line
+	protected initJWT(fn: Function) {
+		/** Authentication */
+		const opts: StrategyOptions = {
+			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+			secretOrKey: process.env.SECRET_TOKEN || 'shhhh'
+		};
+		this.auth = new Authorization(opts);
 
-    this.auth.initJWT(fn);
-  }
+		this.auth.initJWT(fn);
+	}
 
 }

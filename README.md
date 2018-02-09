@@ -10,7 +10,13 @@ Yggdrasil architecture makes easy to create javascript backend applications. Usi
 
 ## Getting Started
 
---
+Create simple rest service:
+
+1. Install nodejs (recommended nvm) and npm or yarn (recommended yarn).
+2. `npm install -g gulp-cli or yarn global add gulp-cli`
+3. `mkdir yggdrasil-app && cd yggdrasil-app`
+4. `npm init -y or yarn init -y`
+5. ``
 
 ## Built With
 

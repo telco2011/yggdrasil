@@ -1,6 +1,9 @@
-import { EntityManager, ConnectionOptions } from 'typeorm';
+import {
+	EntityManager,
+	ConnectionOptions
+} from 'typeorm';
 
 export interface IYggdrasilRepository {
-  getManager(): EntityManager;
-  createConnection(options?: ConnectionOptions);
+	getManager(): EntityManager;
+	createConnection(options?: ConnectionOptions);
 }

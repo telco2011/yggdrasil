@@ -1,6 +1,12 @@
-import { YggdrasilDatabaseType, YggdrasilConnectionOptions } from '../../data/types';
+import {
+	YggdrasilDatabaseType,
+	YggdrasilConnectionOptions
+} from '../../data/types';
 
-import { EApplicationType, EViewEngine } from '../enums';
+import {
+	EApplicationType,
+	EViewEngine
+} from '../enums';
 
 /**
  * Interface for response when the application configures @method api and @method routes methods.
@@ -8,11 +14,11 @@ import { EApplicationType, EViewEngine } from '../enums';
  * @interface IBootstrapRoute
  */
 export interface IBootstrapRoute {
-  /** API prefix */
-  prefix: string;
+	/** API prefix */
+	prefix: string;
 
-  /** Optional message to show in log */
-  message?: string;
+	/** Optional message to show in log */
+	message?: string;
 }
 
 /**
@@ -21,14 +27,14 @@ export interface IBootstrapRoute {
  * @interface IYggdrasilOptions
  */
 export interface IYggdrasilOptions {
-  application?: {
-    type: EApplicationType;
-    views?: {
-      view_engine: EViewEngine;
-    },
-    database?: {
-      type: YggdrasilDatabaseType;
-      options?: YggdrasilConnectionOptions;
-    }
-  };
+	application?: {
+		type: EApplicationType;
+		views?: {
+			view_engine: EViewEngine;
+		},
+		database?: {
+			type: YggdrasilDatabaseType;
+			options?: YggdrasilConnectionOptions;
+		}
+	};
 }

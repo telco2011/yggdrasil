@@ -4,8 +4,8 @@
  * @enum EViewEngine
  */
 export enum EViewEngine {
-  PUG = 'pug',
-  HANDLEBARS = 'hbs'
+	PUG = 'pug',
+		HANDLEBARS = 'hbs'
 }
 
 /**
@@ -14,7 +14,7 @@ export enum EViewEngine {
  * @enum EApplicationType
  */
 export enum EApplicationType {
-  REST = 'REST',
-  WEB = 'WEB',
-  HYBRID = 'HYBRID'
+	REST = 'REST',
+		WEB = 'WEB',
+		HYBRID = 'HYBRID'
 }

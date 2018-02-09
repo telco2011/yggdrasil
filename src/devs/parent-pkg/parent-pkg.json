@@ -1,37 +1,37 @@
 {
-  "scripts": {
-    "clean": "gulp clean",
-    "clean:all": "gulp clean:all",
-    "compile": "gulp build",
-    "start": "gulp start",
-    "test": "gulp compile:test && nyc --require ts-node/register mocha --exit --recursive \"src/**/*.spec.ts\"",
-    "tslint": "tslint -p tsconfig.json -t verbose",
-    "tslint:test": "tslint -p tsconfig.spec.json -t verbose"
-  },
-  "dependencies": {
-    "@yggdrasil/core": "canary",
-    "@yggdrasil/mvc": "canary"
-  },
-  "devDependencies": {
-    "@yggdrasil/devs": "canary",
-    "@yggdrasil/testing": "canary"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.ts"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "exclude": [
-      "**/index.ts",
-      "**/*.spec.ts",
-      "**/*.d.ts"
-    ],
-    "reporter": [
-      "text-summary",
-      "html"
-    ],
-    "all": true
-  }
+	"scripts": {
+		"clean": "gulp clean",
+		"clean:all": "gulp clean:all",
+		"compile": "gulp build",
+		"start": "gulp start",
+		"test": "gulp compile:test && nyc --require ts-node/register mocha --exit --recursive \"src/**/*.spec.ts\"",
+		"tslint": "tslint -p tsconfig.json -t verbose",
+		"tslint:test": "tslint -p tsconfig.spec.json -t verbose"
+	},
+	"dependencies": {
+		"@yggdrasil/core": "canary",
+		"@yggdrasil/mvc": "canary"
+	},
+	"devDependencies": {
+		"@yggdrasil/devs": "canary",
+		"@yggdrasil/testing": "canary"
+	},
+	"nyc": {
+		"include": [
+			"src/**/*.ts"
+		],
+		"extension": [
+			".ts"
+		],
+		"exclude": [
+			"**/index.ts",
+			"**/*.spec.ts",
+			"**/*.d.ts"
+		],
+		"reporter": [
+			"text-summary",
+			"html"
+		],
+		"all": true
+	}
 }
