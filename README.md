@@ -8,15 +8,23 @@ Create applications easy to scale and full-featured.
 
 Yggdrasil architecture makes easy to create javascript backend applications. Using TypeScript features, it makes easy to scale and maintain them as well.
 
+## Prerequisites
+
+* Install [NodeJS](https://nodejs.org/en/) (_It is recommended use [nvm](https://github.com/creationix/nvm)_)
+* Install [yarn](https://yarnpkg.com) (_Yyggdrasil recommends to use yarn to build its applications_)
+
 ## Getting Started
 
-Create simple rest service:
+Use yggdrasil starter project:
 
-1. Install nodejs (recommended nvm) and npm or yarn (recommended yarn).
-2. `npm install -g gulp-cli or yarn global add gulp-cli`
-3. `mkdir yggdrasil-app && cd yggdrasil-app`
-4. `npm init -y or yarn init -y`
-5. ``
+```bash
+git clone https://github.com/yggdrasilts/yggdrasil-starter.git [PROJECT_NAME]
+cd [PROJECT_NAME]
+yarn install
+yarn start
+```
+
+The default access is in `http://localhost:3000`.
 
 ## Built With
 
@@ -27,7 +35,7 @@ Create simple rest service:
 
 ## Author / Contributors
 
-* **[telco2011](https://github.com/telco2011)** - Telecom engineer, developer enthusiastic  👾, inline skates lover, biker 🏍 and barista initiated ☕️.
+* **[telco2011](https://github.com/telco2011)** - Telecom engineer, developer enthusiastic 👾, inline skates lover, biker 🏍 and barista initiated ☕️.
 
 ## License
 
