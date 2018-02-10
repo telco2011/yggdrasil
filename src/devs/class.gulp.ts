@@ -18,6 +18,8 @@ export class YggdrasilGulpfile {
 	private tsProject = ts.createProject('tsconfig.json');
 	private tsTestProject = ts.createProject('tsconfig.spec.json');
 
+	private other = new OtherGulp();
+
 	@SequenceTask()
 	public start() {
 		return ['build', ['watch', 'nodemon']];

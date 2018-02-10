@@ -1,22 +1,22 @@
 {
 	"compilerOptions": {
 		"allowJs": false,
+		"baseUrl": ".",
 		"declaration": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"module": "commonjs",
+		"module": "system",
+		"moduleResolution": "node",
 		"noImplicitAny": false,
 		"noLib": false,
 		"noUnusedLocals": false,
-		"outDir": "./lib",
+		"outFile": "./lib/devs/yggdrasil.gulp.js",
 		"removeComments": false,
 		"rootDir": "./src",
 		"sourceMap": false,
 		"target": "es6"
 	},
 	"include": [
-		"*.ts",
-		"**/*.ts",
-		"**/*.spec.ts"
+		"./src/devs/**/*.ts"
 	]
 }
