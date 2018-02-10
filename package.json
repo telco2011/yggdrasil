@@ -9,8 +9,7 @@
 		"clean:all": "npm run clean:lib && npm run clean:extras && rm -rf node_modules",
 		"clean:extras": "rm -rf logs .nyc_output coverage documentation",
 		"clean:lib": "bash ./scripts/clean.sh",
-		"compile": "npm run compile:devs && npm run compile:src && npm run copy",
-		"compile:devs": "npm run tslint:devs && tsc -p tsconfig.devs.json",
+		"compile": "npm run compile:src && npm run copy",
 		"compile:src": "npm run tslint && tsc -p tsconfig.json",
 		"copy": "npm run copy:defaults && npm run copy:tslint && npm run copy:pkg",
 		"copy:defaults": "cp -R ./src/core/startup/bootstrap/controllers/default/defaultHtml ./lib/core/startup/bootstrap/controllers/default",
@@ -22,7 +21,6 @@
 		"publish": "npm run build && npm run lerna:publish:canary",
 		"test": "rm -rf coverage .nyc_output && npm run tslint:test && nyc --require ts-node/register mocha src/**/**/*.spec.ts",
 		"tslint": "tslint -p tsconfig.json -c ./src/core/tslint.json -t verbose",
-		"tslint:devs": "tslint -p tsconfig.devs.json -c ./src/core/tslint.json -t verbose",
 		"tslint:test": "tslint -p tsconfig.spec.json -c ./src/core/tslint.json -t verbose"
 	},
 	"dependencies": {
