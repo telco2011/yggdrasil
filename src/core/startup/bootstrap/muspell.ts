@@ -163,9 +163,6 @@ export abstract class Bootstrap {
 		/** Configures bootstrap */
 		await this.internalConfig();
 
-		/** Configures server by application config method (extended method) */
-		await this.config(this.app);
-
 		/** Configures database */
 		if (yggdrasilOptions.application.database) {
 			this.bootstrapLogger.info(`Configuring yggdrasil repository type '${yggdrasilOptions.application.database.type}'`);
@@ -195,6 +192,9 @@ export abstract class Bootstrap {
 		/** Add DEFAULTS routes */
 		await this.configureDefaults(defaultsRouter);
 		this.app.use(defaultsRouter);
+
+		/** Configures server by application config method (extended method) */
+		await this.config(this.app);
 
 		/** Add MONITORING routes */
 		await this.configureMonitoring(monitoringRouter, this.session);
