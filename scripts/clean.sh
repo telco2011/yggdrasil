@@ -1,3 +1,10 @@
  #!/bin/bash
-shopt -s extglob
-rm -rf ./lib/core/!(package.json|README.md|LICENSE) && rm -rf ./lib/data/!(package.json|README.md|LICENSE) && rm -rf ./lib/devs/!(package.json|README.md|LICENSE) && rm -rf ./lib/mvc/!(package.json|README.md|LICENSE) && rm -rf ./lib/security/!(package.json|README.md|LICENSE) && rm -rf ./lib/testing/!(package.json|README.md|LICENSE)
+EXCLUDED_FILES="package.json|README.md|LICENSE"
+MODULES=(core mvc security data devs testing)
+
+for MODUL in "${MODULES[@]}"
+do
+	shopt -s extglob
+	f="./lib/$MODUL/!($EXCLUDED_FILES)"
+	rm -rf $f
+done
