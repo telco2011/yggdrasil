@@ -51,10 +51,21 @@ export class YggdrasilGulpfile {
 
 	@Task()
 	public nodemon() {
-		return nodemon({
+		const stream = nodemon({
 			script: 'dist/ignition.js',
 			tasks: ['tslint']
 		});
+
+		stream
+			.on('restart', function () {
+				console.log('restarted!')
+			})
+			.on('crash', function() {
+				console.error('Application has crashed!\n')
+				stream.emit('restart', 10)  // restart the server in 10 seconds
+			});
+
+		return stream;
 	}
 
 	@Task('clean:all', ['clean'])
