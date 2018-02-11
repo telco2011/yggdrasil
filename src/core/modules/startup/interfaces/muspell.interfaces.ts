@@ -30,6 +30,7 @@ export interface IYggdrasilOptions {
 	application?: {
 		type: EApplicationType;
 		views?: {
+			homeURL?: string;
 			view_engine: EViewEngine;
 		},
 		database?: {

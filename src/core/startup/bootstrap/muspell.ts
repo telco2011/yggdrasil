@@ -137,6 +137,10 @@ export abstract class Bootstrap {
 		this.bootstrapLogger.info('Non config method implemented');
 	}
 
+	protected homeRedirect(url: string) {
+
+	}
+
 	/**
 	 * Async method that initialise all starting process.
 	 */
@@ -152,7 +156,7 @@ export abstract class Bootstrap {
 		this.app = express();
 
 		/** Create different routes to manage them */
-		// const defaultsRouter = express.Router();
+		const defaultsRouter = express.Router();
 		const monitoringRouter = express.Router();
 		const APIRouter = express.Router();
 		const routesRouter = express.Router();
@@ -174,10 +178,6 @@ export abstract class Bootstrap {
 
 		this.bootstrapLogger.info(`Application type ${yggdrasilOptions.application.type}.`);
 
-		/** Add DEFAULTS routes */
-		await this.configureDefaults(routesRouter);
-		this.app.use(routesRouter);
-
 		/** Add view routes */
 		if (yggdrasilOptions.application.type === EApplicationType.WEB || yggdrasilOptions.application.type === EApplicationType.HYBRID) {
 			await this.configureViews(yggdrasilOptions);
@@ -192,6 +192,10 @@ export abstract class Bootstrap {
 			this.app.use(apiResult.prefix, APIRouter);
 			this.printRoutes(APIRouter, apiResult.prefix, (apiResult.message || 'Print API Routes'));
 		}
+
+		/** Add DEFAULTS routes */
+		await this.configureDefaults(defaultsRouter, yggdrasilOptions.application.views.homeURL);
+		this.app.use(defaultsRouter);
 
 		/** Configures server by application config method (extended method) */
 		await this.config(this.app);
@@ -284,10 +288,16 @@ export abstract class Bootstrap {
 	 *
 	 * @param router express.Router
 	 */
-	private configureDefaults(router: express.Router) {
+	private configureDefaults(router: express.Router, homeURL?: string) {
 		this.bootstrapLogger.info('Configure default routes');
-		const defaultCtrl = new DefaultCtrl();
-		router.route('/').get(defaultCtrl.getDefault);
+		let defaultCtrl;
+		if (homeURL) {
+			defaultCtrl = new DefaultCtrl(homeURL);
+			router.route('/').get(defaultCtrl.redirectToAppHome);
+		} else {
+			defaultCtrl = new DefaultCtrl();
+			router.route('/').get(defaultCtrl.getDefault);
+		}
 	}
 
 	/**
