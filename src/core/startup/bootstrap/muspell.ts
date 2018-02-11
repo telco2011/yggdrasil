@@ -162,8 +162,9 @@ export abstract class Bootstrap {
 
 		/** Configures database */
 		if (yggdrasilOptions.application.database) {
-			this.bootstrapLogger.info(`Configuring yggdrasil repository type '${yggdrasilOptions.application.database.type}'`);
-			this.repository = YggdrasilRepositoryFactory.getRepository(yggdrasilOptions.application.database.type);
+			const databaseType = yggdrasilOptions.application.database.type || yggdrasilOptions.application.database.options.type;
+			this.bootstrapLogger.info(`Configuring yggdrasil repository type '${databaseType}'`);
+			this.repository = YggdrasilRepositoryFactory.getRepository(databaseType);
 			await this.repository.createConnection(yggdrasilOptions.application.database.options);
 		} else {
 			this.bootstrapLogger.info('Yggdrasil is going to start with no repository configured.');
@@ -255,6 +256,7 @@ export abstract class Bootstrap {
 			return yggdrasilOptions;
 		}
 
+		// Check application type
 		switch (options.application.type) {
 			case EApplicationType.REST:
 				if (options.application.views != null && options.application.views.view_engine) {
@@ -278,6 +280,14 @@ export abstract class Bootstrap {
 					...options
 				};
 				break;
+		}
+
+		// check database
+		if (yggdrasilOptions.application.database) {
+			const databaseOpt = yggdrasilOptions.application.database;
+			if (databaseOpt.type && databaseOpt.options) {
+				throw Error('If there is database.options, database.type is not necessary, it must be removed.');
+			}
 		}
 
 		this.bootstrapLogger.debug(`yggdrasilOptions are the following => ${result}`);

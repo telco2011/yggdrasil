@@ -1,22 +1,9 @@
-import {
-	FileLogger
-} from '../../core';
-import {
-	YggdrasilRepository
-} from '../repository';
-import {
-	IYggdrasilRepository
-} from '../../core/modules/data/interfaces';
+import { FileLogger } from '../../core';
+import { YggdrasilRepository } from '../repository';
+import { IYggdrasilRepository } from '../../core/modules/data/interfaces';
 
-import {
-	Connection,
-	MongoEntityManager,
-	createConnection,
-	getMongoManager
-} from 'typeorm';
-import {
-	MongoConnectionOptions
-} from 'typeorm/driver/mongodb/MongoConnectionOptions';
+import { Connection, MongoEntityManager, createConnection, getMongoManager } from 'typeorm';
+import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
 
 export class MongoDBRepository extends YggdrasilRepository implements IYggdrasilRepository {
 

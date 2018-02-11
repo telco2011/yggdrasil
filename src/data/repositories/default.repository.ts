@@ -1,18 +1,8 @@
-import {
-	FileLogger
-} from '../../core';
-import {
-	YggdrasilRepository
-} from '../repository';
-import {
-	IYggdrasilRepository
-} from '../../core/modules/data/interfaces';
+import { FileLogger } from '../../core';
+import { YggdrasilRepository } from '../repository';
+import { IYggdrasilRepository } from '../../core/modules/data/interfaces';
 
-import {
-	Connection,
-	ConnectionOptions,
-	EntityManager
-} from 'typeorm';
+import { Connection, ConnectionOptions, EntityManager } from 'typeorm';
 
 export class DefaultRepository extends YggdrasilRepository implements IYggdrasilRepository {
 
