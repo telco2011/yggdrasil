@@ -98,10 +98,10 @@ export abstract class Bootstrap {
 	 * @param callback Callback function.
 	 */
 	public async bootstrap(port?: number, options?: IYggdrasilOptions, hostname?: string, callback?: CallbackFunctionType): Promise < http.Server > {
-		if (port <= 0) {
-			throw Error('Port number must be greater than 0');
-		}
 		try {
+			if (port <= 0) {
+				throw Error('Port number must be greater than 0');
+			}
 			await this.initialize(options);
 			this.app.set('protocol', (process.env.PROTOCOL || 'http'));
 			this.app.set('hostname', (hostname || 'localhost'));
