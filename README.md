@@ -10,7 +10,7 @@ Yggdrasil architecture makes easy to create javascript backend applications. Usi
 
 ## Prerequisites
 
-* Install [NodeJS](https://nodejs.org/en/) (_It is recommended use [nvm](https://github.com/creationix/nvm)_)
+* Install [NodeJS](https://nodejs.org/en/) (_Yyggdrasil recommends to use [nvm](https://github.com/creationix/nvm)_)
 * Install [yarn](https://yarnpkg.com) (_Yyggdrasil recommends to use yarn to build its applications_)
 
 ## Getting Started

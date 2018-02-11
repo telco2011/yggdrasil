@@ -97,7 +97,7 @@ export abstract class Bootstrap {
 	 * @param hostname Hostname used by expressjs listener. Default 'localhost'.
 	 * @param callback Callback function.
 	 */
-	public async bootstrap(port: number, options?: IYggdrasilOptions, hostname?: string, callback?: CallbackFunctionType): Promise < http.Server > {
+	public async bootstrap(port?: number, options?: IYggdrasilOptions, hostname?: string, callback?: CallbackFunctionType): Promise < http.Server > {
 		if (port <= 0) {
 			throw Error('Port number must be greater than 0');
 		}
