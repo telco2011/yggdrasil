@@ -52,7 +52,8 @@ export class YggdrasilGulpfile {
 	@Task()
 	public nodemon() {
 		return nodemon({
-			script: 'dist/ignition.js'
+			script: 'dist/ignition.js',
+			tasks: ['tslint']
 		});
 	}
 
