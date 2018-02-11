@@ -101,11 +101,15 @@ export abstract class Bootstrap {
 		if (port <= 0) {
 			throw Error('Port number must be greater than 0');
 		}
-		await this.initialize(options);
-		this.app.set('protocol', (process.env.PROTOCOL || 'http'));
-		this.app.set('hostname', (hostname || 'localhost'));
-		this.app.set('port', (port || 3000));
-		return this.app.listen(this.app.get('port'), this.app.get('hostname'), this.bootstrapCB());
+		try {
+			await this.initialize(options);
+			this.app.set('protocol', (process.env.PROTOCOL || 'http'));
+			this.app.set('hostname', (hostname || 'localhost'));
+			this.app.set('port', (port || 3000));
+			return this.app.listen(this.app.get('port'), this.app.get('hostname'), this.bootstrapCB());
+		} catch (error) {
+			this.bootstrapLogger.error(error);
+		}
 	}
 
 	/**
@@ -283,8 +287,8 @@ export abstract class Bootstrap {
 		}
 
 		// check database
-		if (yggdrasilOptions.application.database) {
-			const databaseOpt = yggdrasilOptions.application.database;
+		if (options.application.database) {
+			const databaseOpt = options.application.database;
 			if (databaseOpt.type && databaseOpt.options) {
 				throw Error('If there is database.options, database.type is not necessary, it must be removed.');
 			}
