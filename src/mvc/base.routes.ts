@@ -21,6 +21,9 @@ import {
 	FileLogger
 } from '../core';
 
+import {
+	CallbackFunctionType
+} from '../core/modules/startup/types';
 /**
  * / BaseRoutes
  *
@@ -41,9 +44,7 @@ export abstract class BaseRoutes {
 
 	public abstract create(router: Router);
 
-	// TODO: Review this tslint
-	// tslint:disable-next-line
-	protected initJWT(fn: Function) {
+	protected initJWT(fn: CallbackFunctionType) {
 		/** Authentication */
 		const opts: StrategyOptions = {
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

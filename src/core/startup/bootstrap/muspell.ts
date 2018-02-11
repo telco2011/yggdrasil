@@ -12,48 +12,22 @@ import * as morgan from 'morgan';
 import * as figlet from 'figlet';
 
 /** YGGDRASIL imports */
-import {
-	MorganUtils,
-	IMorganRotateOptions,
-	FileLogger
-} from '../../logger';
-import {
-	Monitoring
-} from '../../monitoring';
-import {
-	Tracking
-} from '../../tracking';
-import {
-	Utils
-} from '../../utils';
+import { MorganUtils, IMorganRotateOptions, FileLogger } from '../../logger';
+import { Monitoring } from '../../monitoring';
+import { Tracking } from '../../tracking';
+import { Utils } from '../../utils';
 
 // TODO: Quit these dependencies to isolate startup only with core
-import {
-	SessionHandler
-} from '../../../security';
+import { SessionHandler } from '../../../security';
 
-import {
-	IBootstrapRoute,
-	IYggdrasilOptions
-} from '../../modules/startup/interfaces';
-import {
-	EApplicationType,
-	EViewEngine
-} from '../../modules/startup/enums';
-import {
-	CallbackFunctionType
-} from '../../modules/startup/types';
+import { IBootstrapRoute, IYggdrasilOptions } from '../../modules/startup/interfaces';
+import { EApplicationType, EViewEngine } from '../../modules/startup/enums';
+import { CallbackFunctionType } from '../../modules/startup/types';
 
-import {
-	YggdrasilRepositoryFactory
-} from '../../modules/data/factories';
-import {
-	IYggdrasilRepository
-} from '../../modules/data/interfaces';
+import { YggdrasilRepositoryFactory } from '../../modules/data/factories';
+import { IYggdrasilRepository } from '../../modules/data/interfaces';
 
-import {
-	DefaultCtrl
-} from './controllers/default/default.ctrl';
+import { DefaultCtrl } from './controllers/default/default.ctrl';
 
 /**
  * Abstract class to extend by application to initialise the server.
@@ -294,7 +268,7 @@ export abstract class Bootstrap {
 			}
 		}
 
-		this.bootstrapLogger.debug(`yggdrasilOptions are the following => ${result}`);
+		this.bootstrapLogger.debug(`yggdrasilOptions are the following => ${JSON.stringify(result)}`);
 
 		this.bootstrapLogger.info(`${options.application.type} yggdrasil application type is going to start.`);
 		return result;

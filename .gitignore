@@ -6,9 +6,11 @@ documentation
 coverage
 .nyc_output
 playground
+etc
 
 # lock files
 package-lock.json
+yarn.lock
 
 # log files
 *.log

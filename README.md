@@ -13,19 +13,6 @@ Yggdrasil architecture makes easy to create javascript backend applications. Usi
 * Install [NodeJS](https://nodejs.org/en/) (_Yyggdrasil recommends to use [nvm](https://github.com/creationix/nvm)_)
 * Install [yarn](https://yarnpkg.com) (_Yyggdrasil recommends to use yarn to build its applications_)
 
-## Getting Started
-
-Use yggdrasil starter project:
-
-```bash
-git clone https://github.com/yggdrasilts/yggdrasil-starter.git [PROJECT_NAME]
-cd [PROJECT_NAME]
-yarn install
-yarn start
-```
-
-The default access is in **[http://localhost:3000](http://localhost:3000)**.
-
 ## Built With
 
 * [TypeScript](https://www.typescriptlang.org/) - A superset of JavaScript.
@@ -41,6 +28,19 @@ The default access is in **[http://localhost:3000](http://localhost:3000)**.
 * **data**
 * **devs**
 * **testing**
+
+## Getting Started
+
+Use yggdrasil starter project:
+
+```bash
+git clone https://github.com/yggdrasilts/yggdrasil-starter.git [PROJECT_NAME]
+cd [PROJECT_NAME]
+yarn install
+yarn start
+```
+
+The default access is in **[http://localhost:3000](http://localhost:3000)**.
 
 ## Author / Contributors
 
