@@ -104,8 +104,8 @@ export abstract class Bootstrap {
 		await this.initialize(options);
 		this.app.set('protocol', (process.env.PROTOCOL || 'http'));
 		this.app.set('hostname', (hostname || 'localhost'));
-		this.app.set('port', port);
-		return this.app.listen(port, (hostname || 'localhost'), this.bootstrapCB());
+		this.app.set('port', (port || 3000));
+		return this.app.listen(this.app.get('port'), this.app.get('hostname'), this.bootstrapCB());
 	}
 
 	/**
@@ -122,10 +122,7 @@ export abstract class Bootstrap {
 	 */
 	protected api(router: express.Router, repository?: IYggdrasilRepository): IBootstrapRoute {
 		this.bootstrapLogger.info('Non API routes implemented');
-		return {
-			prefix: '/non-api-routes',
-			message: 'Non API routes implemented'
-		};
+		return { prefix: '/non-api-routes', message: 'Non API routes implemented' };
 	}
 
 	/**
@@ -135,10 +132,6 @@ export abstract class Bootstrap {
 	 */
 	protected config(app: express.Application) {
 		this.bootstrapLogger.info('Non config method implemented');
-	}
-
-	protected homeRedirect(url: string) {
-
 	}
 
 	/**
@@ -194,7 +187,15 @@ export abstract class Bootstrap {
 		}
 
 		/** Add DEFAULTS routes */
-		await this.configureDefaults(defaultsRouter, yggdrasilOptions.application.views.homeURL);
+		let homeURL: string;
+		try {
+			homeURL = yggdrasilOptions.application.views.homeURL;
+			this.bootstrapLogger.debug(`Override default yggdrasil access with ${homeURL}`);
+		} catch (error) {
+			homeURL = null;
+			this.bootstrapLogger.debug('Use default yggdrasil access');
+		}
+		await this.configureDefaults(defaultsRouter, homeURL);
 		this.app.use(defaultsRouter);
 
 		/** Configures server by application config method (extended method) */
@@ -279,6 +280,8 @@ export abstract class Bootstrap {
 				break;
 		}
 
+		this.bootstrapLogger.debug(`yggdrasilOptions are the following => ${result}`);
+
 		this.bootstrapLogger.info(`${options.application.type} yggdrasil application type is going to start.`);
 		return result;
 	}
@@ -337,9 +340,7 @@ export abstract class Bootstrap {
 		// TODO: Review flash feature
 		// this.app.use(flash(this.app));
 		this.bootstrapLogger.debug('Configure static server.');
-		this.app.use(express.static(publicDir, {
-			maxAge: 31557600000
-		}));
+		this.app.use(express.static(publicDir, { maxAge: 31557600000 }));
 	}
 
 	/**
@@ -401,9 +402,7 @@ export abstract class Bootstrap {
 		/** Other configurations */
 		this.app.use(compression());
 		this.app.use(bodyParser.json());
-		this.app.use(bodyParser.urlencoded({
-			extended: false
-		}));
+		this.app.use(bodyParser.urlencoded({ extended: false }));
 		// TODO: Review this module
 		this.app.use(lusca.xframe('SAMEORIGIN'));
 		this.app.use(lusca.xssProtection(true));
@@ -449,10 +448,10 @@ export abstract class Bootstrap {
 		const preMessage = 'Starting @yggdrasil architecture';
 		const postMessage = `@yggdrasil version - ${this.yggdrasilVersion}`;
 		await this.getBanner()
-		.then(data => {
-			this.bootstrapLogger.info(`${preMessage}${data}\n\n${postMessage}\n\n`);
-		})
-		.catch(err => this.bootstrapLogger.error(`Something wrong getting banner: ${err}`));
+			.then(data => {
+				this.bootstrapLogger.info(`${preMessage}${data}\n\n${postMessage}\n\n`);
+			})
+			.catch(err => this.bootstrapLogger.error(`Something wrong getting banner: ${err}`));
 
 	}
 }

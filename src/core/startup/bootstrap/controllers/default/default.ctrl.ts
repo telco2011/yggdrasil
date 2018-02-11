@@ -33,7 +33,7 @@ export class DefaultCtrl {
 	 * Redirects to application home page
 	 */
 	public redirectToAppHome = (req: Request, res: Response) => {
-		this.logger.debug(`redirects to application home`);
+		this.logger.debug(`redirects to application home => ${this.appHome}`);
 
 		res.redirect(this.appHome);
 	}
