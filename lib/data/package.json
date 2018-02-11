@@ -1,12 +1,13 @@
 {
-  "name": "@yggdrasil/data",
-  "version": "0.1.0-alpha.72251c0a",
-  "author": "David Lopez",
-  "license": "MIT",
-  "dependencies": {
-    "@yggdrasil/core": "canary",
-    "express": "^4.16.2",
-    "typeorm": "^0.1.11",
-    "class-validator": "^0.8.1"
-  }
+	"name": "@yggdrasil/data",
+	"version": "0.1.0-alpha.72251c0a",
+	"author": "David Lopez",
+	"license": "MIT",
+	"dependencies": {
+		"@yggdrasil/core": "canary",
+		"class-validator": "^0.8.1",
+		"express": "^4.16.2",
+		"typeorm": "^0.1.11",
+		"sqlite3": "^3.1.13"
+	}
 }
