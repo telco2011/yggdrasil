@@ -6,6 +6,7 @@ import { TslintPlugin } from 'gulp-tslint';
 import * as sass from 'gulp-sass';
 import * as nodemon from 'gulp-nodemon';
 
+import * as tslint from 'tslint';
 import * as del from 'del';
 import * as fs from 'fs';
 
@@ -14,7 +15,6 @@ export class YggdrasilGulpfile {
 
 	private tsProject = ts.createProject('tsconfig.json');
 	private tsTestProject = ts.createProject('tsconfig.spec.json');
-	// private tslint: TslintPlugin = gulpTslint();
 
 	@SequenceTask()
 	public start() {
@@ -33,7 +33,7 @@ export class YggdrasilGulpfile {
 
 	@SequenceTask('build:test')
 	public buildTest() {
-		return ['clean', 'copyAssets', 'tslint', 'compile:test'];
+		return ['clean', 'copyAssets', 'tslint:test', 'compile:test'];
 	}
 
 	@SequenceTask()
@@ -136,11 +136,12 @@ export class YggdrasilGulpfile {
 	}
 
 	/** Non Testing Zone */
-	// TODO: Review this method
 	@Task('tslint')
 	private tsLint() {
+		const program = tslint.Linter.createProgram('./tsconfig.json');
+
 		return gulp.src(['src/**/*.ts'])
-			.pipe(gulpTslint())
+			.pipe(gulpTslint({ program }))
 			.pipe(gulpTslint.report());
 	}
 
@@ -152,6 +153,15 @@ export class YggdrasilGulpfile {
 	}
 
 	/** Testing Zone */
+	@Task('tslint:test')
+	private tsLintTest() {
+		const program = tslint.Linter.createProgram('./tsconfig.spec.json');
+
+		return gulp.src(['src/**/*.ts'])
+			.pipe(gulpTslint({ program }))
+			.pipe(gulpTslint.report());
+	}
+
 	@Task('compile:test')
 	private typescriptTest() {
 		return this.tsTestProject.src()
