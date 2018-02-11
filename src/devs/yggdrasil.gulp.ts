@@ -138,10 +138,8 @@ export class YggdrasilGulpfile {
 	/** Non Testing Zone */
 	@Task('tslint')
 	private tsLint() {
-		const program = tslint.Linter.createProgram('./tsconfig.json');
-
-		return gulp.src(['src/**/*.ts'])
-			.pipe(gulpTslint({ program }))
+		return gulp.src(['src/**/*.ts', '!src/**/*.spec.ts'])
+			.pipe(gulpTslint({ configuration: 'tslint.json' }))
 			.pipe(gulpTslint.report());
 	}
 
@@ -155,10 +153,8 @@ export class YggdrasilGulpfile {
 	/** Testing Zone */
 	@Task('tslint:test')
 	private tsLintTest() {
-		const program = tslint.Linter.createProgram('./tsconfig.spec.json');
-
 		return gulp.src(['src/**/*.ts'])
-			.pipe(gulpTslint({ program }))
+			.pipe(gulpTslint({ configuration: 'tslint.json' }))
 			.pipe(gulpTslint.report());
 	}
 
