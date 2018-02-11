@@ -1,7 +1,8 @@
 import { Gulpclass, Task, SequenceTask } from 'gulpclass/Decorators';
 import * as gulp from 'gulp';
 import * as ts from 'gulp-typescript';
-import * as gulpTslint from 'gulp-tslint';
+import gulpTslint from 'gulp-tslint';
+import { TslintPlugin } from 'gulp-tslint';
 import * as sass from 'gulp-sass';
 import * as nodemon from 'gulp-nodemon';
 
@@ -13,6 +14,7 @@ export class YggdrasilGulpfile {
 
 	private tsProject = ts.createProject('tsconfig.json');
 	private tsTestProject = ts.createProject('tsconfig.spec.json');
+	// private tslint: TslintPlugin = gulpTslint();
 
 	@SequenceTask()
 	public start() {
@@ -26,12 +28,12 @@ export class YggdrasilGulpfile {
 
 	@SequenceTask()
 	public build() {
-		return ['clean', 'copyAssets', 'compile'];
+		return ['clean', 'copyAssets', 'tslint', 'compile'];
 	}
 
 	@SequenceTask('build:test')
 	public buildTest() {
-		return ['clean', 'copyAssets', 'compile:test'];
+		return ['clean', 'copyAssets', 'tslint', 'compile:test'];
 	}
 
 	@SequenceTask()
@@ -41,7 +43,7 @@ export class YggdrasilGulpfile {
 
 	@Task('watch')
 	public watch() {
-		gulp.watch(['src/**/*.ts'], ['compile', 'nodemon']);
+		gulp.watch(['src/**/*.ts'], ['tslint', 'compile', 'nodemon']);
 		gulp.watch(['src/public/js/**/*.js'], ['copyJs']);
 		gulp.watch(['src/public/scss/**/*.scss'], ['copySass']);
 		gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], ['copyViews']);
@@ -135,12 +137,12 @@ export class YggdrasilGulpfile {
 
 	/** Non Testing Zone */
 	// TODO: Review this method
-	// @Task('tslint')
-	// private tsLint() {
-	//   return gulp.src(['src/**/*.ts'])
-	//               .pipe(gulpTslint())
-	//               .pipe(gulpTslint.report());
-	// }
+	@Task('tslint')
+	private tsLint() {
+		return gulp.src(['src/**/*.ts'])
+			.pipe(gulpTslint())
+			.pipe(gulpTslint.report());
+	}
 
 	@Task('compile')
 	private typescript() {

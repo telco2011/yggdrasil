@@ -33,6 +33,15 @@ The default access is in **[http://localhost:3000](http://localhost:3000)**.
 * [npm](https://www.npmjs.com/) - The package manager for JavaScript and the world’s largest software registry.
 * [NodeJS](https://nodejs.org/en/) - A JavaScript runtime built on [Chrome's V8 JavaScript engine](https://developers.google.com/v8/).
 
+## Yggdrasil modules
+
+* **core**
+* **mvc**
+* **security**
+* **data**
+* **devs**
+* **testing**
+
 ## Author / Contributors
 
 * **[telco2011](https://github.com/telco2011)** - Telecom engineer, developer enthusiastic 👾, inline skates lover, biker 🏍 and barista initiated ☕️.
