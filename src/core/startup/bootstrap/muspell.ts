@@ -30,7 +30,7 @@ import { IYggdrasilRepository } from '../../modules/data/interfaces';
 import { DefaultCtrl } from './controllers/default/default.ctrl';
 
 /**
- * Abstract class to extend by application to initialise the server.
+ * Abstract class to extend by application to initialize the server.
  *
  * @abstract Bootstrap
  */
@@ -59,12 +59,12 @@ export abstract class Bootstrap {
 
 	/** Default constructor */
 	constructor() {
-		/** Initialize boostrap logger */
+		/** Initialize bootstrap logger */
 		this.bootstrapLogger = new FileLogger(Bootstrap.name);
 	}
 
 	/**
-	 * Method to start the appication. It is called by the application to run the server.
+	 * Method to start the application. It is called by the application to run the server.
 	 *
 	 * @param port Port used by expressjs listener. It must be greater than 0.
 	 * @param options Object that implements IYggdrasilOptions to configure yggdrasil application.
@@ -113,7 +113,7 @@ export abstract class Bootstrap {
 	}
 
 	/**
-	 * Async method that initialise all starting process.
+	 * Async method that initialize all starting process.
 	 */
 	private async initialize(options?: IYggdrasilOptions) {
 
@@ -193,7 +193,7 @@ export abstract class Bootstrap {
 				res.status(500).send({
 					status: 500,
 					message: 'internal error',
-					type: 'controled',
+					type: 'controlled',
 					TypeError: {
 						message: err.message,
 						stack: err.stack
@@ -215,7 +215,7 @@ export abstract class Bootstrap {
 	}
 
 	/**
-	 * Check yggdrasiloptions before start to load the application.
+	 * Check yggdrasilOptions before start to load the application.
 	 *
 	 * @param options IYggdrasilOptions
 	 */
@@ -230,7 +230,7 @@ export abstract class Bootstrap {
 		};
 
 		if (!options) {
-			this.bootstrapLogger.info('No YggdrasilOptions subministrated. Use default YggdrasilOptions.');
+			this.bootstrapLogger.info('No YggdrasilOptions added. Use default YggdrasilOptions.');
 			return yggdrasilOptions;
 		}
 

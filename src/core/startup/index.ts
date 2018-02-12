@@ -1,17 +1,13 @@
 import * as dotenv from 'dotenv';
 
-export {
-	dotenv
-};
+export { dotenv };
 
 export {
 	// Classes
 	Startup
-}
-from './checkenv';
+} from './check';
 
 export {
 	// Classes
 	Bootstrap,
-}
-from './bootstrap';
+} from './bootstrap';

@@ -1,19 +1,33 @@
 import * as requireENV from 'require-env';
 import chalk from 'chalk';
 
-export class Startup {
-	private checkENV = requireENV;
-	private messages;
-	// TODO: Review this tslint
-	// tslint:disable-next-line
-	private optionalENVs: Array < string > ;
-	// TODO: Review this tslint
-	// tslint:disable-next-line
-	private requiredENVs: Array < string > ;
+import { IMessages } from '../../modules/startup/interfaces';
 
-	// TODO: Review this tslint
-	// tslint:disable-next-line
-	constructor(requiredENVs: Array < string > , optionalENVs: Array < string > , envFile ? : string) {
+/**
+ * @class Startup
+ */
+export class Startup {
+
+	/** Check environment attribute */
+	private checkENV = requireENV;
+
+	/** Messages attribute */
+	private messages: IMessages;
+
+	/** Attribute to store optional environment variables */
+	private optionalENVs: string[];
+
+	/** Attribute to store required environment variables */
+	private requiredENVs: string[];
+
+	/**
+	 * Default constructor
+	 *
+	 * @param requiredENVs Required environment variables
+	 * @param optionalENVs Optional environment variables
+	 * @param envFile .env file
+	 */
+	constructor(requiredENVs: string[], optionalENVs: string[], envFile?: string) {
 		if (!requiredENVs) {
 			console.error(`${chalk.red('error:')} The requiredENV array is needed to check the startup.`);
 			throw new Error();
@@ -29,6 +43,9 @@ export class Startup {
 		this.optionalENVs = optionalENVs;
 	}
 
+	/**
+	 * Method that checks the environment before start the application.
+	 */
 	public startupCheck = async () => {
 		return new Promise((resolve, reject) => {
 			let resolutionMessage = `${chalk.green('info:')} ENV is correct. Start to load the server.`;
@@ -54,6 +71,9 @@ export class Startup {
 		});
 	}
 
+	/**
+	 * Method to check required environment variables
+	 */
 	private checkRequiredENVs = async () => {
 		return new Promise((resolve, reject) => {
 			for (const prop of this.requiredENVs) {
@@ -67,6 +87,9 @@ export class Startup {
 		});
 	}
 
+	/**
+	 * Method to check optional environment variables
+	 */
 	private checkOptionalENVs = async () => {
 		return new Promise((resolve, reject) => {
 			for (const prop of this.optionalENVs) {
