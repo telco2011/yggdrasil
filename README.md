@@ -10,8 +10,8 @@ Yggdrasil architecture makes easy to create javascript backend applications. Usi
 
 ## Prerequisites
 
-* Install [NodeJS](https://nodejs.org/en/) (_Yyggdrasil recommends to use [nvm](https://github.com/creationix/nvm)_)
-* Install [yarn](https://yarnpkg.com) (_Yyggdrasil recommends to use yarn to build its applications_)
+* Install [NodeJS](https://nodejs.org/en/) (_Yggdrasil recommends to use [nvm](https://github.com/creationix/nvm)_)
+* Install [yarn](https://yarnpkg.com) (_Yggdrasil recommends to use yarn to build its applications_)
 
 ## Getting Started
 
@@ -38,7 +38,7 @@ Yggdrasil uses the following frameworks/tools to be developed.
 * [Lerna](https://lernajs.io/) - A tool for managing JavaScript projects with multiple packages.
 * [TSLint](https://palantir.github.io/tslint/) - An extensible linter for the [TypeScript](https://www.typescriptlang.org/) language.
 * [Mocha](https://mochajs.org/) - Mocha is a feature-rich JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun
-* [Istambul](https://istanbul.js.org/) - JavaScript test coverage made simple.
+* [Istanbul](https://istanbul.js.org/) - JavaScript test coverage made simple.
 * [Gulp](https://gulpjs.com/) - Gulp is a toolkit for automating painful or time-consuming tasks in your development workflow, so you can stop messing around and build something.
 
 ## Yggdrasil modules
@@ -46,9 +46,9 @@ Yggdrasil uses the following frameworks/tools to be developed.
 Yggdrasil is divided in the following modules to give all its functionalities:
 
 * **[@yggdrasil/core](lib/core)**: Core module provides common and basic functionality that allows an yggdrasil application runs.
-* **[@yggdrasil/mvc](lib/mvc)**: MVC momdule provides
+* **[@yggdrasil/mvc](lib/mvc)**: MVC module provides
 * **[@yggdrasil/security](lib/security)**: Security module provides all the security functionalities that all kind of application needs.
-* **[@yggdrasil/data](lib/data)**: Data module is powered by [typeorm](http://typeorm.io/), a powerful [TypeScript](https://www.typescriptlang.org/) [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping), and povides all the functionalities to connect and use a variety of databases.
+* **[@yggdrasil/data](lib/data)**: Data module is powered by [typeorm](http://typeorm.io/), a powerful [TypeScript](https://www.typescriptlang.org/) [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping), and provides all the functionalities to connect and use a variety of databases.
 * **[@yggdrasil/testing](lib/testing)**: Testing modules provides functionalities to have all yggdrasil application well tested.
 * **[@yggdrasil/devs](lib/devs)**: Devs modules is a modules only thought for development purpose and contains all the necessary to develop any yggdrasil application.
 
