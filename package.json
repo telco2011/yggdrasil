@@ -16,7 +16,7 @@
 		"copy:tslint": "cp ./src/core/tslint.json ./lib/core",
 		"copy:pkg": "mkdir ./lib/devs/parent-pkg && cp ./src/devs/parent-pkg/parent-pkg.json ./lib/devs/parent-pkg/parent-pkg.json",
 		"doc": "typedoc --tsconfig tsconfig.json --name @YGGDRASIL --out documentation --mode modules src",
-		"lerna:publish": "yarn run lerna:publish:canary:local",
+		"lerna:publish": "yarn run lerna:publish:canary",
 		"lerna:publish:canary": "lerna publish --canary=alpha --yes",
 		"lerna:publish:canary:local": "lerna publish --canary=alpha --yes --registry http://localhost:4873/",
 		"publish": "yarn run build && yarn run lerna:publish",

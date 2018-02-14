@@ -1,10 +1,10 @@
 {
-	"name": "@yggdrasil/data",
+	"name": "@yggdrasilts/data",
 	"version": "0.1.0-alpha.72251c0a",
 	"author": "David Lopez",
 	"license": "MIT",
 	"dependencies": {
-		"@yggdrasil/core": "canary",
+		"@yggdrasilts/core": "canary",
 		"class-validator": "^0.8.1",
 		"express": "^4.16.2",
 		"mysql": "^2.15.0",

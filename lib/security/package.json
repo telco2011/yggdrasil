@@ -1,7 +1,7 @@
 {
   "author": "David Lopez",
   "dependencies": {
-    "@yggdrasil/core": "canary",
+    "@yggdrasilts/core": "canary",
     "connect-mongo": "^2.0.1",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
@@ -10,6 +10,6 @@
     "passport-jwt": "^3.0.1"
   },
   "license": "MIT",
-  "name": "@yggdrasil/security",
+  "name": "@yggdrasilts/security",
   "version": "0.1.0-alpha.72251c0a"
 }
