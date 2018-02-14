@@ -275,7 +275,7 @@ export abstract class Bootstrap {
 	}
 
 	/**
-	 * Configure default routes to show default @yggdrasil html
+	 * Configure default routes to show default @yggdrasilts html
 	 *
 	 * @param router express.Router
 	 */
@@ -433,8 +433,8 @@ export abstract class Bootstrap {
 	 * Print a cool banner in the logger.
 	 */
 	private async printBanner(): Promise < void > {
-		const preMessage = 'Starting @yggdrasil architecture';
-		const postMessage = `@yggdrasil version - ${this.yggdrasilVersion}`;
+		const preMessage = 'Starting @yggdrasilts architecture';
+		const postMessage = `@yggdrasilts version - ${this.yggdrasilVersion}`;
 		await this.getBanner()
 			.then(data => {
 				this.bootstrapLogger.info(`${preMessage}${data}\n\n${postMessage}\n\n`);

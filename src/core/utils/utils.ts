@@ -20,7 +20,7 @@ export class Utils {
 	/**
 	 * Contains the yggdrasil module path
 	 */
-	public static yggdrasilRootPath: string = appRoot.path + '/node_modules/@yggdrasil';
+	public static yggdrasilRootPath: string = appRoot.path + '/node_modules/@yggdrasilts';
 
 	/**
 	 * Capitalise the given string
@@ -32,9 +32,9 @@ export class Utils {
 	}
 
 	/**
-	 * Gets @yggdrasil version
+	 * Gets @yggdrasilts version
 	 *
-	 * @return @yggdrasil version
+	 * @return @yggdrasilts version
 	 */
 	public static getYggdrasilVersion(): string {
 		// TODO: Waiting for oficial package.json schema to change type

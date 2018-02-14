@@ -45,12 +45,12 @@ Yggdrasil uses the following frameworks/tools to be developed.
 
 Yggdrasil is divided in the following modules to give all its functionalities:
 
-* **[@yggdrasil/core](lib/core)**: Core module provides common and basic functionality that allows an yggdrasil application runs.
-* **[@yggdrasil/mvc](lib/mvc)**: MVC module provides basic mvc functionalities.
-* **[@yggdrasil/security](lib/security)**: Security module provides all the security functionalities that all kind of application needs.
-* **[@yggdrasil/data](lib/data)**: Data module is powered by [typeorm](http://typeorm.io/), a powerful [TypeScript](https://www.typescriptlang.org/) [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping), and provides all the functionalities to connect and use a variety of databases.
-* **[@yggdrasil/testing](lib/testing)**: Testing modules provides functionalities to have all yggdrasil application well tested.
-* **[@yggdrasil/devs](lib/devs)**: Devs modules is a modules only thought for development purpose and contains all the necessary to develop any yggdrasil application.
+* **[@yggdrasilts/core](lib/core)**: Core module provides common and basic functionality that allows an yggdrasil application runs.
+* **[@yggdrasilts/mvc](lib/mvc)**: MVC module provides basic mvc functionalities.
+* **[@yggdrasilts/security](lib/security)**: Security module provides all the security functionalities that all kind of application needs.
+* **[@yggdrasilts/data](lib/data)**: Data module is powered by [typeorm](http://typeorm.io/), a powerful [TypeScript](https://www.typescriptlang.org/) [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping), and provides all the functionalities to connect and use a variety of databases.
+* **[@yggdrasilts/testing](lib/testing)**: Testing modules provides functionalities to have all yggdrasil application well tested.
+* **[@yggdrasilts/devs](lib/devs)**: Devs modules is a modules only thought for development purpose and contains all the necessary to develop any yggdrasil application.
 
 ## Author / Contributors
 

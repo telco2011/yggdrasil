@@ -9,12 +9,12 @@
 		"tslint:test": "tslint -p tsconfig.spec.json -t verbose"
 	},
 	"dependencies": {
-		"@yggdrasil/core": "canary",
-		"@yggdrasil/mvc": "canary"
+		"@yggdrasilts/core": "canary",
+		"@yggdrasilts/mvc": "canary"
 	},
 	"devDependencies": {
-		"@yggdrasil/devs": "canary",
-		"@yggdrasil/testing": "canary"
+		"@yggdrasilts/devs": "canary",
+		"@yggdrasilts/testing": "canary"
 	},
 	"nyc": {
 		"include": [
