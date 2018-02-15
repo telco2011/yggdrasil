@@ -1,9 +1,24 @@
 {
 	"name": "yggdrasilts-arch",
 	"version": "0.1.0",
-	"description": "@yggdrasilts architecture",
+	"description": "Yggdrasil architecture makes easy to create javascript backend applications.",
 	"license": "MIT",
 	"author": "David Lopez",
+	"repository": {
+		"url": "https://github.com/yggdrasilts/yggdrasil"
+	},
+	"bugs": {
+		"url": "https://github.com/yggdrasilts/yggdrasil/issues"
+	},
+	"keywords": [
+		"TypeScript",
+		"Expressjs",
+		"NodeJS",
+		"JavaScript",
+		"Framework",
+		"yarn",
+		"npm"
+	],
 	"scripts": {
 		"build": "yarn run clean:lib && yarn run compile",
 		"clean:all": "yarn run clean:lib && yarn run clean:extras && rm -rf node_modules",
@@ -98,5 +113,9 @@
 			"html"
 		],
 		"all": true
+	},
+	"engines": {
+		"node": ">=8.9.0",
+		"yarn": ">=1.3.0"
 	}
 }
