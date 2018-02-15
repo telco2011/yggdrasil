@@ -1,5 +1,5 @@
 {
-	"version": "0.1.0-alpha.386b3a59",
+	"version": "0.1.0-alpha.8cd5e053",
 	"name": "@yggdrasilts/core",
 	"author": "David Lopez",
 	"license": "MIT",
@@ -26,8 +26,5 @@
 		"require-env": "^0.2.1",
 		"rotating-file-stream": "^1.3.4",
 		"winston": "^2.4.0"
-	},
-	"publishConfig": {
-		"access": "public"
 	}
 }
