@@ -1,7 +1,7 @@
 {
 	"name": "yggdrasilts-arch",
 	"version": "0.1.0",
-	"description": "Yggdrasil architecture makes easy to create javascript backend applications.",
+	"description": "Yggdrasilts architecture makes easy to create javascript backend applications.",
 	"license": "MIT",
 	"author": "David Lopez",
 	"repository": {
@@ -21,6 +21,7 @@
 	],
 	"scripts": {
 		"build": "yarn run clean:lib && yarn run compile",
+		"clean": "yarn run clean:extras && yarn run clean:lib",
 		"clean:all": "yarn run clean:lib && yarn run clean:extras && rm -rf node_modules",
 		"clean:extras": "rm -rf logs .nyc_output coverage documentation etc package-lock.json yarn.lock lerna-debug.log",
 		"clean:lib": "yarn run script:clean",
@@ -29,8 +30,8 @@
 		"compile:test": "yarn run tslint:test && tsc -p tsconfig.spec.json",
 		"copy": "yarn run copy:defaults && yarn run copy:tslint && yarn run copy:pkg",
 		"copy:defaults": "cp -R ./src/core/startup/bootstrap/controllers/default/defaultHtml ./lib/core/startup/bootstrap/controllers/default",
-		"copy:tslint": "cp ./src/core/tslint.json ./lib/core",
 		"copy:pkg": "mkdir ./lib/devs/parent-pkg && cp ./src/devs/parent-pkg/parent-pkg.json ./lib/devs/parent-pkg/parent-pkg.json",
+		"copy:tslint": "cp ./src/core/tslint.json ./lib/core",
 		"doc": "typedoc --tsconfig tsconfig.json --name @YGGDRASILTS --out documentation --mode modules src",
 		"lerna:publish": "yarn run lerna:publish:canary:local",
 		"lerna:publish:canary": "npm adduser && lerna publish --canary=alpha --yes -m \"chore(canary): publish %s\"",
@@ -48,7 +49,7 @@
 		"class-validator": "^0.8.1",
 		"compression": "^1.7.1",
 		"connect-mongo": "^2.0.1",
-		"dotenv": "^4.0.0",
+		"dotenv": "^5.0.0",
 		"express": "^4.16.2",
 		"express-flash": "0.0.2",
 		"express-flash-notification": "^0.5.0",
@@ -96,7 +97,7 @@
 		"source-map-support": "^0.5.3",
 		"ts-node": "^4.1.0",
 		"tslint": "^5.9.1",
-		"typedoc": "^0.9.0",
+		"typedoc": "^0.10.0",
 		"typescript": "^2.6.2"
 	},
 	"nyc": {
