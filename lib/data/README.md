@@ -1,1 +1,1 @@
-# @yggdrasiltsts/data
+# @yggdrasilts/data

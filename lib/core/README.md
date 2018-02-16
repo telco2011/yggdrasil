@@ -1,1 +1,1 @@
-# @yggdrasiltsts/core
+# @yggdrasilts/core

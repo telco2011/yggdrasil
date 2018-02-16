@@ -10,21 +10,12 @@ Yggdrasil architecture makes easy to create javascript backend applications. Usi
 
 ## Prerequisites
 
-* Install [NodeJS](https://nodejs.org/en/) (_Yggdrasil recommends to use [nvm](https://github.com/creationix/nvm)_)
-* Install [yarn](https://yarnpkg.com) (_Yggdrasil recommends to use yarn to build its applications_)
+* Install [NodeJS](https://nodejs.org/en/) (_Yggdrasilts team recommends to use [nvm](https://github.com/creationix/nvm)_)
+* Install [yarn](https://yarnpkg.com) (_Yggdrasilts team recommends to use yarn to build its applications_)
 
 ## Getting Started
 
-To start to use yggdrasil architecture, you could use the starter project:
-
-```bash
-git clone https://github.com/yggdrasilts/yggdrasil-starter.git [PROJECT_NAME]
-cd [PROJECT_NAME]
-yarn install
-yarn start
-```
-
-The default access is in **[http://localhost:3000](http://localhost:3000)**.
+See our [starter project](https://github.com/yggdrasilts/yggdrasil-starter) to have a simple boilerplate or our [samples](https://github.com/yggdrasilts/samples) to see more applications examples.
 
 ## Built With
 
@@ -45,12 +36,12 @@ Yggdrasil uses the following frameworks/tools to be developed.
 
 Yggdrasil is divided in the following modules to give all its functionalities:
 
-* **[@yggdrasilts/core](lib/core)**: Core module provides common and basic functionality that allows an yggdrasil application runs.
-* **[@yggdrasilts/mvc](lib/mvc)**: MVC module provides basic mvc functionalities.
-* **[@yggdrasilts/security](lib/security)**: Security module provides all the security functionalities that all kind of application needs.
-* **[@yggdrasilts/data](lib/data)**: Data module is powered by [typeorm](http://typeorm.io/), a powerful [TypeScript](https://www.typescriptlang.org/) [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping), and provides all the functionalities to connect and use a variety of databases.
-* **[@yggdrasilts/testing](lib/testing)**: Testing modules provides functionalities to have all yggdrasil application well tested.
-* **[@yggdrasilts/devs](lib/devs)**: Devs modules is a modules only thought for development purpose and contains all the necessary to develop any yggdrasil application.
+* **[@yggdrasilts/core](https://github.com/yggdrasilts/yggdrasil/tree/master/lib/core)**: Core module provides common and basic functionality that allows an yggdrasil application runs.
+* **[@yggdrasilts/mvc](https://github.com/yggdrasilts/yggdrasil/tree/master/lib/mvc)**: MVC module provides basic mvc functionalities.
+* **[@yggdrasilts/security](https://github.com/yggdrasilts/yggdrasil/tree/master/lib/security)**: Security module provides all the security functionalities that all kind of application needs.
+* **[@yggdrasilts/data](https://github.com/yggdrasilts/yggdrasil/tree/master/lib/data)**: Data module is powered by [typeorm](http://typeorm.io/), a powerful [TypeScript](https://www.typescriptlang.org/) [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping), and provides all the functionalities to connect and use a variety of databases.
+* **[@yggdrasilts/testing](https://github.com/yggdrasilts/yggdrasil/tree/master/lib/testing)**: Testing modules provides functionalities to have all yggdrasil application well tested.
+* **[@yggdrasilts/devs](https://github.com/yggdrasilts/yggdrasil/tree/master/lib/devs)**: Devs modules is a modules only thought for development purpose and contains all the necessary to develop any yggdrasil application.
 
 ## Author / Contributors
 
