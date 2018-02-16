@@ -8,10 +8,6 @@ import {
 	assert
 } from 'chai';
 
-import {
-	RepositoryBase
-} from './repository';
-
 @suite('data')
 class DataTestSuite {
 

@@ -1,7 +1,7 @@
 import {
 	suite,
 	test
-} from '../../testing';
+} from '../../../testing';
 
 import {
 	expect,
