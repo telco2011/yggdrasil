@@ -46,6 +46,11 @@ export class YggdrasilGulpfile {
 		gulp.watch(['src/**/*.ts'], ['tslint', 'compile', 'nodemon']);
 		gulp.watch(['src/public/js/**/*.js'], ['copyJs']);
 		gulp.watch(['src/public/scss/**/*.scss'], ['copySass']);
+		gulp.watch([
+			'src/public/css/**/*',
+			'src/public/{images,img}/**/*',
+			'src/public/{font,fonts}/**/*'
+		], ['copyStatics']);
 		gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], ['copyViews']);
 	}
 
@@ -82,7 +87,8 @@ export class YggdrasilGulpfile {
 	public copyStatics() {
 		return gulp.src([
 			'src/public/**/*',
-			'!src/public/scss/**/*'
+			'!src/public/{js,js/**}',
+			'!src/public/{scss,scss/**}'
 		]).pipe(gulp.dest('dist/public'));
 	}
 
@@ -95,6 +101,7 @@ export class YggdrasilGulpfile {
 
 	@Task()
 	public copyJs() {
+		// TODO: Be careful if these folders doesn't exist
 		const yggdrasilThirdPartyJS = [
 			'node_modules/bootstrap/dist/js/bootstrap.min.js',
 			'node_modules/jquery/dist/jquery.min.js',
@@ -103,7 +110,7 @@ export class YggdrasilGulpfile {
 
 		return gulp.src([
 			// Third-party js
-			yggdrasilThirdPartyJS,
+			...yggdrasilThirdPartyJS,
 
 			// App js
 			'src/public/js/**/*'
@@ -112,13 +119,14 @@ export class YggdrasilGulpfile {
 
 	@Task()
 	public copySass() {
+		// TODO: Be careful if these folders doesn't exist
 		const yggdrasilThirdPartySCSS = [
 			'node_modules/bootstrap/scss/bootstrap.scss'
 		];
 
 		return gulp.src([
 				// Third-party styles
-				yggdrasilThirdPartySCSS,
+				...yggdrasilThirdPartySCSS,
 
 				// App styles
 				'src/public/scss/*.scss'
