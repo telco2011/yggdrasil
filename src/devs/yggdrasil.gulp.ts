@@ -75,18 +75,15 @@ export class YggdrasilGulpfile {
 		]);
 	}
 
+	/**
+	 * GULP STATIC TASKS - START
+	 */
 	@Task()
 	public copyStatics() {
 		return gulp.src([
-			'src/public/images/**/*'
-		]).pipe(gulp.dest('dist/public/images'));
-	}
-
-	@Task()
-	public copyFonts() {
-		return gulp.src([
-			'src/public/fonts/**/*'
-		]).pipe(gulp.dest('dist/public/fonts'));
+			'src/public/**/*',
+			'!src/public/scss/**/*'
+		]).pipe(gulp.dest('dist/public'));
 	}
 
 	@Task()
@@ -98,28 +95,39 @@ export class YggdrasilGulpfile {
 
 	@Task()
 	public copyJs() {
-		return gulp.src([
-			// Third-party js
+		const yggdrasilThirdPartyJS = [
 			'node_modules/bootstrap/dist/js/bootstrap.min.js',
 			'node_modules/jquery/dist/jquery.min.js',
-			'node_modules/tether/dist/js/tether.min.js',
+			'node_modules/tether/dist/js/tether.min.js'
+		];
+
+		return gulp.src([
+			// Third-party js
+			yggdrasilThirdPartyJS,
 
 			// App js
-			'src/public/js/main.js'
+			'src/public/js/**/*'
 		]).pipe(gulp.dest('dist/public/js'));
 	}
 
 	@Task()
 	public copySass() {
+		const yggdrasilThirdPartySCSS = [
+			'node_modules/bootstrap/scss/bootstrap.scss'
+		];
+
 		return gulp.src([
 				// Third-party styles
-				'node_modules/bootstrap/scss/bootstrap.scss',
+				yggdrasilThirdPartySCSS,
 
 				// App styles
 				'src/public/scss/*.scss'
 			]).pipe(sass())
 			.pipe(gulp.dest('dist/public/css'));
 	}
+	/**
+	 * GULP STATIC TASKS - END
+	 */
 
 	// TODO: Test this method
 	@Task('addYggdrasilScriptsToPkg')
