@@ -38,7 +38,7 @@ export class YggdrasilGulpfile {
 
 	@SequenceTask()
 	public copyAssets() {
-		return ['copySass', 'copyJs', 'copyViews', 'copyStatics', 'copyFonts'];
+		return ['copySass', 'copyJs', 'copyViews', 'copyStatics'];
 	}
 
 	@Task('watch')
