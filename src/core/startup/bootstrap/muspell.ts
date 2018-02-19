@@ -153,7 +153,7 @@ export abstract class Bootstrap {
 		/** Add view routes */
 		if (yggdrasilOptions.application.type === EApplicationType.WEB || yggdrasilOptions.application.type === EApplicationType.HYBRID) {
 			await this.configureViews(yggdrasilOptions);
-			await this.routes(routesRouter);
+			await this.routes(routesRouter, this.repository);
 			this.app.use('/views', routesRouter);
 			this.printRoutes(routesRouter, '/views', 'Print View Routes');
 		}
