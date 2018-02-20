@@ -24,13 +24,13 @@ export class SQLiteDBRepository extends YggdrasilRepository implements IYggdrasi
 			synchronize: true,
 			logging: false,
 			entities: [
-				'dist/repository/entities/*.js'
+				'dist/repository/entities/**/*.js'
 			],
 			subscribers: [
-				'dist/repository/subscribers/*.js'
+				'dist/repository/subscribers/**/*.js'
 			],
 			migrations: [
-				'dist/repository/migrations/*.js'
+				'dist/repository/migrations/**/*.js'
 			]
 		};
 	}
