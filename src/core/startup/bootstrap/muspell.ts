@@ -406,7 +406,7 @@ export abstract class Bootstrap {
 		this.bootstrapLogger.debug(msg || 'Print routes');
 		if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
 			// TODO: Review this tslint
-			// tslint:disable-next-line
+			/* tslint:disable-next-line */
 			expressListRoutes({ prefix: prefix }, `Application Routes for prefix '${prefix}'`, router);
 		}
 	}

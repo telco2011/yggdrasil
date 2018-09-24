@@ -30,7 +30,7 @@ export class RequestUtils {
 	}
 
 	// TODO: Review this tslint
-	// tslint:disable-next-line
+	/* tslint:disable-next-line */
 	private hasParamInHeader(param: string): Boolean {
 		if (param in REQUEST_PARAMS) {
 			this.logger.debug(`Param ${param} is a controlled param.`);
@@ -44,8 +44,8 @@ export class RequestUtils {
 
 export interface IOptions {
 	// TODO: Review this tslint
-	// tslint:disable-next-line
+	/* tslint:disable-next-line */
 	asString ? : Boolean;
-	// tslint:disable-next-line
+	/* tslint:disable-next-line */
 	asJSONObject ? : Boolean;
 }
