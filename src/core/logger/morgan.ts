@@ -48,12 +48,14 @@ export class MorganUtils {
 			});
 		} else {
 			// create a rotating write stream
-			this.accessLogStream = rfs(MorganUtils.MORGAN_LOG_NAME, {
+			// TODO: Review this line
+			/* this.accessLogStream = rfs(MorganUtils.MORGAN_LOG_NAME, {
 				interval: options.interval,
 				maxFiles: options.maxFiles,
 				maxSize: options.maxSize,
 				path: this.logDirectory
-			});
+			});*/
+			console.warn('Not yet implemented');
 		}
 
 		return this.accessLogStream;
