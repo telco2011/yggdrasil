@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as rfs from 'rotating-file-stream';
+import rfs from 'rotating-file-stream';
 
 import {
 	WriteStream
@@ -48,13 +48,12 @@ export class MorganUtils {
 			});
 		} else {
 			// create a rotating write stream
-			// TODO: Review this line
-			/* this.accessLogStream = rfs(MorganUtils.MORGAN_LOG_NAME, {
+			this.accessLogStream = rfs(MorganUtils.MORGAN_LOG_NAME, {
 				interval: options.interval,
 				maxFiles: options.maxFiles,
 				maxSize: options.maxSize,
 				path: this.logDirectory
-			});*/
+			});
 			console.warn('Not yet implemented');
 		}
 
