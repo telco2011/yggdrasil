@@ -54,7 +54,6 @@ export class MorganUtils {
 				maxSize: options.maxSize,
 				path: this.logDirectory
 			});
-			console.warn('Not yet implemented');
 		}
 
 		return this.accessLogStream;
