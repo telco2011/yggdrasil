@@ -8,9 +8,7 @@ import {
 	assert
 } from 'chai';
 
-import {
-	FileLogger
-} from './filelogger';
+import { FileLogger } from './filelogger';
 import {
 	MorganUtils
 } from './morgan';
