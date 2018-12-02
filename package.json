@@ -35,7 +35,7 @@
 		"doc": "typedoc --tsconfig tsconfig.json --name @YGGDRASILTS --out documentation --mode modules src",
 		"lerna:publish": "yarn run lerna:publish:canary:local",
 		"lerna:publish:canary": "npm adduser && lerna publish --canary --yes -m \"chore(canary): publish %s\"",
-		"lerna:publish:canary:local": "lerna publish --canary --yes --registry http://localhost:4873/ -m \"chore(canary): publish %s\"",
+		"lerna:publish:canary:local": "lerna publish --force-publish=* --canary --yes --registry http://localhost:4873/ -m \"chore(canary): publish %s\"",
 		"publish": "yarn run build && yarn run lerna:publish",
 		"script:clean": "bash ./scripts/clean.sh",
 		"script:test": "bash ./scripts/test.sh",
