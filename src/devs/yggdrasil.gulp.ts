@@ -1,4 +1,4 @@
-import { Gulpclass, Task, SequenceTask } from 'gulpclass/Decorators';
+import { Gulpclass, Task, SequenceTask } from 'gulpclass';
 import * as gulp from 'gulp';
 import * as ts from 'gulp-typescript';
 import gulpTslint from 'gulp-tslint';
