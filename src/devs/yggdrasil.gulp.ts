@@ -54,12 +54,12 @@ export class YggdrasilGulpfile {
 		gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs']/*, ['copyViews']*/);
 	}
 
-	// @Task()
-	// public nodemon() {
-	// 	return nodemon({
-	// 		script: 'dist/ignition.js'
-	// 	});
-	// }
+	@Task()
+	public nodemon() {
+		return nodemon({
+			script: 'dist/ignition.js'
+		});
+	}
 
 	@Task('clean:all', ['clean'])
 	public cleanAll() {
