@@ -4,10 +4,10 @@
   "author": "David Lopez",
   "license": "MIT",
   "dependencies": {
-    "@types/express": "^4.11.0",
+    "@types/express": "^4.11.1",
     "@yggdrasilts/core": "canary",
     "@yggdrasilts/security": "canary",
-    "express": "^4.16.2",
-    "passport-jwt": "^3.0.1"
+    "express": "^4.16.3",
+    "passport-jwt": "^4.0.0"
   }
 }
