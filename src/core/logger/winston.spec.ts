@@ -10,7 +10,7 @@ import {
 
 import {
 	FileLogger
-} from './winston';
+} from './filelogger';
 import {
 	MorganUtils
 } from './morgan';

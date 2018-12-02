@@ -7,13 +7,13 @@ import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOpti
 
 export class MysqlDBRepository extends YggdrasilRepository implements IYggdrasilRepository {
 
+	private defaultConnectionOptions: MysqlConnectionOptions;
+
 	public logger: FileLogger;
 
 	public connection: Connection;
 
 	public manager: EntityManager;
-
-	private defaultConnectionOptions: MysqlConnectionOptions;
 
 	constructor() {
 		super();

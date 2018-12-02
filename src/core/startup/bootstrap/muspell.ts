@@ -36,9 +36,6 @@ import { DefaultCtrl } from './controllers/default/default.ctrl';
  */
 export abstract class Bootstrap {
 
-	/** Force to implement logger by application */
-	public abstract logger: FileLogger;
-
 	/** Internal expressjs application */
 	private app: express.Application;
 
@@ -56,6 +53,9 @@ export abstract class Bootstrap {
 
 	/** Yggdrasil version */
 	private yggdrasilVersion: string = Utils.getYggdrasilVersion();
+
+	/** Force to implement logger by application */
+	public abstract logger: FileLogger;
 
 	/** Default constructor */
 	constructor() {

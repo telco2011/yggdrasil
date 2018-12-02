@@ -7,13 +7,13 @@ import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOp
 
 export class MongoDBRepository extends YggdrasilRepository implements IYggdrasilRepository {
 
+	private defaultConnectionOptions: MongoConnectionOptions;
+
 	public logger: FileLogger;
 
 	public manager: MongoEntityManager;
 
 	public connection: Connection;
-
-	private defaultConnectionOptions: MongoConnectionOptions;
 
 	constructor() {
 		super();

@@ -7,13 +7,13 @@ import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionO
 
 export class SQLiteDBRepository extends YggdrasilRepository implements IYggdrasilRepository {
 
+	private defaultConnectionOptions: SqliteConnectionOptions;
+
 	public logger: FileLogger;
 
 	public connection: Connection;
 
 	public manager: EntityManager;
-
-	private defaultConnectionOptions: SqliteConnectionOptions;
 
 	constructor() {
 		super();

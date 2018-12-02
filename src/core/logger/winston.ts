@@ -1,36 +1,34 @@
 import * as winston from 'winston';
+import * as Transport from 'winston-transport';
 import * as path from 'path';
 import * as moment from 'moment';
 
-import {
-	Tracking
-} from '../tracking';
-import {
-	Utils
-} from '../utils';
+import { Tracking } from '../tracking';
+import { Utils } from '../utils';
 
 /** Log level enumeration */
-enum LEVEL {
+export enum LEVEL {
 
 	/**
 	 * Shows log traces from debug to error. Recommended in development/test environments.
 	 */
 	DEBUG = 'debug',
 
-		/**
-		 * Shows log traces from info to error. Recommended in production environments.
-		 */
-		INFO = 'info',
+	/**
+	 * Shows log traces from info to error. Recommended in production environments.
+	 */
+	INFO = 'info',
 
-		/**
-		 * Shows log traces from warn to error.
-		 */
-		WARN = 'warn',
+	/**
+	 * Shows log traces from warn to error.
+	 */
+	WARN = 'warn',
 
-		/**
-		 * Shows log traces only for error.
-		 */
-		ERROR = 'error'
+	/**
+	 * Shows log traces only for error.
+	 */
+	ERROR = 'error'
+
 }
 
 /**
@@ -47,21 +45,8 @@ enum LEVEL {
  * process params
  * --------------
  * - __process.env.FILELOGGER_LOG_LEVEL__: param to configure log level. See {@link LEVEL} to know the values for this param.
- *
- * Usage
- * =====
- *
- * ```javascript
- * import { FileLogger } from './yggdrasil/logger';
- *
- * const logger = new FileLogger('domain');
- * logger.debug('Message');
- * logger.info('Message');
- * logger.warn('Message');
- * logger.error('Message');
- * ```
  */
-export class FileLogger {
+export class FileLoggerSingleton {
 
 	/** Contains the application log name. */
 	private static FILELOGGER_LOG_NAME = 'server.log';
@@ -69,38 +54,34 @@ export class FileLogger {
 	/** Contains the exception log name. */
 	private static FILELOGGER_EXCEPTION_LOG_NAME = 'exception.log';
 
-	/** Default logger variable. */
-	private logger: winston.LoggerInstance;
+	/** Logger */
+	private static logger: FileLoggerSingleton;
 
-	/** String that represents which module write the log. */
-	private sourceModule: string;
+	/** LoggerOptions */
+	private static loggerOptions: winston.LoggerOptions;
+
+	/** Container for the logger */
+	private container: winston.Container;
 
 	/** Default level */
 	private level = 'debug';
 
 	/**
 	 * Default constructor.
-	 * @param  {string} sourceModule Where is it from. It is mandatory to know what module prints the log trace.
-	 * @param  {winston.transports} transports?
 	 */
-	constructor(sourceModule: string, transports?: winston.TransportInstance[]) {
+	constructor() {
 		if (process.env.FILELOGGER_LOG_LEVEL != null) {
 			this.level = process.env.FILELOGGER_LOG_LEVEL;
 		}
-		this.sourceModule = sourceModule;
 
-		const defaultTransports: winston.TransportInstance[] = [
-			new(winston.transports.Console)({
-				colorize: true,
-				level: this.level,
-			}),
+		const defaultTransports: Transport[] = [
+			new(winston.transports.Console)({ level: this.level }),
 			new(winston.transports.File)({
-				filename: path.join(Utils.appLogsPath, FileLogger.FILELOGGER_LOG_NAME),
+				filename: path.join(Utils.appLogsPath, FileLoggerSingleton.FILELOGGER_LOG_NAME),
 				level: this.level
 			})
 		];
-
-		this.logger = new(winston.Logger)({
+		FileLoggerSingleton.loggerOptions = {
 			levels: {
 				error: 0,
 				warn: 1,
@@ -108,49 +89,27 @@ export class FileLogger {
 				debug: 3,
 				all: 4
 			},
-			transports: (transports) ? transports : defaultTransports,
+			transports: defaultTransports,
 			exceptionHandlers: [
 				new(winston.transports.File)({
-					filename: path.join(Utils.appLogsPath, FileLogger.FILELOGGER_EXCEPTION_LOG_NAME)
+					filename: path.join(Utils.appLogsPath, FileLoggerSingleton.FILELOGGER_EXCEPTION_LOG_NAME)
 				})
 			]
-		});
+		};
+		this.container = new winston.Container(FileLoggerSingleton.loggerOptions);
 	}
 
 	/**
-	 * Print log in debug level. See {@link LEVEL}.
-	 * @param  {string[]} ...message Messages to print.
-	 * @returns void
+	 * Gets Logger instance
 	 */
-	public debug(...message: string[]): void {
-		this.log(LEVEL.DEBUG, this.sourceModule, ...message);
-	}
-
-	/**
-	 * Print log in info level. See {@link LEVEL}.
-	 * @param  {string[]} ...message Messages to print.
-	 * @returns void
-	 */
-	public info(...message: string[]): void {
-		this.log(LEVEL.INFO, this.sourceModule, ...message);
-	}
-
-	/**
-	 * Print log in warn level. See {@link LEVEL}.
-	 * @param  {string[]} ...message Messages to print.
-	 * @returns void
-	 */
-	public warn(...message: string[]): void {
-		this.log(LEVEL.WARN, this.sourceModule, ...message);
-	}
-
-	/**
-	 * Print log in error level. See {@link LEVEL}.
-	 * @param  {string[]} ...message Messages to print.
-	 * @returns void
-	 */
-	public error(...message: string[]): void {
-		this.log(LEVEL.ERROR, this.sourceModule, ...message);
+	public static getInstance(sourceModule: string): FileLoggerSingleton {
+		if (!FileLoggerSingleton.logger) {
+			FileLoggerSingleton.logger = new FileLoggerSingleton();
+		}
+		if (!FileLoggerSingleton.logger.container.get(sourceModule)) {
+			FileLoggerSingleton.logger.container.add(sourceModule, FileLoggerSingleton.loggerOptions);
+		}
+		return FileLoggerSingleton.logger;
 	}
 
 	/**
@@ -163,21 +122,21 @@ export class FileLogger {
 	 * @param  {string} message Message to print.
 	 * @returns void
 	 */
-	private log(level: LEVEL, source: string, ...message: string[]): void {
+	public log(level: LEVEL, source: string, ...message: string[]): void {
 		if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
 			const log = `[${Tracking.trackingId || '#'}][${moment().format('DD/MM/YYYY-HH:mm:ss.SSSZ')}][${Utils.capitalize(source)}] - ${message.join(' ')}`;
 			switch (level) {
 				case LEVEL.INFO:
-					this.logger.info(log);
+					this.container.get(source).info(log);
 					break;
 				case LEVEL.WARN:
-					this.logger.warn(log);
+					this.container.get(source).warn(log);
 					break;
 				case LEVEL.ERROR:
-					this.logger.error(log);
+					this.container.get(source).error(log);
 					break;
 				default:
-					this.logger.debug(log);
+					this.container.get(source).debug(log);
 					break;
 			}
 		}

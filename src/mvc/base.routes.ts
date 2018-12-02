@@ -31,12 +31,12 @@ import {
  */
 export abstract class BaseRoutes {
 
+	private baseLogger: FileLogger;
+
 	public abstract logger: FileLogger;
 
 	protected API = API;
 	protected auth: Authorization;
-
-	private baseLogger: FileLogger;
 
 	constructor() {
 		this.baseLogger = new FileLogger('BaseRoutes');

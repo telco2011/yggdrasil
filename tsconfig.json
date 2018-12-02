@@ -15,7 +15,8 @@
 		"target": "es6"
 	},
 	"exclude": [
-		"**/*.spec.ts"
+		"**/*.spec.ts",
+		"src/devs/**/*"
 	],
 	"include": [
 		"*.ts",
