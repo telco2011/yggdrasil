@@ -38,6 +38,7 @@ export class FileLogger {
 
 	/**
 	 * Default constructor.
+	 *
 	 * @param  {string} sourceModule Where is it from. It is mandatory to know what module prints the log trace.
 	 */
 	constructor(sourceModule: string) {
