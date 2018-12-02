@@ -41,18 +41,18 @@ export class YggdrasilGulpfile {
 		return ['copySass', 'copyJs', 'copyViews', 'copyStatics'];
 	}
 
-	@Task('watch')
-	public watch() {
-		gulp.watch(['src/**/*.ts'], ['tslint', 'compile', 'nodemon']);
-		gulp.watch(['src/public/js/**/*.js'], ['copyJs']);
-		gulp.watch(['src/public/scss/**/*.scss'], ['copySass']);
-		gulp.watch([
-			'src/public/css/**/*',
-			'src/public/{images,img}/**/*',
-			'src/public/{font,fonts}/**/*'
-		], ['copyStatics']);
-		gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], ['copyViews']);
-	}
+	// @Task('watch')
+	// public watch() {
+	// 	gulp.watch(['src/**/*.ts'], ['tslint', 'compile', 'nodemon']);
+	// 	gulp.watch(['src/public/js/**/*.js'], ['copyJs']);
+	// 	gulp.watch(['src/public/scss/**/*.scss'], ['copySass']);
+	// 	gulp.watch([
+	// 		'src/public/css/**/*',
+	// 		'src/public/{images,img}/**/*',
+	// 		'src/public/{font,fonts}/**/*'
+	// 	], ['copyStatics']);
+	// 	gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], ['copyViews']);
+	// }
 
 	@Task()
 	public nodemon() {
