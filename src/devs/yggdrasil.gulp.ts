@@ -126,7 +126,7 @@ export class YggdrasilGulpfile {
 
 				// App styles
 				'src/public/scss/*.scss'
-			]).pipe(sass())
+			], { allowEmpty: true }).pipe(sass())
 			.pipe(gulp.dest('dist/public/css'));
 	}
 	/**
