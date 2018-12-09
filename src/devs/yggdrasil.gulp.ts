@@ -14,7 +14,7 @@ export class YggdrasilGulpfile {
 	private tsProject = ts.createProject('tsconfig.json');
 	private tsTestProject = ts.createProject('tsconfig.spec.json');
 
-	@SequenceTask()
+	@SequenceTask('start')
 	public start() {
 		return ['build', ['watch', 'nodemon']];
 	}
@@ -24,7 +24,7 @@ export class YggdrasilGulpfile {
 		// Default task. Not code is needed.
 	}
 
-	@SequenceTask()
+	@SequenceTask('build')
 	public build() {
 		return ['clean', 'copyAssets', 'tslint', 'compile'];
 	}
@@ -34,7 +34,7 @@ export class YggdrasilGulpfile {
 		return ['clean', 'copyAssets', 'tslint:test', 'compile:test'];
 	}
 
-	@SequenceTask()
+	@SequenceTask('copyAssets')
 	public copyAssets() {
 		return ['copySass', 'copyJs', 'copyViews', 'copyStatics'];
 	}
