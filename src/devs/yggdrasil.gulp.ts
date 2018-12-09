@@ -1,5 +1,6 @@
 import { Gulpclass, Task, SequenceTask } from 'gulpclass';
 import * as gulp from 'gulp';
+import { SrcOptions } from 'vinyl-fs';
 import * as ts from 'gulp-typescript';
 import gulpTslint from 'gulp-tslint';
 import * as sass from 'gulp-sass';
@@ -81,7 +82,7 @@ export class YggdrasilGulpfile {
 	 */
 	@Task('copyStatics')
 	public copyStatics() {
-		return gulp.src([
+		return this._executeGulpSrc([
 			'src/public/**/*',
 			'!src/public/{js,js/**}',
 			'!src/public/{scss,scss/**}'
@@ -90,7 +91,7 @@ export class YggdrasilGulpfile {
 
 	@Task('copyViews')
 	public copyViews() {
-		return gulp.src([
+		return this._executeGulpSrc([
 			'src/views/**/*'
 		]).pipe(gulp.dest('dist/views'));
 	}
@@ -104,7 +105,7 @@ export class YggdrasilGulpfile {
 			'node_modules/tether/dist/js/tether.min.js'
 		];
 
-		return gulp.src([
+		return this._executeGulpSrc([
 			// Third-party js
 			...yggdrasilThirdPartyJS,
 
@@ -120,13 +121,13 @@ export class YggdrasilGulpfile {
 			'node_modules/bootstrap/scss/bootstrap.scss'
 		];
 
-		return gulp.src([
-				// Third-party styles
-				...yggdrasilThirdPartySCSS,
+		return this._executeGulpSrc([
+			// Third-party styles
+			...yggdrasilThirdPartySCSS,
 
-				// App styles
-				'src/public/scss/*.scss'
-			], { allowEmpty: true }).pipe(sass())
+			// App styles
+			'src/public/scss/*.scss'
+		]).pipe(sass())
 			.pipe(gulp.dest('dist/public/css'));
 	}
 	/**
@@ -177,10 +178,21 @@ export class YggdrasilGulpfile {
 			.js.pipe(gulp.dest('dist'));
 	}
 
+	/** Internal functions */
+
+	/**
+	 * Clean directories
+	 */
 	private _clean() {
 		return del([
 			'./dist',
 			'./logs'
 		]);
+	}
+
+	private _executeGulpSrc(globs: string|string[], opt?: SrcOptions): NodeJS.ReadWriteStream {
+		const gulpOptions: SrcOptions = { allowEmpty: true };
+
+		return gulp.src(globs, opt);
 	}
 }
