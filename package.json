@@ -1,126 +1,126 @@
 {
-	"name": "yggdrasilts",
-	"version": "0.1.0",
-	"description": "Yggdrasilts framework makes easy to create javascript backend applications.",
-	"license": "MIT",
-	"author": "David Lopez",
-	"repository": {
-		"url": "https://github.com/yggdrasilts/yggdrasil"
-	},
-	"bugs": {
-		"url": "https://github.com/yggdrasilts/yggdrasil/issues"
-	},
-	"keywords": [
-		"TypeScript",
-		"Expressjs",
-		"NodeJS",
-		"JavaScript",
-		"Framework",
-		"yarn",
-		"npm"
-	],
-	"scripts": {
-		"build": "npm run clean:lib && npm run compile",
-		"clean": "npm run clean:extras && npm run clean:lib",
-		"clean:all": "npm run clean:lib && npm run clean:extras && rm -rf node_modules",
-		"clean:extras": "rm -rf logs .nyc_output coverage documentation etc package-lock.json yarn.lock lerna-debug.log",
-		"clean:lib": "npm run script:clean",
-		"compile": "npm run compile:src && npm run copy",
-		"compile:src": "npm run tslint && tsc -p tsconfig.json",
-		"compile:test": "npm run tslint:test && tsc -p tsconfig.spec.json",
-		"copy": "npm run copy:defaults && npm run copy:tslint && npm run copy:pkg",
-		"copy:defaults": "cp -R ./src/core/startup/bootstrap/controllers/default/defaultHtml ./lib/core/startup/bootstrap/controllers/default",
-		"copy:pkg": "mkdir ./lib/devs/parent-pkg && cp ./src/devs/parent-pkg/parent-pkg.json ./lib/devs/parent-pkg/parent-pkg.json",
-		"copy:tslint": "cp ./src/core/tslint.json ./lib/core",
-		"doc": "typedoc --tsconfig tsconfig.json --name @YGGDRASILTS --out documentation --mode modules src",
-		"lerna:publish": "npm run lerna:publish:canary:local",
-		"lerna:publish:canary": "npm adduser && lerna publish --canary --yes -m \"chore(canary): publish %s\"",
-		"lerna:publish:canary:local": "lerna publish --force-publish=* --canary --yes --registry http://localhost:4873/ -m \"chore(canary): publish %s\"",
-		"publish": "npm run build && npm run lerna:publish",
-		"script:clean": "bash ./scripts/clean.sh",
-		"script:test": "bash ./scripts/test.sh",
-		"test": "rm -rf coverage .nyc_output && npm run compile:test && npm run script:test && nyc --require ts-node/register mocha src/**/**/*.spec.ts",
-		"tslint": "tslint -p tsconfig.json -c ./src/core/tslint.json -t verbose",
-		"tslint:test": "tslint -p tsconfig.spec.json -c ./src/core/tslint.json -t verbose"
-	},
-	"dependencies": {
-		"app-root-path": "^2.0.1",
-		"chalk": "^2.3.2",
-		"class-validator": "^0.9.1",
-		"compression": "^1.7.2",
-		"connect-mongo": "^2.0.1",
-		"dotenv": "^6.1.0",
-		"express": "^4.16.3",
-		"express-flash": "0.0.2",
-		"express-flash-notification": "^0.5.0",
-		"express-list-routes": "^0.1.4",
-		"express-session": "^1.15.6",
-		"figlet": "^1.2.0",
-		"lusca": "^1.5.2",
-		"moment": "^2.21.0",
-		"mongoose": "^5.0.12",
-		"morgan": "^1.9.0",
-		"mysql": "^2.15.0",
-		"node-sass-middleware": "^0.11.0",
-		"passport": "^0.4.0",
-		"passport-jwt": "^4.0.0",
-		"require-env": "^0.2.1",
-		"rotating-file-stream": "^1.3.9",
-		"sqlite3": "^4.0.0",
-		"typeorm": "^0.2.6",
-		"uuid": "^3.2.1",
-		"winston": "^3.1.0"
-	},
-	"devDependencies": {
-		"@types/chai": "^4.1.2",
-		"@types/express": "^4.11.1",
-		"@types/express-flash-notification": "^0.5.0",
-		"@types/express-session": "^1.15.8",
-		"@types/lodash": "^4.14.106",
-		"@types/mocha": "^5.0.0",
-		"@types/mongoose": "^5.0.7",
-		"@types/node": "^10.12.11",
-		"@types/uuid": "^3.4.3",
-		"@types/winston": "^2.3.8",
-		"chai": "^4.1.2",
-		"chai-http": "^4.0.0",
-		"del": "^3.0.0",
-		"gulp": "^4.0.0",
-		"gulp-nodemon": "^2.2.1",
-		"gulp-sass": "^4.0.2",
-		"gulp-tslint": "^8.1.3",
-		"gulp-typescript": "^5.0.0",
-		"gulpclass": "^0.2.0",
-		"lerna": "^3.6.0",
-		"mocha": "^5.0.5",
-		"mocha-typescript": "^1.1.12",
-		"nyc": "^13.1.0",
-		"source-map-support": "^0.5.4",
-		"ts-node": "^7.0.1",
-		"tslint": "^5.9.1",
-		"typedoc": "^0.13.0",
-		"typescript": "~3.1.3"
-	},
-	"nyc": {
-		"include": [
-			"src/**/*.ts"
-		],
-		"extension": [
-			".ts"
-		],
-		"exclude": [
-			"**/index.ts",
-			"**/*.spec.ts",
-			"**/*.d.ts"
-		],
-		"reporter": [
-			"text-summary",
-			"html"
-		],
-		"all": true
-	},
-	"engines": {
-		"node": ">=8.9.0",
-		"yarn": ">=1.3.0"
-	}
+  "name": "yggdrasilts",
+  "version": "0.1.0",
+  "description": "Yggdrasilts framework makes easy to create javascript backend applications.",
+  "license": "MIT",
+  "author": "David Lopez",
+  "repository": {
+    "url": "https://github.com/yggdrasilts/yggdrasil"
+  },
+  "bugs": {
+    "url": "https://github.com/yggdrasilts/yggdrasil/issues"
+  },
+  "keywords": [
+    "TypeScript",
+    "Expressjs",
+    "NodeJS",
+    "JavaScript",
+    "Framework",
+    "yarn",
+    "npm"
+  ],
+  "scripts": {
+    "build": "npm run clean:lib && npm run compile",
+    "clean": "npm run clean:extras && npm run clean:lib",
+    "clean:all": "npm run clean:lib && npm run clean:extras && rm -rf node_modules",
+    "clean:extras": "rm -rf logs .nyc_output coverage documentation etc package-lock.json yarn.lock lerna-debug.log",
+    "clean:lib": "npm run script:clean",
+    "compile": "npm run compile:src && npm run copy",
+    "compile:src": "npm run tslint && tsc -p tsconfig.json",
+    "compile:test": "npm run tslint:test && tsc -p tsconfig.spec.json",
+    "copy": "npm run copy:defaults && npm run copy:tslint && npm run copy:pkg",
+    "copy:defaults": "cp -R ./src/core/startup/bootstrap/controllers/default/defaultHtml ./lib/core/startup/bootstrap/controllers/default",
+    "copy:pkg": "mkdir ./lib/devs/parent-pkg && cp ./src/devs/parent-pkg/parent-pkg.json ./lib/devs/parent-pkg/parent-pkg.json",
+    "copy:tslint": "cp ./src/core/tslint.json ./lib/core",
+    "doc": "typedoc --tsconfig tsconfig.json --name @YGGDRASILTS --out documentation --mode modules src",
+    "lerna:publish": "npm run lerna:publish:canary:local",
+    "lerna:publish:canary": "npm adduser && lerna publish --canary --yes -m \"chore(canary): publish %s\"",
+    "lerna:publish:canary:local": "lerna publish --force-publish=* --canary --yes --registry http://localhost:4873/ -m \"chore(canary): publish %s\"",
+    "publish": "npm run build && npm run lerna:publish",
+    "script:clean": "bash ./scripts/clean.sh",
+    "script:test": "bash ./scripts/test.sh",
+    "test": "rm -rf coverage .nyc_output && npm run compile:test && npm run script:test && nyc --require ts-node/register mocha src/**/**/*.spec.ts",
+    "tslint": "tslint -p tsconfig.json -c ./src/core/tslint.json -t verbose",
+    "tslint:test": "tslint -p tsconfig.spec.json -c ./src/core/tslint.json -t verbose"
+  },
+  "dependencies": {
+    "app-root-path": "^2.0.1",
+    "chalk": "^2.3.2",
+    "class-validator": "^0.9.1",
+    "compression": "^1.7.2",
+    "connect-mongo": "^2.0.1",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.3",
+    "express-flash": "0.0.2",
+    "express-flash-notification": "^0.5.0",
+    "express-list-routes": "^0.1.4",
+    "express-session": "^1.15.6",
+    "figlet": "^1.2.0",
+    "lusca": "^1.5.2",
+    "moment": "^2.21.0",
+    "mongoose": "^5.0.12",
+    "morgan": "^1.9.0",
+    "mysql": "^2.15.0",
+    "node-sass-middleware": "^0.11.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "require-env": "^0.2.1",
+    "rotating-file-stream": "^1.3.9",
+    "sqlite3": "^4.0.0",
+    "typeorm": "^0.2.6",
+    "uuid": "^3.2.1",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.2",
+    "@types/express": "^4.11.1",
+    "@types/express-flash-notification": "^0.5.0",
+    "@types/express-session": "^1.15.8",
+    "@types/lodash": "^4.14.119",
+    "@types/mocha": "^5.0.0",
+    "@types/mongoose": "^5.0.7",
+    "@types/node": "^10.12.11",
+    "@types/uuid": "^3.4.3",
+    "@types/winston": "^2.3.8",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-tslint": "^8.1.3",
+    "gulp-typescript": "^5.0.0",
+    "gulpclass": "^0.2.0",
+    "lerna": "^3.6.0",
+    "mocha": "^5.0.5",
+    "mocha-typescript": "^1.1.12",
+    "nyc": "^13.1.0",
+    "source-map-support": "^0.5.4",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.9.1",
+    "typedoc": "^0.13.0",
+    "typescript": "^3.2.2"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/index.ts",
+      "**/*.spec.ts",
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "all": true
+  },
+  "engines": {
+    "node": ">=8.9.0",
+    "yarn": ">=1.3.0"
+  }
 }
