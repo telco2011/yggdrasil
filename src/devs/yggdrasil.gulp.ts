@@ -19,10 +19,9 @@ export class YggdrasilGulpfile {
 		return ['build', ['watch', 'nodemon']];
 	}
 
-	@Task('default', ['build'])
+	@Task('default')
 	public defaultTask() {
-		// Default task. Not code is needed.
-		return;
+		return ['build'];
 	}
 
 	@SequenceTask('build')
