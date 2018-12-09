@@ -42,7 +42,7 @@ export class YggdrasilGulpfile {
 
 	@Task('watch')
 	public watch() {
-		gulp.watch(['src/**/*.ts'], {}, gulp.parallel('tslint', 'compile', 'nodemon'));
+		gulp.watch(['src/**/*.ts'], gulp.parallel('tslint', 'compile', 'nodemon'));
 		gulp.watch(['src/public/js/**/*.js'], gulp.parallel('copyJs'));
 		gulp.watch(['src/public/scss/**/*.scss'], gulp.parallel('copySass'));
 		gulp.watch([
