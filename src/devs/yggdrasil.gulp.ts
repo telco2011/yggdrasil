@@ -8,6 +8,7 @@ import * as nodemon from 'gulp-nodemon';
 
 import * as del from 'del';
 import * as fs from 'fs';
+import { compile } from 'handlebars';
 
 @Gulpclass()
 export class YggdrasilGulpfile {
@@ -42,15 +43,15 @@ export class YggdrasilGulpfile {
 
 	@Task('watch')
 	public watch() {
-		gulp.watch(['src/**/*.ts'], gulp.parallel('tslint', 'compile', 'nodemon'));
-		gulp.watch(['src/public/js/**/*.js'], gulp.parallel('copyJs'));
-		gulp.watch(['src/public/scss/**/*.scss'], gulp.parallel('copySass'));
+		gulp.watch(['src/**/*.ts'], gulp.series(this.tsLint, this.typescript, this.nodemon));
+		gulp.watch(['src/public/js/**/*.js'], gulp.parallel(this.copyJs));
+		gulp.watch(['src/public/scss/**/*.scss'], gulp.parallel(this.copySass));
 		gulp.watch([
 			'src/public/css/**/*',
 			'src/public/{images,img}/**/*',
 			'src/public/{font,fonts}/**/*'
-		], gulp.parallel('copyStatics'));
-		gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], gulp.parallel('copyViews'));
+		], gulp.parallel(this.copyStatics));
+		gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], gulp.parallel(this.copyViews));
 	}
 
 	@Task('nodemon')
