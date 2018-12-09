@@ -22,6 +22,7 @@ export class YggdrasilGulpfile {
 	@Task('default', ['build'])
 	public defaultTask() {
 		// Default task. Not code is needed.
+		return;
 	}
 
 	@SequenceTask('build')
