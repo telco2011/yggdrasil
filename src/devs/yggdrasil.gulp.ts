@@ -8,12 +8,10 @@ import * as nodemon from 'gulp-nodemon';
 
 import * as del from 'del';
 import * as fs from 'fs';
-import { compile } from 'handlebars';
 
 @Gulpclass()
 export class YggdrasilGulpfile {
 
-	private tsProject = ts.createProject('tsconfig.json');
 	private tsTestProject = ts.createProject('tsconfig.spec.json');
 
 	@SequenceTask('start')
@@ -160,8 +158,8 @@ export class YggdrasilGulpfile {
 
 	@Task('compile')
 	private typescript() {
-		return this.tsProject.src()
-			.pipe(this.tsProject())
+		return ts.createProject('tsconfig.json').src()
+			.pipe(ts.createProject('tsconfig.json')())
 			.js.pipe(gulp.dest('dist'));
 	}
 
