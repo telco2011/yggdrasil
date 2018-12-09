@@ -76,7 +76,10 @@ export class FileLoggerSingleton {
 		}
 
 		const defaultTransports: Transport[] = [
-			new(winston.transports.Console)({ format: format.simple(), level: this.level }),
+			new(winston.transports.Console)({
+				format: format.simple(),
+				level: this.level
+			}),
 			new(winston.transports.File)({
 				format: format.json(),
 				filename: path.join(Utils.appLogsPath, FileLoggerSingleton.FILELOGGER_LOG_NAME),
