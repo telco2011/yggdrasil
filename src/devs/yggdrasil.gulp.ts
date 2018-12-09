@@ -2,11 +2,9 @@ import { Gulpclass, Task, SequenceTask } from 'gulpclass';
 import * as gulp from 'gulp';
 import * as ts from 'gulp-typescript';
 import gulpTslint from 'gulp-tslint';
-import { TslintPlugin } from 'gulp-tslint';
 import * as sass from 'gulp-sass';
 import * as nodemon from 'gulp-nodemon';
 
-import * as tslint from 'tslint';
 import * as del from 'del';
 import * as fs from 'fs';
 
@@ -43,15 +41,15 @@ export class YggdrasilGulpfile {
 
 	@Task('watch')
 	public watch() {
-		gulp.watch(['src/**/*.ts']/*, ['tslint', 'compile', 'nodemon']*/);
-		gulp.watch(['src/public/js/**/*.js']/*, ['copyJs']*/);
-		gulp.watch(['src/public/scss/**/*.scss']/*, ['copySass']*/);
+		gulp.watch(['src/**/*.ts'], {}, gulp.parallel('tslint', 'compile', 'nodemon'));
+		gulp.watch(['src/public/js/**/*.js'], gulp.parallel('copyJs'));
+		gulp.watch(['src/public/scss/**/*.scss'], gulp.parallel('copySass'));
 		gulp.watch([
 			'src/public/css/**/*',
 			'src/public/{images,img}/**/*',
 			'src/public/{font,fonts}/**/*'
-		]/*, ['copyStatics']*/);
-		gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs']/*, ['copyViews']*/);
+		], gulp.parallel('copyStatics'));
+		gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], gulp.parallel('copyViews'));
 	}
 
 	@Task()
