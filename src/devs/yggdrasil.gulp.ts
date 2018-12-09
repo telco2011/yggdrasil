@@ -52,7 +52,7 @@ export class YggdrasilGulpfile {
 		gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], gulp.parallel('copyViews'));
 	}
 
-	@Task()
+	@Task('nodemon')
 	public nodemon() {
 		return nodemon({
 			script: 'dist/ignition.js'
@@ -70,7 +70,7 @@ export class YggdrasilGulpfile {
 		]);
 	}
 
-	@Task()
+	@Task('clean')
 	public clean() {
 		return del([
 			'./dist',
@@ -81,7 +81,7 @@ export class YggdrasilGulpfile {
 	/**
 	 * GULP STATIC TASKS - START
 	 */
-	@Task()
+	@Task('copyStatics')
 	public copyStatics() {
 		return gulp.src([
 			'src/public/**/*',
@@ -90,14 +90,14 @@ export class YggdrasilGulpfile {
 		]).pipe(gulp.dest('dist/public'));
 	}
 
-	@Task()
+	@Task('copyViews')
 	public copyViews() {
 		return gulp.src([
 			'src/views/**/*'
 		]).pipe(gulp.dest('dist/views'));
 	}
 
-	@Task()
+	@Task('copyJs')
 	public copyJs() {
 		// TODO: Be careful if these folders doesn't exist
 		const yggdrasilThirdPartyJS = [
@@ -115,7 +115,7 @@ export class YggdrasilGulpfile {
 		]).pipe(gulp.dest('dist/public/js'));
 	}
 
-	@Task()
+	@Task('copySass')
 	public copySass() {
 		// TODO: Be careful if these folders doesn't exist
 		const yggdrasilThirdPartySCSS = [
