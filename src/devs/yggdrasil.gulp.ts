@@ -59,8 +59,9 @@ export class YggdrasilGulpfile {
 		});
 	}
 
-	@Task('clean:all', ['clean'])
+	@Task('clean:all')
 	public cleanAll() {
+		this._clean();
 		return del([
 			'./node_modules',
 			'./.nyc_output',
@@ -72,10 +73,7 @@ export class YggdrasilGulpfile {
 
 	@Task('clean')
 	public clean() {
-		return del([
-			'./dist',
-			'./logs'
-		]);
+		return this._clean();
 	}
 
 	/**
@@ -179,4 +177,10 @@ export class YggdrasilGulpfile {
 			.js.pipe(gulp.dest('dist'));
 	}
 
+	private _clean() {
+		return del([
+			'./dist',
+			'./logs'
+		]);
+	}
 }
