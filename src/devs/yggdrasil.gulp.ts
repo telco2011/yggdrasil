@@ -190,9 +190,9 @@ export class YggdrasilGulpfile {
 		]);
 	}
 
-	private _executeGulpSrc(globs: string|string[], opt?: SrcOptions): NodeJS.ReadWriteStream {
+	private _executeGulpSrc(globs: string|string[]): NodeJS.ReadWriteStream {
 		const gulpOptions: SrcOptions = { allowEmpty: true };
 
-		return gulp.src(globs, opt);
+		return gulp.src(globs, gulpOptions);
 	}
 }
