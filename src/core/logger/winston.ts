@@ -1,6 +1,7 @@
 import * as winston from 'winston';
 import { format } from 'winston';
 import * as Transport from 'winston-transport';
+import * as fs from 'fs';
 import * as path from 'path';
 import * as moment from 'moment';
 
@@ -71,6 +72,11 @@ export class FileLoggerSingleton {
 	 * Default constructor.
 	 */
 	constructor() {
+		if (!fs.existsSync(path.join(Utils.appLogsPath))) {
+			// Create the directory if it does not exist
+			fs.mkdirSync(path.join(Utils.appLogsPath));
+		}
+
 		if (process.env.FILELOGGER_LOG_LEVEL != null) {
 			this.level = process.env.FILELOGGER_LOG_LEVEL;
 		}
@@ -87,13 +93,7 @@ export class FileLoggerSingleton {
 			})
 		];
 		FileLoggerSingleton.loggerOptions = {
-			levels: {
-				error: 0,
-				warn: 1,
-				info: 2,
-				debug: 3,
-				all: 4
-			},
+			levels: winston.config.syslog.levels,
 			transports: defaultTransports,
 			exceptionHandlers: [
 				new(winston.transports.File)({
