@@ -18,7 +18,7 @@ export class YggdrasilGulpfile {
 
 	@SequenceTask('start')
 	public start() {
-		return ['build', ['watch', 'nodemon']];
+		return ['build', 'watch'];
 	}
 
 	@Task('default')
@@ -43,7 +43,7 @@ export class YggdrasilGulpfile {
 
 	@Task('watch')
 	public watch() {
-		gulp.watch(['src/**/*.ts'], gulp.series(this.tsLint, this.typescript, this.nodemon));
+		gulp.watch(['src/**/*.ts'], gulp.parallel(this.tsLint, this.typescript, this.nodemon));
 		gulp.watch(['src/public/js/**/*.js'], gulp.parallel(this.copyJs));
 		gulp.watch(['src/public/scss/**/*.scss'], gulp.parallel(this.copySass));
 		gulp.watch([
@@ -52,6 +52,7 @@ export class YggdrasilGulpfile {
 			'src/public/{font,fonts}/**/*'
 		], gulp.parallel(this.copyStatics));
 		gulp.watch(['src/views/**/*.pug', 'src/views/**/*.hbs'], gulp.parallel(this.copyViews));
+		this.nodemon();
 	}
 
 	@Task('nodemon')
