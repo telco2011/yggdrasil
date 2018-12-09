@@ -1,4 +1,5 @@
 import * as winston from 'winston';
+import { format } from 'winston';
 import * as Transport from 'winston-transport';
 import * as path from 'path';
 import * as moment from 'moment';
@@ -75,7 +76,7 @@ export class FileLoggerSingleton {
 		}
 
 		const defaultTransports: Transport[] = [
-			new(winston.transports.Console)({ level: this.level }),
+			new(winston.transports.Console)({ format: format.splat(), level: this.level }),
 			new(winston.transports.File)({
 				filename: path.join(Utils.appLogsPath, FileLoggerSingleton.FILELOGGER_LOG_NAME),
 				level: this.level
