@@ -160,6 +160,7 @@ export class YggdrasilGulpfile {
 	private typescript() {
 		return ts.createProject('tsconfig.json').src()
 			.pipe(ts.createProject('tsconfig.json')())
+			.on('error', () => process.exit(-1))
 			.js.pipe(gulp.dest('dist'));
 	}
 
@@ -175,6 +176,7 @@ export class YggdrasilGulpfile {
 	private typescriptTest() {
 		return this.tsTestProject.src()
 			.pipe(this.tsTestProject())
+			.on('error', () => process.exit(-1))
 			.js.pipe(gulp.dest('dist'));
 	}
 
