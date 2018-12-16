@@ -12,6 +12,11 @@ import { Utils } from '../utils';
 export enum LEVEL {
 
 	/**
+	 * Shows log traces from trace to error. Recommended in development/test environments.
+	 */
+	TRACE = 'trace',
+
+	/**
 	 * Shows log traces from debug to error. Recommended in development/test environments.
 	 */
 	DEBUG = 'debug',
@@ -73,6 +78,15 @@ export class FileLoggerSingleton {
 	/** Default level */
 	private level = 'debug';
 
+	private YGLevels = {
+		FATAL: 0,
+		ERROR: 1,
+		WARN: 2,
+		INFO: 3,
+		DEBUG: 4,
+		TRACE: 5
+	};
+
 	/**
 	 * Default constructor.
 	 */
@@ -98,7 +112,7 @@ export class FileLoggerSingleton {
 			})
 		];
 		FileLoggerSingleton.loggerOptions = {
-			levels: winston.config.syslog.levels,
+			levels: this.YGLevels,
 			transports: defaultTransports,
 			exceptionHandlers: [
 				new(winston.transports.File)({
@@ -133,8 +147,11 @@ export class FileLoggerSingleton {
 	 */
 	public log(level: LEVEL, source: string, ...params: any[]): void {
 		if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
-			const log = `[${Tracking.trackingId || '#'}][${moment().format('DD/MM/YYYY-HH:mm:ss.SSSZ')}][${Utils.capitalize(source)}] - `;
+			const log = `[${Tracking.trackingId || '#'}][${moment().format('DD/MM/YYYY-HH:mm:ss.SSSZ')}][${Utils.capitalize(source)}] -`;
 			switch (level) {
+				case LEVEL.DEBUG:
+					this.container.get(source).debug(log, params);
+					break;
 				case LEVEL.INFO:
 					this.container.get(source).info(log, params);
 					break;
@@ -148,7 +165,7 @@ export class FileLoggerSingleton {
 					this.container.get(source).log(LEVEL.FATAL, log, params);
 					break;
 				default:
-					this.container.get(source).debug(log, params);
+					this.container.get(source).log(LEVEL.TRACE, log, params);
 					break;
 			}
 		}
