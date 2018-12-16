@@ -143,30 +143,17 @@ export class FileLoggerSingleton {
 	 *
 	 * @param  {LEVEL} level Enum with log level
 	 * @param  {string} source From where is the message.
-	 * @param  {any} params Message/s or objects to print.
+	 * @param  {string} message Message to print.
+	 * @param  {any} params Other objects to print.
 	 */
-	public log(level: LEVEL, source: string, ...params: any[]): void {
+	public log(level: LEVEL, source: string, message: string, ...params: any[]): void {
 		if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
-			const log = `[${Tracking.trackingId || '#'}][${moment().format('DD/MM/YYYY-HH:mm:ss.SSSZ')}][${Utils.capitalize(source)}] -`;
-			switch (level) {
-				case LEVEL.DEBUG:
-					this.container.get(source).debug(log, params);
-					break;
-				case LEVEL.INFO:
-					this.container.get(source).info(log, params);
-					break;
-				case LEVEL.WARN:
-					this.container.get(source).warn(log, params);
-					break;
-				case LEVEL.ERROR:
-					this.container.get(source).error(log, params);
-					break;
-				case LEVEL.FATAL:
-					this.container.get(source).log(LEVEL.FATAL, log, params);
-					break;
-				default:
-					this.container.get(source).log(LEVEL.TRACE, log, params);
-					break;
+			const log = `[${Tracking.trackingId || '#'}][${moment().format('DD/MM/YYYY-HH:mm:ss.SSSZ')}][${Utils.capitalize(source)}] - ${message}`;
+
+			if (params && params.length > 0) {
+				this.container.get(source).log(level, log, params);
+			} else {
+				this.container.get(source).log(level, log);
 			}
 		}
 	}
