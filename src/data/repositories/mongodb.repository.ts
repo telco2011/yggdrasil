@@ -1,4 +1,4 @@
-import { FileLogger } from '../../core';
+import { YGLogger } from '../../core';
 import { YggdrasilRepository } from '../repository';
 import { IYggdrasilRepository } from '../../core/modules/data/interfaces';
 
@@ -9,7 +9,7 @@ export class MongoDBRepository extends YggdrasilRepository implements IYggdrasil
 
 	private defaultConnectionOptions: MongoConnectionOptions;
 
-	public logger: FileLogger;
+	public logger: YGLogger;
 
 	public manager: MongoEntityManager;
 
@@ -17,7 +17,7 @@ export class MongoDBRepository extends YggdrasilRepository implements IYggdrasil
 
 	constructor() {
 		super();
-		this.logger = new FileLogger(MongoDBRepository.name);
+		this.logger = new YGLogger(MongoDBRepository.name);
 		this.defaultConnectionOptions = {
 			type: 'mongodb',
 			host: 'localhost',

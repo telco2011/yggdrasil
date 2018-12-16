@@ -1,4 +1,4 @@
-import { FileLogger } from '../../core';
+import { YGLogger } from '../../core';
 import { YggdrasilRepository } from '../repository';
 import { IYggdrasilRepository } from '../../core/modules/data/interfaces';
 
@@ -9,7 +9,7 @@ export class SQLiteDBRepository extends YggdrasilRepository implements IYggdrasi
 
 	private defaultConnectionOptions: SqliteConnectionOptions;
 
-	public logger: FileLogger;
+	public logger: YGLogger;
 
 	public connection: Connection;
 
@@ -17,7 +17,7 @@ export class SQLiteDBRepository extends YggdrasilRepository implements IYggdrasi
 
 	constructor() {
 		super();
-		this.logger = new FileLogger(SQLiteDBRepository.name);
+		this.logger = new YGLogger(SQLiteDBRepository.name);
 		this.defaultConnectionOptions = {
 			type: 'sqlite',
 			database: 'yggdrasil.db',

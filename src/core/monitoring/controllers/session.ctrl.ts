@@ -3,7 +3,7 @@ import {
 	Response
 } from '../../../mvc';
 import {
-	FileLogger
+	YGLogger
 } from '../../../core';
 import {
 	SessionHandler
@@ -12,14 +12,14 @@ import {
 export class MonitorSessionCtrl {
 
 	/** BasicCtrl logger */
-	private logger: FileLogger;
+	private logger: YGLogger;
 
 	/** SessionHandler from principal app */
 	private session: SessionHandler;
 
 	/** Default constructor */
 	constructor(session: SessionHandler) {
-		this.logger = new FileLogger(MonitorSessionCtrl.name);
+		this.logger = new YGLogger(MonitorSessionCtrl.name);
 		this.session = session;
 	}
 

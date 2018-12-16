@@ -1,4 +1,4 @@
-import { FileLogger } from '../../core';
+import { YGLogger } from '../../core';
 import { YggdrasilRepository } from '../repository';
 import { IYggdrasilRepository } from '../../core/modules/data/interfaces';
 
@@ -6,7 +6,7 @@ import { Connection, ConnectionOptions, EntityManager } from 'typeorm';
 
 export class OracleDBRepository extends YggdrasilRepository implements IYggdrasilRepository {
 
-	public logger: FileLogger;
+	public logger: YGLogger;
 
 	public connection: Connection;
 
@@ -14,7 +14,7 @@ export class OracleDBRepository extends YggdrasilRepository implements IYggdrasi
 
 	constructor() {
 		super();
-		this.logger = new FileLogger(OracleDBRepository.name);
+		this.logger = new YGLogger(OracleDBRepository.name);
 	}
 
 	public getManager(): EntityManager {

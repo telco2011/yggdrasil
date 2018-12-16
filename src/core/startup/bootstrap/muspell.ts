@@ -12,7 +12,7 @@ import * as morgan from 'morgan';
 import * as figlet from 'figlet';
 
 /** YGGDRASIL imports */
-import { MorganUtils, IMorganRotateOptions, FileLogger } from '../../logger';
+import { MorganUtils, IMorganRotateOptions, YGLogger } from '../../logger';
 import { Monitoring } from '../../monitoring';
 import { Tracking } from '../../tracking';
 import { Utils } from '../../utils';
@@ -43,7 +43,7 @@ export abstract class Bootstrap {
 	private router: express.Router;
 
 	/** Internal logger */
-	private bootstrapLogger: FileLogger;
+	private bootstrapLogger: YGLogger;
 
 	/** Repository */
 	private repository: IYggdrasilRepository;
@@ -55,12 +55,12 @@ export abstract class Bootstrap {
 	private yggdrasilVersion: string = Utils.getYggdrasilVersion();
 
 	/** Force to implement logger by application */
-	public abstract logger: FileLogger;
+	public abstract logger: YGLogger;
 
 	/** Default constructor */
 	constructor() {
 		/** Initialize bootstrap logger */
-		this.bootstrapLogger = new FileLogger(Bootstrap.name);
+		this.bootstrapLogger = new YGLogger(Bootstrap.name);
 	}
 
 	/**

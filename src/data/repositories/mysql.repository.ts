@@ -1,4 +1,4 @@
-import { FileLogger } from '../../core';
+import { YGLogger } from '../../core';
 import { YggdrasilRepository } from '../repository';
 import { IYggdrasilRepository } from '../../core/modules/data/interfaces';
 
@@ -9,7 +9,7 @@ export class MysqlDBRepository extends YggdrasilRepository implements IYggdrasil
 
 	private defaultConnectionOptions: MysqlConnectionOptions;
 
-	public logger: FileLogger;
+	public logger: YGLogger;
 
 	public connection: Connection;
 
@@ -17,7 +17,7 @@ export class MysqlDBRepository extends YggdrasilRepository implements IYggdrasil
 
 	constructor() {
 		super();
-		this.logger = new FileLogger(MysqlDBRepository.name);
+		this.logger = new YGLogger(MysqlDBRepository.name);
 		this.defaultConnectionOptions = {
 			type: 'mysql',
 			host: 'localhost',

@@ -3,20 +3,20 @@ import {
 	Response
 } from '../../../../../mvc';
 import {
-	FileLogger
+	YGLogger
 } from '../../../../../core';
 
 export class DefaultCtrl {
 
 	/** BasicCtrl logger */
-	private logger: FileLogger;
+	private logger: YGLogger;
 
 	/** Apps home */
 	private appHome: string;
 
 	/** Default constructor */
 	constructor(appHome?: string) {
-		this.logger = new FileLogger(DefaultCtrl.name);
+		this.logger = new YGLogger(DefaultCtrl.name);
 		this.appHome = appHome;
 	}
 

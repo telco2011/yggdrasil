@@ -58,7 +58,7 @@ export enum LEVEL {
  * --------------
  * - __process.env.FILELOGGER_LOG_LEVEL__: param to configure log level. See {@link LEVEL} to know the values for this param.
  */
-export class FileLoggerSingleton {
+export class YGLoggerSingleton {
 
 	/** Contains the application log name. */
 	private static FILELOGGER_LOG_NAME = 'server.log';
@@ -67,7 +67,7 @@ export class FileLoggerSingleton {
 	private static FILELOGGER_EXCEPTION_LOG_NAME = 'exception.log';
 
 	/** Logger */
-	private static logger: FileLoggerSingleton;
+	private static logger: YGLoggerSingleton;
 
 	/** LoggerOptions */
 	private static loggerOptions: winston.LoggerOptions;
@@ -107,33 +107,33 @@ export class FileLoggerSingleton {
 			}),
 			new(winston.transports.File)({
 				format: format.json(),
-				filename: path.join(Utils.appLogsPath, FileLoggerSingleton.FILELOGGER_LOG_NAME),
+				filename: path.join(Utils.appLogsPath, YGLoggerSingleton.FILELOGGER_LOG_NAME),
 				level: this.level
 			})
 		];
-		FileLoggerSingleton.loggerOptions = {
+		YGLoggerSingleton.loggerOptions = {
 			levels: this.YGLevels,
 			transports: defaultTransports,
 			exceptionHandlers: [
 				new(winston.transports.File)({
-					filename: path.join(Utils.appLogsPath, FileLoggerSingleton.FILELOGGER_EXCEPTION_LOG_NAME)
+					filename: path.join(Utils.appLogsPath, YGLoggerSingleton.FILELOGGER_EXCEPTION_LOG_NAME)
 				})
 			]
 		};
-		this.container = new winston.Container(FileLoggerSingleton.loggerOptions);
+		this.container = new winston.Container(YGLoggerSingleton.loggerOptions);
 	}
 
 	/**
 	 * Gets Logger instance
 	 */
-	public static getInstance(sourceModule: string): FileLoggerSingleton {
-		if (!FileLoggerSingleton.logger) {
-			FileLoggerSingleton.logger = new FileLoggerSingleton();
+	public static getInstance(sourceModule: string): YGLoggerSingleton {
+		if (!YGLoggerSingleton.logger) {
+			YGLoggerSingleton.logger = new YGLoggerSingleton();
 		}
-		if (!FileLoggerSingleton.logger.container.get(sourceModule)) {
-			FileLoggerSingleton.logger.container.add(sourceModule, FileLoggerSingleton.loggerOptions);
+		if (!YGLoggerSingleton.logger.container.get(sourceModule)) {
+			YGLoggerSingleton.logger.container.add(sourceModule, YGLoggerSingleton.loggerOptions);
 		}
-		return FileLoggerSingleton.logger;
+		return YGLoggerSingleton.logger;
 	}
 
 	/**

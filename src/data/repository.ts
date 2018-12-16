@@ -1,5 +1,5 @@
 import {
-	FileLogger
+	YGLogger
 } from '../core';
 
 import {
@@ -10,7 +10,7 @@ import {
 
 export abstract class YggdrasilRepository {
 
-	public abstract logger: FileLogger;
+	public abstract logger: YGLogger;
 
 	public abstract manager: EntityManager;
 

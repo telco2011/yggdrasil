@@ -1,4 +1,4 @@
-import { FileLoggerSingleton, LEVEL } from './winston';
+import { YGLoggerSingleton, LEVEL } from './winston';
 
 /**
  * Description
@@ -29,10 +29,10 @@ import { FileLoggerSingleton, LEVEL } from './winston';
  * logger.fatal('Message');
  * ```
  */
-export class FileLogger {
+export class YGLogger {
 
 	/** Logger */
-	private logger: FileLoggerSingleton;
+	private logger: YGLoggerSingleton;
 
 	/** String that represents which module write the log. */
 	private sourceModule: string;
@@ -44,7 +44,7 @@ export class FileLogger {
 	 */
 	constructor(sourceModule: string) {
 		this.sourceModule = sourceModule;
-		this.logger = FileLoggerSingleton.getInstance(sourceModule);
+		this.logger = YGLoggerSingleton.getInstance(sourceModule);
 	}
 
 	/**

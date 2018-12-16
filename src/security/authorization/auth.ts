@@ -7,11 +7,11 @@ import {
 } from 'passport-jwt';
 
 import {
-	FileLogger
+	YGLogger
 } from '../../core';
 
 export class Authorization {
-	private logger = new FileLogger('Authorization');
+	private logger = new YGLogger('Authorization');
 	private passport;
 	private opts: StrategyOptions;
 	private authenticate: any;

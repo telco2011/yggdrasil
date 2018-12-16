@@ -1,5 +1,5 @@
 import {
-	FileLogger
+	YGLogger
 } from '../core';
 
 export enum REQUEST_PARAMS {
@@ -8,7 +8,7 @@ export enum REQUEST_PARAMS {
 
 export class RequestUtils {
 
-	private logger = new FileLogger('RequestUtils');
+	private logger = new YGLogger('RequestUtils');
 
 	public getRequestHeader(req: any, paramName: string, options?: IOptions): any {
 		if (this.hasParamInHeader(paramName)) {

@@ -2,7 +2,7 @@ import {
 	Router
 } from '../../mvc';
 import {
-	FileLogger
+	YGLogger
 } from '../../core';
 import {
 	SessionHandler
@@ -15,14 +15,14 @@ import {
 export class Monitoring {
 
 	/** Monitoring logger */
-	private logger: FileLogger;
+	private logger: YGLogger;
 
 	/** Declare controllers */
 	private monitorSessionCtrl: MonitorSessionCtrl;
 
 	/** Default constructor */
 	constructor(router: Router, session: SessionHandler) {
-		this.logger = new FileLogger(Monitoring.name);
+		this.logger = new YGLogger(Monitoring.name);
 		this.monitorSessionCtrl = new MonitorSessionCtrl(session);
 
 		/** Creates routes */

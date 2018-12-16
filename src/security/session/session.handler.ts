@@ -7,12 +7,12 @@ import * as connectMongo from 'connect-mongo';
 import * as parseurl from 'parseurl';
 
 import {
-	FileLogger,
+	YGLogger,
 	Tracking
 } from '../../core';
 
 export class SessionHandler {
-	private logger = new FileLogger('SessionHandler');
+	private logger = new YGLogger('SessionHandler');
 	private tracking: Tracking;
 	// TODO: Review this variable
 	private sessionStore: /*MongoStore | */ MemoryStore;

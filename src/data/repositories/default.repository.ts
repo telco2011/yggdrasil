@@ -1,4 +1,4 @@
-import { FileLogger } from '../../core';
+import { YGLogger } from '../../core';
 import { YggdrasilRepository } from '../repository';
 import { IYggdrasilRepository } from '../../core/modules/data/interfaces';
 
@@ -6,7 +6,7 @@ import { Connection, ConnectionOptions, EntityManager } from 'typeorm';
 
 export class DefaultRepository extends YggdrasilRepository implements IYggdrasilRepository {
 
-	public logger: FileLogger;
+	public logger: YGLogger;
 
 	public connection: Connection;
 
@@ -14,7 +14,7 @@ export class DefaultRepository extends YggdrasilRepository implements IYggdrasil
 
 	constructor() {
 		super();
-		this.logger = new FileLogger(DefaultRepository.name);
+		this.logger = new YGLogger(DefaultRepository.name);
 	}
 
 	public getManager(): EntityManager {

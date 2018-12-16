@@ -18,7 +18,7 @@ import {
 	Authorization
 } from '../security';
 import {
-	FileLogger
+	YGLogger
 } from '../core';
 
 import {
@@ -31,15 +31,15 @@ import {
  */
 export abstract class BaseRoutes {
 
-	private baseLogger: FileLogger;
+	private baseLogger: YGLogger;
 
-	public abstract logger: FileLogger;
+	public abstract logger: YGLogger;
 
 	protected API = API;
 	protected auth: Authorization;
 
 	constructor() {
-		this.baseLogger = new FileLogger('BaseRoutes');
+		this.baseLogger = new YGLogger('BaseRoutes');
 	}
 
 	public abstract create(router: Router);
