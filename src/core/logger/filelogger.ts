@@ -26,6 +26,7 @@ import { FileLoggerSingleton, LEVEL } from './winston';
  * logger.info('Message');
  * logger.warn('Message');
  * logger.error('Message');
+ * logger.fatal('Message');
  * ```
  */
 export class FileLogger {
@@ -48,38 +49,47 @@ export class FileLogger {
 
 	/**
 	 * Print log in debug level. See {@link LEVEL}.
-	 * @param  {string[]} ...message Messages to print.
-	 * @returns void
+	 * @param {string} message Message to print.
+	 * @param {any[]} params Other data to print.
 	 */
-	public debug(...message: string[]): void {
-		this.logger.log(LEVEL.DEBUG, this.sourceModule, ...message);
+	public debug(message: string, ...params: any[]): void {
+		this.logger.log(LEVEL.DEBUG, this.sourceModule, message, params);
 	}
 
 	/**
 	 * Print log in info level. See {@link LEVEL}.
-	 * @param  {string[]} ...message Messages to print.
-	 * @returns void
+	 * @param {string} message Message to print.
+	 * @param {any[]} params Other data to print.
 	 */
-	public info(...message: string[]): void {
-		this.logger.log(LEVEL.INFO, this.sourceModule, ...message);
+	public info(message: string, ...params: any[]): void {
+		this.logger.log(LEVEL.INFO, this.sourceModule, message, params);
 	}
 
 	/**
 	 * Print log in warn level. See {@link LEVEL}.
-	 * @param  {string[]} ...message Messages to print.
-	 * @returns void
+	 * @param {string} message Message to print.
+	 * @param {any[]} params Other data to print.
 	 */
-	public warn(...message: string[]): void {
-		this.logger.log(LEVEL.WARN, this.sourceModule, ...message);
+	public warn(message: string, ...params: any[]): void {
+		this.logger.log(LEVEL.WARN, this.sourceModule, message, params);
 	}
 
 	/**
 	 * Print log in error level. See {@link LEVEL}.
-	 * @param  {string[]} ...message Messages to print.
-	 * @returns void
+	 * @param {string} message Message to print.
+	 * @param {any[]} params Other data to print.
 	 */
-	public error(...message: string[]): void {
-		this.logger.log(LEVEL.ERROR, this.sourceModule, ...message);
+	public error(message: string, ...params: any[]): void {
+		this.logger.log(LEVEL.ERROR, this.sourceModule, message, params);
+	}
+
+	/**
+	 * Print log in fatal level. See {@link LEVEL}.
+	 * @param {string} message Message to print.
+	 * @param {any[]} params Other data to print.
+	 */
+	public fatal(message: string, ...params: any[]): void {
+		this.logger.log(LEVEL.FATAL, this.sourceModule, message, params);
 	}
 
 }
