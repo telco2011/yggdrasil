@@ -130,7 +130,6 @@ export class FileLoggerSingleton {
 	 * @param  {LEVEL} level Enum with log level
 	 * @param  {string} source From where is the message.
 	 * @param  {any} params Message/s or objects to print.
-	 * @returns void
 	 */
 	public log(level: LEVEL, source: string, ...params: any[]): void {
 		if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
