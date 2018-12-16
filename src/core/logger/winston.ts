@@ -79,12 +79,12 @@ export class FileLoggerSingleton {
 	private level = 'debug';
 
 	private YGLevels = {
-		FATAL: 0,
-		ERROR: 1,
-		WARN: 2,
-		INFO: 3,
-		DEBUG: 4,
-		TRACE: 5
+		fatal: 0,
+		error: 1,
+		warn: 2,
+		info: 3,
+		debug: 4,
+		trace: 5
 	};
 
 	/**
@@ -150,7 +150,7 @@ export class FileLoggerSingleton {
 		if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
 			const log = `[${Tracking.trackingId || '#'}][${moment().format('DD/MM/YYYY-HH:mm:ss.SSSZ')}][${Utils.capitalize(source)}] - ${message}`;
 
-			if (params && params.length > 0) {
+			if (this.hasParams()) {
 				this.container.get(source).log(level, log, params);
 			} else {
 				this.container.get(source).log(level, log);
@@ -158,4 +158,14 @@ export class FileLoggerSingleton {
 		}
 	}
 
+	/**
+	 * Checks if params is empty
+	 * @param {any} params Object array.
+	 */
+	private hasParams(...params: any[]): boolean {
+		return params !== undefined &&
+				params.length > 0 &&
+				Array.isArray(params[0]) &&
+				(params[0].length > 0);
+	}
 }
