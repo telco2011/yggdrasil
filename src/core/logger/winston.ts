@@ -29,7 +29,12 @@ export enum LEVEL {
 	/**
 	 * Shows log traces only for error.
 	 */
-	ERROR = 'error'
+	ERROR = 'error',
+
+	/**
+	 * Shows log traces for fatal.
+	 */
+	FATAL = 'fatal'
 
 }
 
@@ -124,24 +129,27 @@ export class FileLoggerSingleton {
 	 *
 	 * @param  {LEVEL} level Enum with log level
 	 * @param  {string} source From where is the message.
-	 * @param  {string} message Message to print.
+	 * @param  {any} params Message/s or objects to print.
 	 * @returns void
 	 */
-	public log(level: LEVEL, source: string, ...message: string[]): void {
+	public log(level: LEVEL, source: string, ...params: any[]): void {
 		if (process.env.NODE_ENV !== 'test' || process.env.ENABLE_LOG === 'true') {
-			const log = `[${Tracking.trackingId || '#'}][${moment().format('DD/MM/YYYY-HH:mm:ss.SSSZ')}][${Utils.capitalize(source)}] - ${message.join(' ')}`;
+			const log = `[${Tracking.trackingId || '#'}][${moment().format('DD/MM/YYYY-HH:mm:ss.SSSZ')}][${Utils.capitalize(source)}] - `;
 			switch (level) {
 				case LEVEL.INFO:
-					this.container.get(source).info(log);
+					this.container.get(source).info(log, params);
 					break;
 				case LEVEL.WARN:
-					this.container.get(source).warn(log);
+					this.container.get(source).warn(log, params);
 					break;
 				case LEVEL.ERROR:
-					this.container.get(source).error(log);
+					this.container.get(source).error(log, params);
+					break;
+				case LEVEL.FATAL:
+					this.container.get(source).log(LEVEL.FATAL, log, params);
 					break;
 				default:
-					this.container.get(source).debug(log);
+					this.container.get(source).debug(log, params);
 					break;
 			}
 		}
